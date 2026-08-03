@@ -3,7 +3,7 @@ import { FloatingFormButton } from "./components/FloatingFormButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cheolgeoon.com"),
+  metadataBase: new URL("https://cheolgeoon.netlify.app"),
   title: "철거온 | 전국 철거 무료견적·방문견적 상담",
   description:
     "철거온은 상가, 사무실, 식당, 카페, 학원 철거와 원상복구 범위를 확인하고 무료견적 상담과 방문 견적을 안내합니다.",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "철거온 | 전국 철거 무료견적 상담",
     description:
       "철거가 필요한 현장의 범위, 일정, 방문 견적, 지원금 신청 가능 여부를 함께 확인합니다.",
-    url: "https://cheolgeoon.com",
+    url: "https://cheolgeoon.netlify.app",
     siteName: "철거온",
     locale: "ko_KR",
     type: "website",

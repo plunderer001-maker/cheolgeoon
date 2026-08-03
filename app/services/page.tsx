@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "철거온의 대상별 철거, 폐업철거, 원상복구 철거, 비용, 견적, 업체 조합 페이지 목록입니다.",
   alternates: {
-    canonical: "/services",
+    canonical: "/services/",
   },
 };
 

@@ -24,10 +24,18 @@ function routeFromIndex(filePath) {
     .replaceAll("%2F", "/");
 }
 
-const urls = walk(staticDir)
-  .map(routeFromIndex)
-  .sort((a, b) => a.localeCompare(b, "ko"))
-  .map((route) => `${siteUrl}${route}`);
+function getCanonicalUrl(filePath) {
+  const html = fs.readFileSync(filePath, "utf8");
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+
+  if (!canonical) return `${siteUrl}${routeFromIndex(filePath)}`;
+  if (canonical.startsWith("http")) return canonical;
+  return `${siteUrl}${canonical}`;
+}
+
+const urls = Array.from(new Set(walk(staticDir).map(getCanonicalUrl))).sort((a, b) =>
+  a.localeCompare(b, "ko"),
+);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

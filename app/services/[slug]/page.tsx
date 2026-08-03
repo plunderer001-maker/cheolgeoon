@@ -53,7 +53,7 @@ type ExampleImage = {
 };
 
 const NAVER_FORM_URL = "https://naver.me/FLEWiPhf";
-const SITE_URL = "https://cheolgeoon.com";
+const SITE_URL = "https://cheolgeoon.netlify.app";
 const OG_IMAGE_PATHS = [
   "/images/cheolgeoon/og/cheolgeoon-og-01.webp",
   "/images/cheolgeoon/og/cheolgeoon-og-02.webp",
@@ -109,6 +109,30 @@ function getOgImagePath(page: SeoPage) {
 
 function getOgImageUrl(page: SeoPage) {
   return `${SITE_URL}${getOgImagePath(page)}`;
+}
+
+function getCanonicalPage(page: SeoPage) {
+  const canonicalIntentMap: Record<string, string> = {
+    비: "비용",
+    단가: "비용",
+    견적서: "견적",
+  };
+  const canonicalIntent = canonicalIntentMap[page.intent];
+
+  if (!canonicalIntent) return page;
+
+  return (
+    seoPages.find(
+      (candidate) =>
+        candidate.target === page.target &&
+        candidate.service === page.service &&
+        candidate.intent === canonicalIntent,
+    ) ?? page
+  );
+}
+
+function getCanonicalPath(page: SeoPage) {
+  return `/services/${getCanonicalPage(page).slug}/`;
 }
 
 function hasFinalConsonant(text: string) {
@@ -523,17 +547,18 @@ export async function generateMetadata({
   const description = metaDescription(page);
   const ogDesc = ogDescription(page);
   const ogImageUrl = getOgImageUrl(page);
+  const canonicalPath = getCanonicalPath(page);
 
   return {
     title: `${page.keyword} | 철거온`,
     description,
     alternates: {
-      canonical: `/services/${page.slug}`,
+      canonical: canonicalPath,
     },
     openGraph: {
       title: `${page.keyword} | 철거온`,
       description: ogDesc,
-      url: `/services/${page.slug}`,
+      url: canonicalPath,
       siteName: "철거온",
       locale: "ko_KR",
       type: "article",

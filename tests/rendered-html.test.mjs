@@ -49,7 +49,7 @@ test("uses project assets and product metadata", async () => {
   assert.match(page, /ai-consultation-01\.webp/);
   assert.match(page, /NAVER_FORM_URL/);
   assert.match(page, /강릉 철거/);
-  assert.match(layout, /cheolgeoon\.com/);
+  assert.match(layout, /cheolgeoon\.netlify\.app/);
   assert.match(layout, /전국 철거 무료견적/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 });
