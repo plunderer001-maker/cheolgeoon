@@ -38,6 +38,12 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
+  verification: {
+    google: "pIY3u_Xq-v1EjG37G6Gq2azRJRvmhnhDQH_chnGGdAE",
+    other: {
+      "naver-site-verification": "f549a9b2423021a0dd095af023a8e516b6730a5e",
+    },
+  },
 };
 
 export const viewport: Viewport = {
