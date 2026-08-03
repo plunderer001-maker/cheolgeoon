@@ -1,0 +1,21 @@
+{
+  "note": "AI-generated photorealistic concept images for section support. These are not real demolition case photos.",
+  "usage": "Use for consultation, site estimate, and subsidy guidance sections. Do not present as completed work examples.",
+  "images": [
+    {
+      "file": "ai-consultation-documents.webp",
+      "purpose": "consultation section",
+      "alt": "철거 상담을 위해 도면과 체크리스트를 확인하는 장면"
+    },
+    {
+      "file": "ai-site-estimate-measuring.webp",
+      "purpose": "site estimate section",
+      "alt": "철거 방문 견적을 위해 현장 치수를 확인하는 장면"
+    },
+    {
+      "file": "ai-subsidy-application-guide.webp",
+      "purpose": "subsidy guidance section",
+      "alt": "철거지원금 신청 안내를 위해 서류를 확인하는 장면"
+    }
+  ]
+}

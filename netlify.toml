@@ -1,0 +1,7 @@
+[build]
+  base = "static-site"
+  command = "echo Static HTML files are already generated"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "22.19.0"

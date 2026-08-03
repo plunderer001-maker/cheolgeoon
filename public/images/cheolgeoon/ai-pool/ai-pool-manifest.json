@@ -1,0 +1,906 @@
+{
+  "note": "AI-generated photorealistic concept image pool. Not real demolition case photos.",
+  "count": 100,
+  "images": [
+    {
+      "file": "ai-consultation-01.webp",
+      "category": "consultation",
+      "base_file": "call_Fk3E6Ev5Ui6QVCjoomFGeQMq.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 87130
+    },
+    {
+      "file": "ai-consultation-02.webp",
+      "category": "consultation",
+      "base_file": "call_Fk3E6Ev5Ui6QVCjoomFGeQMq.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 90532
+    },
+    {
+      "file": "ai-consultation-03.webp",
+      "category": "consultation",
+      "base_file": "call_Fk3E6Ev5Ui6QVCjoomFGeQMq.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 90532
+    },
+    {
+      "file": "ai-consultation-04.webp",
+      "category": "consultation",
+      "base_file": "call_Fk3E6Ev5Ui6QVCjoomFGeQMq.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 91018
+    },
+    {
+      "file": "ai-consultation-05.webp",
+      "category": "consultation",
+      "base_file": "call_Fk3E6Ev5Ui6QVCjoomFGeQMq.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 93640
+    },
+    {
+      "file": "ai-site-estimate-01.webp",
+      "category": "site-estimate",
+      "base_file": "call_xrNneembybu73KplFGmtzzvc.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 73370
+    },
+    {
+      "file": "ai-site-estimate-02.webp",
+      "category": "site-estimate",
+      "base_file": "call_xrNneembybu73KplFGmtzzvc.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 75704
+    },
+    {
+      "file": "ai-site-estimate-03.webp",
+      "category": "site-estimate",
+      "base_file": "call_xrNneembybu73KplFGmtzzvc.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 75704
+    },
+    {
+      "file": "ai-site-estimate-04.webp",
+      "category": "site-estimate",
+      "base_file": "call_xrNneembybu73KplFGmtzzvc.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 76416
+    },
+    {
+      "file": "ai-site-estimate-05.webp",
+      "category": "site-estimate",
+      "base_file": "call_xrNneembybu73KplFGmtzzvc.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 77762
+    },
+    {
+      "file": "ai-document-guide-01.webp",
+      "category": "document-guide",
+      "base_file": "call_jWOw15CCWGtqkUqMjaI3s7WP.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 80316
+    },
+    {
+      "file": "ai-document-guide-02.webp",
+      "category": "document-guide",
+      "base_file": "call_jWOw15CCWGtqkUqMjaI3s7WP.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 82468
+    },
+    {
+      "file": "ai-document-guide-03.webp",
+      "category": "document-guide",
+      "base_file": "call_jWOw15CCWGtqkUqMjaI3s7WP.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 82468
+    },
+    {
+      "file": "ai-document-guide-04.webp",
+      "category": "document-guide",
+      "base_file": "call_jWOw15CCWGtqkUqMjaI3s7WP.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 83258
+    },
+    {
+      "file": "ai-document-guide-05.webp",
+      "category": "document-guide",
+      "base_file": "call_jWOw15CCWGtqkUqMjaI3s7WP.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 84828
+    },
+    {
+      "file": "ai-consultation-06.webp",
+      "category": "consultation",
+      "base_file": "call_WOWS4NKNP3fTj2pg4GB8Affy.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 103336
+    },
+    {
+      "file": "ai-consultation-07.webp",
+      "category": "consultation",
+      "base_file": "call_WOWS4NKNP3fTj2pg4GB8Affy.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 107110
+    },
+    {
+      "file": "ai-consultation-08.webp",
+      "category": "consultation",
+      "base_file": "call_WOWS4NKNP3fTj2pg4GB8Affy.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 107110
+    },
+    {
+      "file": "ai-consultation-09.webp",
+      "category": "consultation",
+      "base_file": "call_WOWS4NKNP3fTj2pg4GB8Affy.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 108318
+    },
+    {
+      "file": "ai-consultation-10.webp",
+      "category": "consultation",
+      "base_file": "call_WOWS4NKNP3fTj2pg4GB8Affy.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 109990
+    },
+    {
+      "file": "ai-site-estimate-06.webp",
+      "category": "site-estimate",
+      "base_file": "call_fwVlBEY8EZ6FYnIkLU5oVz5y.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 68772
+    },
+    {
+      "file": "ai-site-estimate-07.webp",
+      "category": "site-estimate",
+      "base_file": "call_fwVlBEY8EZ6FYnIkLU5oVz5y.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 71676
+    },
+    {
+      "file": "ai-site-estimate-08.webp",
+      "category": "site-estimate",
+      "base_file": "call_fwVlBEY8EZ6FYnIkLU5oVz5y.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 71676
+    },
+    {
+      "file": "ai-site-estimate-09.webp",
+      "category": "site-estimate",
+      "base_file": "call_fwVlBEY8EZ6FYnIkLU5oVz5y.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 72138
+    },
+    {
+      "file": "ai-site-estimate-10.webp",
+      "category": "site-estimate",
+      "base_file": "call_fwVlBEY8EZ6FYnIkLU5oVz5y.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 74122
+    },
+    {
+      "file": "ai-empty-store-01.webp",
+      "category": "empty-store",
+      "base_file": "call_Zk4Nna8s8vBHTz9I01fCJJvl.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 144286
+    },
+    {
+      "file": "ai-empty-store-02.webp",
+      "category": "empty-store",
+      "base_file": "call_Zk4Nna8s8vBHTz9I01fCJJvl.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 151902
+    },
+    {
+      "file": "ai-empty-store-03.webp",
+      "category": "empty-store",
+      "base_file": "call_Zk4Nna8s8vBHTz9I01fCJJvl.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 151902
+    },
+    {
+      "file": "ai-empty-store-04.webp",
+      "category": "empty-store",
+      "base_file": "call_Zk4Nna8s8vBHTz9I01fCJJvl.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 152706
+    },
+    {
+      "file": "ai-empty-store-05.webp",
+      "category": "empty-store",
+      "base_file": "call_Zk4Nna8s8vBHTz9I01fCJJvl.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 154942
+    },
+    {
+      "file": "ai-empty-store-06.webp",
+      "category": "empty-store",
+      "base_file": "call_snSaPACOCErpiL57E0RNajN5.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 105560
+    },
+    {
+      "file": "ai-empty-store-07.webp",
+      "category": "empty-store",
+      "base_file": "call_snSaPACOCErpiL57E0RNajN5.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 111236
+    },
+    {
+      "file": "ai-empty-store-08.webp",
+      "category": "empty-store",
+      "base_file": "call_snSaPACOCErpiL57E0RNajN5.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 111236
+    },
+    {
+      "file": "ai-empty-store-09.webp",
+      "category": "empty-store",
+      "base_file": "call_snSaPACOCErpiL57E0RNajN5.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 112196
+    },
+    {
+      "file": "ai-empty-store-10.webp",
+      "category": "empty-store",
+      "base_file": "call_snSaPACOCErpiL57E0RNajN5.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 113680
+    },
+    {
+      "file": "ai-safety-prep-01.webp",
+      "category": "safety-prep",
+      "base_file": "call_PCyu9aNnruqDAJviufu5vLtg.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 108140
+    },
+    {
+      "file": "ai-safety-prep-02.webp",
+      "category": "safety-prep",
+      "base_file": "call_PCyu9aNnruqDAJviufu5vLtg.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 112694
+    },
+    {
+      "file": "ai-safety-prep-03.webp",
+      "category": "safety-prep",
+      "base_file": "call_PCyu9aNnruqDAJviufu5vLtg.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 112694
+    },
+    {
+      "file": "ai-safety-prep-04.webp",
+      "category": "safety-prep",
+      "base_file": "call_PCyu9aNnruqDAJviufu5vLtg.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 113584
+    },
+    {
+      "file": "ai-safety-prep-05.webp",
+      "category": "safety-prep",
+      "base_file": "call_PCyu9aNnruqDAJviufu5vLtg.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 114932
+    },
+    {
+      "file": "ai-final-check-01.webp",
+      "category": "final-check",
+      "base_file": "call_rxZddGCHbVxPdhamxIsBtNhm.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 46362
+    },
+    {
+      "file": "ai-final-check-02.webp",
+      "category": "final-check",
+      "base_file": "call_rxZddGCHbVxPdhamxIsBtNhm.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 47950
+    },
+    {
+      "file": "ai-final-check-03.webp",
+      "category": "final-check",
+      "base_file": "call_rxZddGCHbVxPdhamxIsBtNhm.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 47950
+    },
+    {
+      "file": "ai-final-check-04.webp",
+      "category": "final-check",
+      "base_file": "call_rxZddGCHbVxPdhamxIsBtNhm.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 48280
+    },
+    {
+      "file": "ai-final-check-05.webp",
+      "category": "final-check",
+      "base_file": "call_rxZddGCHbVxPdhamxIsBtNhm.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 49020
+    },
+    {
+      "file": "ai-waste-sorting-01.webp",
+      "category": "waste-sorting",
+      "base_file": "call_WrqmUz4wUmfZcqUqX5o2XptS.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 92100
+    },
+    {
+      "file": "ai-waste-sorting-02.webp",
+      "category": "waste-sorting",
+      "base_file": "call_WrqmUz4wUmfZcqUqX5o2XptS.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 96192
+    },
+    {
+      "file": "ai-waste-sorting-03.webp",
+      "category": "waste-sorting",
+      "base_file": "call_WrqmUz4wUmfZcqUqX5o2XptS.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 96192
+    },
+    {
+      "file": "ai-waste-sorting-04.webp",
+      "category": "waste-sorting",
+      "base_file": "call_WrqmUz4wUmfZcqUqX5o2XptS.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 96682
+    },
+    {
+      "file": "ai-waste-sorting-05.webp",
+      "category": "waste-sorting",
+      "base_file": "call_WrqmUz4wUmfZcqUqX5o2XptS.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 97246
+    },
+    {
+      "file": "ai-schedule-check-01.webp",
+      "category": "schedule-check",
+      "base_file": "call_Eui8ouM2FLie6qBiZXritbAN.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 77370
+    },
+    {
+      "file": "ai-schedule-check-02.webp",
+      "category": "schedule-check",
+      "base_file": "call_Eui8ouM2FLie6qBiZXritbAN.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 80106
+    },
+    {
+      "file": "ai-schedule-check-03.webp",
+      "category": "schedule-check",
+      "base_file": "call_Eui8ouM2FLie6qBiZXritbAN.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 80106
+    },
+    {
+      "file": "ai-schedule-check-04.webp",
+      "category": "schedule-check",
+      "base_file": "call_Eui8ouM2FLie6qBiZXritbAN.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 79186
+    },
+    {
+      "file": "ai-schedule-check-05.webp",
+      "category": "schedule-check",
+      "base_file": "call_Eui8ouM2FLie6qBiZXritbAN.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 80216
+    },
+    {
+      "file": "ai-common-area-protection-01.webp",
+      "category": "common-area-protection",
+      "base_file": "call_nOAuOYGr1lD1l5k82SKFDpRj.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 97958
+    },
+    {
+      "file": "ai-common-area-protection-02.webp",
+      "category": "common-area-protection",
+      "base_file": "call_nOAuOYGr1lD1l5k82SKFDpRj.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 101616
+    },
+    {
+      "file": "ai-common-area-protection-03.webp",
+      "category": "common-area-protection",
+      "base_file": "call_nOAuOYGr1lD1l5k82SKFDpRj.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 101616
+    },
+    {
+      "file": "ai-common-area-protection-04.webp",
+      "category": "common-area-protection",
+      "base_file": "call_nOAuOYGr1lD1l5k82SKFDpRj.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 102752
+    },
+    {
+      "file": "ai-common-area-protection-05.webp",
+      "category": "common-area-protection",
+      "base_file": "call_nOAuOYGr1lD1l5k82SKFDpRj.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 103416
+    },
+    {
+      "file": "ai-photo-estimate-01.webp",
+      "category": "photo-estimate",
+      "base_file": "call_mJevsvn2ssnG5AP0krLZTRbG.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 69878
+    },
+    {
+      "file": "ai-photo-estimate-02.webp",
+      "category": "photo-estimate",
+      "base_file": "call_mJevsvn2ssnG5AP0krLZTRbG.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 72140
+    },
+    {
+      "file": "ai-photo-estimate-03.webp",
+      "category": "photo-estimate",
+      "base_file": "call_mJevsvn2ssnG5AP0krLZTRbG.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 72140
+    },
+    {
+      "file": "ai-photo-estimate-04.webp",
+      "category": "photo-estimate",
+      "base_file": "call_mJevsvn2ssnG5AP0krLZTRbG.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 72762
+    },
+    {
+      "file": "ai-photo-estimate-05.webp",
+      "category": "photo-estimate",
+      "base_file": "call_mJevsvn2ssnG5AP0krLZTRbG.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 73364
+    },
+    {
+      "file": "ai-cleanup-01.webp",
+      "category": "cleanup",
+      "base_file": "call_ByCX36Fqk1FPngwSQ1tULeaN.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 66066
+    },
+    {
+      "file": "ai-cleanup-02.webp",
+      "category": "cleanup",
+      "base_file": "call_ByCX36Fqk1FPngwSQ1tULeaN.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 69774
+    },
+    {
+      "file": "ai-cleanup-03.webp",
+      "category": "cleanup",
+      "base_file": "call_ByCX36Fqk1FPngwSQ1tULeaN.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 69774
+    },
+    {
+      "file": "ai-cleanup-04.webp",
+      "category": "cleanup",
+      "base_file": "call_ByCX36Fqk1FPngwSQ1tULeaN.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 69836
+    },
+    {
+      "file": "ai-cleanup-05.webp",
+      "category": "cleanup",
+      "base_file": "call_ByCX36Fqk1FPngwSQ1tULeaN.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 70256
+    },
+    {
+      "file": "ai-workflow-01.webp",
+      "category": "workflow",
+      "base_file": "call_CIyICOYGNz4lKjvxjAw7vz3W.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 73104
+    },
+    {
+      "file": "ai-workflow-02.webp",
+      "category": "workflow",
+      "base_file": "call_CIyICOYGNz4lKjvxjAw7vz3W.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 77150
+    },
+    {
+      "file": "ai-workflow-03.webp",
+      "category": "workflow",
+      "base_file": "call_CIyICOYGNz4lKjvxjAw7vz3W.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 77150
+    },
+    {
+      "file": "ai-workflow-04.webp",
+      "category": "workflow",
+      "base_file": "call_CIyICOYGNz4lKjvxjAw7vz3W.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 78500
+    },
+    {
+      "file": "ai-workflow-05.webp",
+      "category": "workflow",
+      "base_file": "call_CIyICOYGNz4lKjvxjAw7vz3W.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 79728
+    },
+    {
+      "file": "ai-loading-prep-01.webp",
+      "category": "loading-prep",
+      "base_file": "call_OVqj5uVwPo4jhwkcbMxD5Ccp.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 85650
+    },
+    {
+      "file": "ai-loading-prep-02.webp",
+      "category": "loading-prep",
+      "base_file": "call_OVqj5uVwPo4jhwkcbMxD5Ccp.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 88906
+    },
+    {
+      "file": "ai-loading-prep-03.webp",
+      "category": "loading-prep",
+      "base_file": "call_OVqj5uVwPo4jhwkcbMxD5Ccp.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 88906
+    },
+    {
+      "file": "ai-loading-prep-04.webp",
+      "category": "loading-prep",
+      "base_file": "call_OVqj5uVwPo4jhwkcbMxD5Ccp.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 89888
+    },
+    {
+      "file": "ai-loading-prep-05.webp",
+      "category": "loading-prep",
+      "base_file": "call_OVqj5uVwPo4jhwkcbMxD5Ccp.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 90484
+    },
+    {
+      "file": "ai-subsidy-guide-01.webp",
+      "category": "subsidy-guide",
+      "base_file": "call_hL3xM6Jw4AMqrDmPohM8DBuu.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 81524
+    },
+    {
+      "file": "ai-subsidy-guide-02.webp",
+      "category": "subsidy-guide",
+      "base_file": "call_hL3xM6Jw4AMqrDmPohM8DBuu.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 84574
+    },
+    {
+      "file": "ai-subsidy-guide-03.webp",
+      "category": "subsidy-guide",
+      "base_file": "call_hL3xM6Jw4AMqrDmPohM8DBuu.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 84574
+    },
+    {
+      "file": "ai-subsidy-guide-04.webp",
+      "category": "subsidy-guide",
+      "base_file": "call_hL3xM6Jw4AMqrDmPohM8DBuu.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 85976
+    },
+    {
+      "file": "ai-subsidy-guide-05.webp",
+      "category": "subsidy-guide",
+      "base_file": "call_hL3xM6Jw4AMqrDmPohM8DBuu.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 85820
+    },
+    {
+      "file": "ai-inspection-01.webp",
+      "category": "inspection",
+      "base_file": "call_Z5yEjVs0uEDErKK7v4YPOKvJ.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 53942
+    },
+    {
+      "file": "ai-inspection-02.webp",
+      "category": "inspection",
+      "base_file": "call_Z5yEjVs0uEDErKK7v4YPOKvJ.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 56180
+    },
+    {
+      "file": "ai-inspection-03.webp",
+      "category": "inspection",
+      "base_file": "call_Z5yEjVs0uEDErKK7v4YPOKvJ.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 56180
+    },
+    {
+      "file": "ai-inspection-04.webp",
+      "category": "inspection",
+      "base_file": "call_Z5yEjVs0uEDErKK7v4YPOKvJ.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 56730
+    },
+    {
+      "file": "ai-inspection-05.webp",
+      "category": "inspection",
+      "base_file": "call_Z5yEjVs0uEDErKK7v4YPOKvJ.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 58232
+    },
+    {
+      "file": "ai-dust-control-01.webp",
+      "category": "dust-control",
+      "base_file": "call_zWUVfbBZgmLmxf4IK3nBlvpv.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 85108
+    },
+    {
+      "file": "ai-dust-control-02.webp",
+      "category": "dust-control",
+      "base_file": "call_zWUVfbBZgmLmxf4IK3nBlvpv.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 88034
+    },
+    {
+      "file": "ai-dust-control-03.webp",
+      "category": "dust-control",
+      "base_file": "call_zWUVfbBZgmLmxf4IK3nBlvpv.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 88034
+    },
+    {
+      "file": "ai-dust-control-04.webp",
+      "category": "dust-control",
+      "base_file": "call_zWUVfbBZgmLmxf4IK3nBlvpv.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 88916
+    },
+    {
+      "file": "ai-dust-control-05.webp",
+      "category": "dust-control",
+      "base_file": "call_zWUVfbBZgmLmxf4IK3nBlvpv.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 90470
+    },
+    {
+      "file": "ai-handoff-01.webp",
+      "category": "handoff",
+      "base_file": "call_6uRWKikXJMn4EEYkM8ZlPwmb.png",
+      "variant": "wide",
+      "width": 1600,
+      "height": 900,
+      "bytes": 51496
+    },
+    {
+      "file": "ai-handoff-02.webp",
+      "category": "handoff",
+      "base_file": "call_6uRWKikXJMn4EEYkM8ZlPwmb.png",
+      "variant": "left",
+      "width": 1600,
+      "height": 900,
+      "bytes": 53014
+    },
+    {
+      "file": "ai-handoff-03.webp",
+      "category": "handoff",
+      "base_file": "call_6uRWKikXJMn4EEYkM8ZlPwmb.png",
+      "variant": "right",
+      "width": 1600,
+      "height": 900,
+      "bytes": 53014
+    },
+    {
+      "file": "ai-handoff-04.webp",
+      "category": "handoff",
+      "base_file": "call_6uRWKikXJMn4EEYkM8ZlPwmb.png",
+      "variant": "warm",
+      "width": 1600,
+      "height": 900,
+      "bytes": 52498
+    },
+    {
+      "file": "ai-handoff-05.webp",
+      "category": "handoff",
+      "base_file": "call_6uRWKikXJMn4EEYkM8ZlPwmb.png",
+      "variant": "clean",
+      "width": 1600,
+      "height": 900,
+      "bytes": 52648
+    }
+  ]
+}
