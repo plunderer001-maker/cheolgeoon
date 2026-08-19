@@ -8,6 +8,8 @@ const outputDir = path.join(rootDir, "static-site");
 const clientDir = path.join(rootDir, "dist", "client");
 const workerPath = path.join(rootDir, "dist", "server", "index.js");
 const seoDataPath = path.join(rootDir, "data", "generated", "seo-pages.json");
+const regionsDataPath = path.join(rootDir, "data", "generated", "regions.json");
+const regionServiceDataPath = path.join(rootDir, "data", "generated", "region-service-pages.json");
 
 function stripClientRuntime(html) {
   return html
@@ -69,10 +71,15 @@ async function writeRoute(worker, route) {
 
 async function main() {
   const seoData = JSON.parse(await readFile(seoDataPath, "utf8"));
+  const regionsData = JSON.parse(await readFile(regionsDataPath, "utf8"));
+  const regionServiceData = JSON.parse(await readFile(regionServiceDataPath, "utf8"));
   const routes = [
     "/",
     "/services",
     ...seoData.pages.map((page) => `/services/${page.slug}`),
+    "/regions",
+    ...regionsData.regions.map((region) => `/regions/${region.slug}`),
+    ...regionServiceData.pages.map((page) => `/regions/${page.slug}`),
   ];
 
   await rm(outputDir, { recursive: true, force: true });

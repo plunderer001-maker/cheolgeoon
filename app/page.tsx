@@ -56,18 +56,18 @@ const excludedItems = [
 ];
 
 const regionLinks = [
-  "서울 철거",
-  "인천 철거",
-  "수원 철거",
-  "성남 철거",
-  "고양 철거",
-  "용인 철거",
-  "대전 철거",
-  "대구 철거",
-  "부산 철거",
-  "광주 철거",
-  "청주 철거",
-  "강릉 철거",
+  ["서울 강남구 철거", "/regions/서울-강남구"],
+  ["인천 남동구 철거", "/regions/인천-남동구"],
+  ["수원 철거", "/regions/수원"],
+  ["성남 철거", "/regions/성남"],
+  ["고양 철거", "/regions/고양"],
+  ["용인 철거", "/regions/용인"],
+  ["대전 서구 철거", "/regions/대전-서구"],
+  ["대구 수성구 철거", "/regions/대구-수성구"],
+  ["부산 해운대구 철거", "/regions/부산-해운대구"],
+  ["광주 북구 철거", "/regions/광주-북구"],
+  ["청주 철거", "/regions/청주"],
+  ["강릉 철거", "/regions/강릉"],
 ];
 
 const galleryImages = [
@@ -277,14 +277,13 @@ export default function Home() {
           <p className="eyebrow dark">전국 지역 안내</p>
           <h2>전국 어디든 철거 상담을 받아볼 수 있습니다.</h2>
           <p>
-            지역 페이지는 추후 키워드 데이터에 맞춰 확장합니다. 표기는 정하신
-            원칙대로 “강릉시 강동면 철거”가 아니라 “강릉 강동면 철거”처럼
-            자연스럽게 줄여서 사용하겠습니다.
+            시군구 지역 페이지를 기준으로 상가 철거, 사무실 철거, 식당 철거,
+            원상복구 철거, 철거 비용 상담 정보를 확인할 수 있습니다.
           </p>
         </div>
         <div className="region-grid">
-          {regionLinks.map((region) => (
-            <a key={region} href={NAVER_FORM_URL}>
+          {regionLinks.map(([region, href]) => (
+            <a key={region} href={href}>
               <MapPin size={16} aria-hidden="true" />
               {region}
             </a>
