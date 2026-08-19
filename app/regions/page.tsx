@@ -4,14 +4,14 @@ import { ArrowRight, MapPinned } from "lucide-react";
 import { regionServiceSource, regions } from "@/app/lib/region-pages";
 
 export const metadata: Metadata = {
-  title: "전국 철거 지역 페이지 | 철거온",
+  title: "전국 철거 지역별 상가 사무실 원상복구 상담",
   description:
-    "철거온의 전국 시군구 철거 상담 지역 페이지입니다. 지역별 상가 철거, 사무실 철거, 식당 철거, 원상복구 철거, 철거 비용 상담 페이지를 확인하세요.",
+    "전국 시군구별 상가 철거, 사무실 철거, 식당 철거, 카페 철거, 학원 철거, 원상복구 철거와 철거 비용 상담 페이지를 확인하세요.",
   alternates: {
     canonical: "/regions/",
   },
   openGraph: {
-    title: "전국 철거 지역 페이지 | 철거온",
+    title: "전국 철거 지역별 상가 사무실 원상복구 상담",
     description: "전국 시군구별 철거 상담 페이지와 핵심 서비스 조합을 확인하세요.",
     url: "/regions/",
     siteName: "철거온",

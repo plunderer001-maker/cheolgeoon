@@ -24,20 +24,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!region) {
     return {
-      title: "지역 철거 상담 | 철거온",
+      title: "지역 철거 방문 견적 상담",
     };
   }
 
-  const description = `${region.name} 철거 상담이 필요하다면 상가, 사무실, 식당, 카페, 학원, 원상복구 철거 범위와 방문 견적 필요 여부를 먼저 확인하세요. 철거온은 ${region.name} 지역 현장 조건에 맞춰 상담 흐름을 안내합니다.`;
+  const title = `${region.name} 철거 방문 견적과 원상복구 상담`;
+  const description = `${region.name} 철거 상담이 필요하다면 상가, 사무실, 식당, 카페, 학원, 원상복구 철거 범위와 방문 견적 필요 여부를 먼저 확인하세요. ${region.name} 지역 현장 조건에 맞춰 비용 기준과 상담 흐름을 안내합니다.`;
 
   return {
-    title: `${region.name} 철거 | 철거온`,
+    title,
     description,
     alternates: {
       canonical: `/regions/${region.slug}/`,
     },
     openGraph: {
-      title: `${region.name} 철거 | 철거온`,
+      title,
       description,
       url: `/regions/${region.slug}/`,
       siteName: "철거온",

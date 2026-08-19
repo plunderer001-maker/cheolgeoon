@@ -16,6 +16,8 @@ export type RegionService = {
   keyword: string;
   intent: string;
   image: string;
+  titleTails?: string[];
+  focus?: string;
 };
 
 export type RegionServicePage = {
@@ -26,6 +28,7 @@ export type RegionServicePage = {
   title: string;
   description: string;
   h1: string;
+  variant?: number;
   region: Region;
   service: RegionService;
 };
