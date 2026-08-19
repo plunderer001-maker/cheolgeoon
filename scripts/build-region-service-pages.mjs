@@ -70,6 +70,25 @@ const services = [
 
 const regionsData = JSON.parse(fs.readFileSync(regionsPath, "utf8"));
 const regions = regionsData.regions;
+
+function hasFinalConsonant(text) {
+  const lastChar = [...text.trim()].at(-1);
+  if (!lastChar) {
+    return false;
+  }
+
+  const code = lastChar.charCodeAt(0);
+  if (code < 0xac00 || code > 0xd7a3) {
+    return false;
+  }
+
+  return (code - 0xac00) % 28 !== 0;
+}
+
+function withObjectParticle(text) {
+  return `${text}${hasFinalConsonant(text) ? "을" : "를"}`;
+}
+
 const pages = regions.flatMap((region) =>
   services.map((service) => ({
     slug: `${region.slug}/${service.slug}`,
@@ -77,7 +96,7 @@ const pages = regions.flatMap((region) =>
     serviceSlug: service.slug,
     keyword: `${region.name} ${service.keyword}`,
     title: `${region.name} ${service.keyword} | 철거온`,
-    description: `${region.name}에서 ${service.keyword}를 알아보신다면 현장 범위, 원상복구 기준, 비용 변동 요인, 방문 견적 필요 여부를 먼저 확인하세요. 철거온은 ${region.name} 지역 철거 상담에 필요한 준비 정보와 진행 흐름을 안내합니다.`,
+    description: `${region.name}에서 ${withObjectParticle(service.keyword)} 알아보신다면 현장 범위, 원상복구 기준, 비용 변동 요인, 방문 견적 필요 여부를 먼저 확인하세요. 철거온은 ${region.name} 지역 철거 상담에 필요한 준비 정보와 진행 흐름을 안내합니다.`,
     h1: `${region.name} ${service.keyword}`,
     region,
     service,

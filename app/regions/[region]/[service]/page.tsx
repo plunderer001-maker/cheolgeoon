@@ -43,6 +43,24 @@ function getImageUrl(image: string) {
   return `${SITE_URL}${image}`;
 }
 
+function hasFinalConsonant(text: string) {
+  const lastChar = [...text.trim()].at(-1);
+  if (!lastChar) {
+    return false;
+  }
+
+  const code = lastChar.charCodeAt(0);
+  if (code < 0xac00 || code > 0xd7a3) {
+    return false;
+  }
+
+  return (code - 0xac00) % 28 !== 0;
+}
+
+function withObjectParticle(text: string) {
+  return `${text}${hasFinalConsonant(text) ? "을" : "를"}`;
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { region, service } = await params;
   const page = getRegionServicePage(region, service);
@@ -116,10 +134,10 @@ export default async function RegionServiceDetailPage({ params }: PageProps) {
         <p className="eyebrow">{region.fullName} · {page.service.intent}</p>
         <h1>{page.h1}</h1>
         <p>
-          {region.name}에서 {page.service.keyword}를 알아보실 때는 작업 범위,
-          원상복구 기준, 폐기물 반출 조건을 먼저 확인하는 것이 좋습니다.
-          철거온은 사진과 현장 정보를 바탕으로 방문 견적 필요 여부와 진행
-          순서를 안내합니다.
+          {region.name}에서 {withObjectParticle(page.service.keyword)} 알아보실 때는
+          작업 범위, 원상복구 기준, 폐기물 반출 조건을 먼저 확인하는 것이
+          좋습니다. 철거온은 사진과 현장 정보를 바탕으로 방문 견적 필요
+          여부와 진행 순서를 안내합니다.
         </p>
         <div className="seo-actions">
           <Link href={NAVER_FORM_URL} className="primary-button">
