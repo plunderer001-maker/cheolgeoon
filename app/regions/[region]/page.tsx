@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ClipboardCheck, MapPinned, MessageCircle } from "lucide-react";
-import { getRegion, getRegionPages, regions } from "@/app/lib/region-pages";
+import {
+  NOINDEX_ROBOTS,
+  getRegion,
+  getRegionPages,
+  isIndexableRegion,
+  regions,
+} from "@/app/lib/region-pages";
 
 type PageProps = {
   params: Promise<{ region: string }>;
@@ -34,6 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
+    ...(isIndexableRegion(region.slug) ? {} : { robots: NOINDEX_ROBOTS }),
     alternates: {
       canonical: `/regions/${region.slug}/`,
     },
@@ -77,7 +84,7 @@ export default async function RegionHubPage({ params }: PageProps) {
             <MessageCircle size={19} aria-hidden="true" />
             견적 문의 준비하기
           </Link>
-          <Link href="/regions" className="secondary-button dark">
+          <Link href="/regions/" className="secondary-button dark">
             전체 지역 보기
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
@@ -94,7 +101,7 @@ export default async function RegionHubPage({ params }: PageProps) {
         </div>
         <div className="seo-link-grid">
           {pages.map((page) => (
-            <Link key={page.slug} href={`/regions/${page.slug}`}>
+            <Link key={page.slug} href={`/regions/${page.slug}/`}>
               {page.keyword}
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
@@ -124,7 +131,7 @@ export default async function RegionHubPage({ params }: PageProps) {
       </section>
 
       <section className="seo-bottom-cta">
-        <Link href="/regions" className="secondary-button dark">
+        <Link href="/regions/" className="secondary-button dark">
           <ArrowLeft size={18} aria-hidden="true" />
           전체 지역으로 돌아가기
         </Link>

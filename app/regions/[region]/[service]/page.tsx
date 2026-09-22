@@ -15,9 +15,11 @@ import {
   Wrench,
 } from "lucide-react";
 import {
+  NOINDEX_ROBOTS,
   getRegion,
   getRegionPages,
   getRegionServicePage,
+  isIndexableRegion,
   regionServicePages,
 } from "@/app/lib/region-pages";
 
@@ -170,6 +172,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: page.title,
     description: page.description,
+    ...(isIndexableRegion(page.regionSlug) ? {} : { robots: NOINDEX_ROBOTS }),
     alternates: {
       canonical,
     },
@@ -248,7 +251,7 @@ export default async function RegionServiceDetailPage({ params }: PageProps) {
             <MessageCircle size={19} aria-hidden="true" />
             견적 문의 준비하기
           </Link>
-          <Link href={`/regions/${region.slug}`} className="secondary-button dark">
+          <Link href={`/regions/${region.slug}/`} className="secondary-button dark">
             {region.name} 지역 보기
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
@@ -469,7 +472,7 @@ export default async function RegionServiceDetailPage({ params }: PageProps) {
         </div>
         <div className="seo-link-grid">
           {relatedPages.map((relatedPage) => (
-            <Link key={relatedPage.slug} href={`/regions/${relatedPage.slug}`}>
+            <Link key={relatedPage.slug} href={`/regions/${relatedPage.slug}/`}>
               {relatedPage.keyword}
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
@@ -478,7 +481,7 @@ export default async function RegionServiceDetailPage({ params }: PageProps) {
       </section>
 
       <section className="seo-bottom-cta">
-        <Link href={`/regions/${region.slug}`} className="secondary-button dark">
+        <Link href={`/regions/${region.slug}/`} className="secondary-button dark">
           <ArrowLeft size={18} aria-hidden="true" />
           {region.name} 지역으로 돌아가기
         </Link>

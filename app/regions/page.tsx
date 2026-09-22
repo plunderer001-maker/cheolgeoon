@@ -47,7 +47,7 @@ export default function RegionsIndexPage() {
         </div>
         <div className="seo-link-grid">
           {regions.map((region) => (
-            <Link key={region.slug} href={`/regions/${region.slug}`}>
+            <Link key={region.slug} href={`/regions/${region.slug}/`}>
               {region.name} 철거
               <ArrowRight size={16} aria-hidden="true" />
             </Link>

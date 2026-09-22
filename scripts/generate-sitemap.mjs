@@ -24,8 +24,12 @@ function routeFromIndex(filePath) {
     .replaceAll("%2F", "/");
 }
 
-function getCanonicalUrl(filePath) {
-  const html = fs.readFileSync(filePath, "utf8");
+function isNoindex(html) {
+  const robots = html.match(/<meta name="robots" content="([^"]*)"/)?.[1] ?? "";
+  return /\bnoindex\b/i.test(robots);
+}
+
+function getCanonicalUrl(filePath, html) {
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
 
   if (!canonical) return `${siteUrl}${routeFromIndex(filePath)}`;
@@ -33,13 +37,24 @@ function getCanonicalUrl(filePath) {
   return `${siteUrl}${canonical}`;
 }
 
-const urls = Array.from(new Set(walk(staticDir).map(getCanonicalUrl))).sort((a, b) =>
-  a.localeCompare(b, "ko"),
-);
+const files = walk(staticDir);
+let noindexCount = 0;
+const urls = new Set();
+
+for (const filePath of files) {
+  const html = fs.readFileSync(filePath, "utf8");
+  if (isNoindex(html)) {
+    noindexCount += 1;
+    continue;
+  }
+  urls.add(getCanonicalUrl(filePath, html));
+}
+
+const sortedUrls = Array.from(urls).sort((a, b) => a.localeCompare(b, "ko"));
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
+${sortedUrls
   .map(
     (url) => `  <url>
     <loc>${url}</loc>
@@ -61,4 +76,6 @@ Sitemap: ${siteUrl}/sitemap.xml
 fs.writeFileSync(path.join(staticDir, "sitemap.xml"), sitemap, "utf8");
 fs.writeFileSync(path.join(staticDir, "robots.txt"), robots, "utf8");
 
-console.log(`Generated sitemap.xml with ${urls.length} URLs`);
+console.log(
+  `Generated sitemap.xml with ${sortedUrls.length} URLs (${noindexCount} noindex pages excluded, ${files.length} files scanned)`,
+);

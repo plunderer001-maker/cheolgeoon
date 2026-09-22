@@ -66,6 +66,14 @@ RESTRICTED_TERMS = [
     "재개발",
 ]
 
+# 검색 의도 열에 섞여 있는 잘림·중복 키워드. 페이지를 만들지 않고
+# 기존 URL은 canonical 의도 페이지로 301 처리한다 (app/lib/seo-pages.ts 와 동일).
+EXCLUDED_INTENTS = {
+    "비": "비용",
+    "단가": "비용",
+    "견적서": "견적",
+}
+
 
 def clean_values(series):
     values = []
@@ -104,13 +112,18 @@ def is_restricted(target, service):
 df = pd.read_excel(SOURCE, sheet_name=0, header=None)
 targets = clean_values(df.iloc[:, 0])
 services = clean_values(df.iloc[:, 1])
-intents = clean_values(df.iloc[:, 2])
+intents = [intent for intent in clean_values(df.iloc[:, 2]) if intent not in EXCLUDED_INTENTS]
 
 pages = []
 seen = set()
+skipped_restricted = 0
 
 for target in targets:
     for service in services:
+        if is_restricted(target, service):
+            skipped_restricted += 1 + len(intents)
+            continue
+
         service_text = display_service(service)
         base_keyword = f"{target} {service_text}"
         base_slug = slugify(base_keyword)
@@ -127,7 +140,7 @@ for target in targets:
                     "intentLabel": "",
                     "pageKind": "base",
                     "group": target_group(target),
-                    "restricted": is_restricted(target, service),
+                    "restricted": False,
                 }
             )
 
@@ -149,7 +162,7 @@ for target in targets:
                     "intentLabel": intent_text,
                     "pageKind": "intent",
                     "group": target_group(target),
-                    "restricted": is_restricted(target, service),
+                    "restricted": False,
                 }
             )
 
@@ -169,4 +182,7 @@ OUTPUT.write_text(
     encoding="utf-8",
 )
 
-print(f"targets={len(targets)} services={len(services)} intents={len(intents)} pages={len(pages)}")
+print(
+    f"targets={len(targets)} services={len(services)} intents={len(intents)} "
+    f"pages={len(pages)} skipped_restricted={skipped_restricted}"
+)

@@ -627,7 +627,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <MessageCircle size={19} aria-hidden="true" />
             견적 문의 준비하기
           </Link>
-          <Link className="secondary-button dark" href="/services">
+          <Link className="secondary-button dark" href="/services/">
             전체 조합 보기
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
@@ -789,14 +789,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <p className="eyebrow dark">같은 대상 조합</p>
             <h2>{page.target} 관련 다른 철거 조합입니다.</h2>
           </div>
-          <Link className="text-link" href="/services">
+          <Link className="text-link" href="/services/">
             전체 보기
             <ArrowRight size={17} aria-hidden="true" />
           </Link>
         </div>
         <div className="seo-link-grid">
           {sameTargetPages.map((targetPage) => (
-            <Link key={targetPage.slug} href={`/services/${targetPage.slug}`}>
+            <Link key={targetPage.slug} href={`/services/${targetPage.slug}/`}>
               {targetPage.keyword}
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
@@ -813,7 +813,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
         <div className="seo-link-grid">
           {relatedPages.map((relatedPage) => (
-            <Link key={relatedPage.slug} href={`/services/${relatedPage.slug}`}>
+            <Link key={relatedPage.slug} href={`/services/${relatedPage.slug}/`}>
               {relatedPage.keyword}
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
@@ -822,7 +822,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       <section className="seo-bottom-cta">
-        <Link href="/services" className="secondary-button dark">
+        <Link href="/services/" className="secondary-button dark">
           <ArrowLeft size={18} aria-hidden="true" />
           전체 조합으로 돌아가기
         </Link>
