@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   ArrowRight,
   BadgeCheck,
@@ -277,8 +278,12 @@ export default function Home() {
           <p className="eyebrow dark">전국 지역 안내</p>
           <h2>전국 어디든 철거 상담을 받아볼 수 있습니다.</h2>
           <p>
-            시군구 지역 페이지를 기준으로 상가 철거, 사무실 철거, 식당 철거,
-            원상복구 철거, 철거 비용 상담 정보를 확인할 수 있습니다.
+            시군구 지역 페이지에서 지역 조건에 맞는 철거 비용 기준과 상담 순서를
+            확인할 수 있습니다. 견적이 달라지는 기준은{" "}
+            <Link className="text-link" href="/services/철거-비용/">
+              전국 철거 비용 안내
+            </Link>
+            에서 먼저 볼 수 있습니다.
           </p>
         </div>
         <div className="region-grid">

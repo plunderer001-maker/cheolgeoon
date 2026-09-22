@@ -1060,3 +1060,102 @@ h2 {
     padding: 0 18px 86px;
   }
 }
+
+/* ---------- 브레드크럼 ---------- */
+.seo-breadcrumb {
+  padding: 14px 0 0;
+  font-size: 0.86rem;
+}
+
+.seo-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.seo-breadcrumb li + li::before {
+  content: "›";
+  margin-right: 6px;
+  opacity: 0.55;
+}
+
+.seo-breadcrumb a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.seo-breadcrumb span[aria-current] {
+  font-weight: 600;
+}
+
+.seo-hero .seo-breadcrumb {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.seo-hero .seo-breadcrumb a {
+  color: inherit;
+}
+
+/* ---------- 지역 현장 메모 ---------- */
+.seo-region-profile {
+  display: grid;
+  gap: 18px;
+}
+
+.seo-region-profile .seo-region-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.seo-region-profile .seo-region-meta div {
+  padding: 14px 16px;
+  border: 1px solid rgba(16, 23, 19, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.seo-region-profile .seo-region-meta dt {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-bottom: 4px;
+}
+
+.seo-region-profile .seo-region-meta dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.seo-region-profile .seo-region-notes {
+  padding: 18px 20px;
+  border-left: 4px solid #c99a2e;
+  border-radius: 0 14px 14px 0;
+  background: rgba(201, 154, 46, 0.08);
+}
+
+.seo-region-profile .seo-region-notes h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.seo-region-profile .seo-region-notes ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.seo-region-profile .seo-region-notes li + li {
+  margin-top: 6px;
+}
+
+.seo-sido-groups {
+  display: grid;
+  gap: 22px;
+}
+
+.seo-sido-groups h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}

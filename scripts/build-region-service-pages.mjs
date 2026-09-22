@@ -1,144 +1,112 @@
 import fs from "node:fs";
 import path from "node:path";
 
+/**
+ * 지역 × 주제 페이지 데이터 생성.
+ *
+ * - data/topics.json 의 주제마다 regions.json 의 모든 시군구 페이지를 만든다.
+ * - 과거에 존재했던 서비스 슬러그(상가-철거 등)와 중복 시도 코드(전남광주통합)는
+ *   retired-routes.json 에 기록해 export 단계에서 301 리다이렉트로 처리한다.
+ */
+
 const dataDir = path.resolve("data", "generated");
 const regionsPath = path.join(dataDir, "regions.json");
+const topicsPath = path.resolve("data", "topics.json");
 const outputPath = path.join(dataDir, "region-service-pages.json");
+const retiredPath = path.join(dataDir, "retired-routes.json");
 
-const services = [
-  {
-    slug: "상가-철거",
-    keyword: "상가 철거",
-    intent: "상업 공간 철거",
-    image: "/images/cheolgeoon/hero/store-clearance-hero.webp",
-    titleTails: ["원상복구와 방문 견적 안내", "퇴거 전 작업 범위 체크", "집기 정리와 내부 철거 상담"],
-    focus: "매장 집기, 바닥재, 천장 마감, 벽체 마감",
-  },
-  {
-    slug: "상가-철거-비용",
-    keyword: "상가 철거 비용",
-    intent: "비용 확인",
-    image: "/images/cheolgeoon/sections/commercial-unit-demolition.webp",
-    titleTails: ["평수별 견적 기준과 준비사항", "방문 견적 전 확인할 비용 기준", "원상복구 비용 상담 체크"],
-    focus: "평수, 마감재 종류, 폐기물 양, 반출 동선",
-  },
-  {
-    slug: "사무실-철거",
-    keyword: "사무실 철거",
-    intent: "업무 공간 철거",
-    image: "/images/cheolgeoon/hero/office-clearance-hero.webp",
-    titleTails: ["파티션과 바닥 원상복구 안내", "퇴실 전 내부 철거 상담", "업무 공간 정리와 견적 기준"],
-    focus: "파티션, OA 바닥, 전기 배선, 회의실 구조",
-  },
-  {
-    slug: "식당-철거",
-    keyword: "식당 철거",
-    intent: "주방 설비 철거",
-    image: "/images/cheolgeoon/hero/restaurant-demolition-hero.webp",
-    titleTails: ["주방 설비와 덕트 철거 상담", "폐업 정리와 원상복구 기준", "집기 반출과 방문 견적 안내"],
-    focus: "주방 설비, 후드, 덕트, 배수 설비",
-  },
-  {
-    slug: "카페-철거",
-    keyword: "카페 철거",
-    intent: "매장 정리 철거",
-    image: "/images/cheolgeoon/sections/interior-removal.webp",
-    titleTails: ["인테리어 철거와 원상복구 안내", "카운터 철거와 비용 기준", "퇴거 전 매장 정리 상담"],
-    focus: "카운터, 붙박이 가구, 조명, 바닥 마감",
-  },
-  {
-    slug: "학원-철거",
-    keyword: "학원 철거",
-    intent: "강의실 철거",
-    image: "/images/cheolgeoon/hero/academy-demolition.webp",
-    titleTails: ["강의실 칸막이와 원상복구 안내", "교습 공간 철거 견적 기준", "퇴실 전 내부 정리 상담"],
-    focus: "강의실 칸막이, 게시판, 조명, 바닥재",
-  },
-  {
-    slug: "원상복구-철거",
-    keyword: "원상복구 철거",
-    intent: "퇴거 원상복구",
-    image: "/images/cheolgeoon/sections/final-inspection.webp",
-    titleTails: ["임대차 종료 전 체크사항", "퇴거 기준과 방문 견적 안내", "마감 복구 범위 상담"],
-    focus: "임대차 원상복구 기준, 훼손 부위, 마감 상태",
-  },
-  {
-    slug: "폐업-철거",
-    keyword: "폐업 철거",
-    intent: "폐업 정리",
-    image: "/images/cheolgeoon/ai-pool/ai-cleanup-01.webp",
-    titleTails: ["집기 정리와 철거 일정 상담", "매장 폐업 전 준비사항", "원상복구와 반출 범위 안내"],
-    focus: "폐업 일정, 집기 반출, 폐기물 정리, 원상복구 범위",
-  },
-  {
-    slug: "철거-비용",
-    keyword: "철거 비용",
-    intent: "비용 상담",
-    image: "/images/cheolgeoon/sections/floor-removal.webp",
-    titleTails: ["견적 기준과 비용 변동 요인", "방문 견적 전 확인사항", "평수보다 중요한 현장 조건"],
-    focus: "평수, 작업 난이도, 폐기물 양, 인력 투입",
-  },
-  {
-    slug: "철거-업체",
-    keyword: "철거 업체",
-    intent: "업체 상담",
-    image: "/images/cheolgeoon/ai-pool/ai-site-estimate-01.webp",
-    titleTails: ["방문 견적과 작업 범위 상담", "원상복구 가능한 업체 확인", "상담 전 확인할 체크사항"],
-    focus: "작업 가능 범위, 방문 견적, 일정 조율, 제외 작업",
-  },
+// 과거 지역 페이지에 붙어 있던 서비스 슬러그. 지금은 주제(topics.json)로 대체됐다.
+const RETIRED_SERVICE_SLUGS = [
+  "상가-철거",
+  "상가-철거-비용",
+  "사무실-철거",
+  "식당-철거",
+  "카페-철거",
+  "학원-철거",
+  "원상복구-철거",
+  "폐업-철거",
+  "철거-업체",
 ];
 
+// 법정동코드 원본에 옛 코드와 새 코드가 함께 들어 있어 중복된 시도. 옛 시도(전남·광주) 쪽을 유지한다.
+const DUPLICATE_SIDO_SHORT = "전남광주통합";
+
 const regionsData = JSON.parse(fs.readFileSync(regionsPath, "utf8"));
-const regions = regionsData.regions;
+const topics = JSON.parse(fs.readFileSync(topicsPath, "utf8")).topics;
 
-function hasFinalConsonant(text) {
-  const lastChar = [...text.trim()].at(-1);
-  if (!lastChar) {
-    return false;
-  }
+const duplicateRegions = regionsData.regions.filter((region) => region.sidoShort === DUPLICATE_SIDO_SHORT);
+const regions = regionsData.regions.filter((region) => region.sidoShort !== DUPLICATE_SIDO_SHORT);
 
-  const code = lastChar.charCodeAt(0);
-  if (code < 0xac00 || code > 0xd7a3) {
-    return false;
-  }
-
-  return (code - 0xac00) % 28 !== 0;
-}
-
-function withObjectParticle(text) {
-  return `${text}${hasFinalConsonant(text) ? "을" : "를"}`;
+function regionType(region) {
+  const { sigungu, sido } = region;
+  if (sigungu.endsWith("군")) return "군";
+  if (sigungu.endsWith("구")) return /특별시|광역시/.test(sido) ? "자치구" : "일반구";
+  return "시";
 }
 
 function checksum(text) {
   return [...text].reduce((sum, char) => sum + char.charCodeAt(0), 0);
 }
 
-function buildDescription(region, service, variant) {
-  const templates = [
-    `${region.name} ${service.keyword} 상담 전에는 ${service.focus}처럼 비용에 영향을 주는 조건을 먼저 나눠보는 것이 좋습니다. 방문 견적이 필요한 경우와 사진으로 1차 확인 가능한 범위를 함께 안내합니다.`,
-    `${region.name}에서 ${withObjectParticle(service.keyword)} 알아보신다면 원상복구 기준, 철거 범위, 폐기물 반출 동선, 일정 조율 여부를 미리 확인하세요. 현장 상황에 맞춰 비용이 달라지는 지점을 쉽게 정리해드립니다.`,
-    `${region.name} ${service.keyword}는 같은 평수라도 ${service.focus}에 따라 견적이 달라질 수 있습니다. 상담 전에 준비할 사진, 주소 조건, 작업 가능 범위와 제외되는 의뢰 조건을 함께 확인하세요.`,
-  ];
+const TITLE_TAILS = {
+  자치구: [
+    "관리사무소 협의와 양중 조건까지 확인",
+    "엘리베이터·주차 조건별 견적 기준",
+    "상가 밀집 지역 철거 견적 확인 순서",
+  ],
+  일반구: [
+    "신도시 상가와 구도심 견적 기준",
+    "아파트 상가·오피스 철거 비용 항목",
+    "방문 견적 전 확인할 비용 변동 요인",
+  ],
+  시: [
+    "구도심과 신시가지 상가 견적 기준",
+    "평수보다 먼저 볼 비용 변동 요인",
+    "방문 견적 전 확인할 비용 항목",
+  ],
+  군: [
+    "출장 일정과 폐기물 반출 조건 안내",
+    "읍면 지역 방문 견적 기준",
+    "이동 거리까지 반영한 견적 확인",
+  ],
+};
 
-  return templates[variant % templates.length];
-}
+const DESCRIPTIONS = {
+  자치구: (r, t) =>
+    `${r.name} ${t.keyword}은 평수보다 관리사무소 작업 시간, 엘리베이터 양중, 공용부 보양 조건에 따라 달라집니다. 사진으로 1차 범위를 보고 방문 견적이 필요한 조건을 안내합니다.`,
+  일반구: (r, t) =>
+    `${r.name} ${t.keyword}은 아파트 상가와 오피스 건물의 반출 규정, 폐기물 양, 마감재 종류에 따라 달라집니다. ${r.name} 현장 조건별 견적 기준과 준비물을 정리했습니다.`,
+  시: (r, t) =>
+    `${r.name} ${t.keyword}은 구도심 상가와 신시가지 건물의 반출 동선, 폐기물 양, 마감재 종류에 따라 달라집니다. 견적이 갈리는 항목과 상담 전 준비물을 안내합니다.`,
+  군: (r, t) =>
+    `${r.name} ${t.keyword}은 읍면 지역 이동 거리, 폐기물 반출 회차, 작업 일정 묶음 여부에 따라 달라집니다. 출장 견적 기준과 사진으로 먼저 확인할 수 있는 범위를 안내합니다.`,
+};
+
+const H1S = {
+  자치구: (r, t) => `${r.name} ${t.keyword}, 건물 규정과 양중 조건부터 봅니다`,
+  일반구: (r, t) => `${r.name} ${t.keyword}, 반출 규정과 마감 범위부터 봅니다`,
+  시: (r, t) => `${r.name} ${t.keyword}, 현장 조건별 견적 기준을 안내합니다`,
+  군: (r, t) => `${r.name} ${t.keyword}, 이동 거리와 반출 조건까지 봅니다`,
+};
 
 const pages = regions.flatMap((region) =>
-  services.map((service) => {
-    const slug = `${region.slug}/${service.slug}`;
+  topics.map((topic) => {
+    const slug = `${region.slug}/${topic.slug}`;
+    const type = regionType(region);
     const variant = checksum(slug) % 3;
 
     return {
       slug,
       regionSlug: region.slug,
-      serviceSlug: service.slug,
-      keyword: `${region.name} ${service.keyword}`,
-      title: `${region.name} ${service.keyword} ${service.titleTails[variant]}`,
-      description: buildDescription(region, service, variant),
-      h1: `${region.name} ${service.keyword}`,
+      serviceSlug: topic.slug,
+      keyword: `${region.name} ${topic.keyword}`,
+      title: `${region.name} ${topic.keyword} | ${TITLE_TAILS[type][variant]}`,
+      description: DESCRIPTIONS[type](region, topic),
+      h1: H1S[type](region, topic),
       variant,
+      regionType: type,
       region,
-      service,
+      service: topic,
     };
   }),
 );
@@ -146,11 +114,27 @@ const pages = regions.flatMap((region) =>
 const output = {
   source: regionsData.summary.source,
   regionCount: regions.length,
-  serviceCount: services.length,
+  serviceCount: topics.length,
   pageCount: pages.length,
-  services,
+  services: topics,
   pages,
 };
 
+const retired = {
+  note: "export-static-html.mjs 가 _redirects 를 만들 때 사용한다.",
+  retiredServiceSlugs: RETIRED_SERVICE_SLUGS,
+  duplicateRegions: duplicateRegions.map((region) => {
+    const counterpart = regions.find(
+      (candidate) => candidate.sigungu === region.sigungu && ["전남", "광주"].includes(candidate.sidoShort),
+    );
+    return { slug: region.slug, counterpartSlug: counterpart?.slug ?? null };
+  }),
+  regionSlugs: regions.map((region) => region.slug),
+  topicSlugs: topics.map((topic) => topic.slug),
+};
+
 fs.writeFileSync(outputPath, JSON.stringify(output, null, 2), "utf8");
-console.log(`Generated ${pages.length} region service pages for ${regions.length} regions`);
+fs.writeFileSync(retiredPath, JSON.stringify(retired, null, 2), "utf8");
+console.log(
+  `Generated ${pages.length} region topic pages for ${regions.length} regions × ${topics.length} topics (${duplicateRegions.length} duplicate regions retired)`,
+);
