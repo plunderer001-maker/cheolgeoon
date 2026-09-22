@@ -2,6 +2,9 @@
   base = "static-site"
   command = "echo Static HTML files are already generated"
   publish = "."
+  # Netlify는 기본적으로 base 디렉터리에 변경이 없다고 판단하면 배포를 건너뛴다(Skipped).
+  # 정적 파일을 직접 커밋하는 구조이므로 판단을 끄고 push 마다 항상 배포한다.
+  ignore = "exit 1"
 
 [build.environment]
   NODE_VERSION = "22.19.0"
