@@ -223,11 +223,11 @@ export function getSiblingRegions(region: Region, limit = 6) {
 /* ---------- 경로 ---------- */
 
 export function topicHubPath(topic: Topic) {
-  return `/services/${topic.slug}/`;
+  return `/guide/${topic.slug}/`;
 }
 
 export function sidoHubPath(topic: Topic, sido: Sido) {
-  return `/services/${topic.slug}/${sido.slug}/`;
+  return `/guide/${topic.slug}/${sido.slug}/`;
 }
 
 export function regionHubPath(region: Region) {

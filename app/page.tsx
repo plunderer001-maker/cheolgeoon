@@ -280,7 +280,7 @@ export default function Home() {
           <p>
             시군구 지역 페이지에서 지역 조건에 맞는 철거 비용 기준과 상담 순서를
             확인할 수 있습니다. 견적이 달라지는 기준은{" "}
-            <Link className="text-link" href="/services/철거-비용/">
+            <Link className="text-link" href="/guide/철거-비용/">
               전국 철거 비용 안내
             </Link>
             에서 먼저 볼 수 있습니다.
