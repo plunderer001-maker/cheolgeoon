@@ -1,5 +1,5 @@
 {
-  "note": "지역 조합 없이 전국 가이드 1장만 만드는 주제. 본문은 app/guide/_guides/ 의 같은 slug 컴포넌트에 있다.",
+  "note": "지역 조합 없이 전국 가이드 1장만 만드는 주제. 본문은 app/guide/_guides/ 의 컴포넌트에 있다. aliases 의 옛 지역 서비스 주소(/regions/:region/<alias>/)도 이 가이드로 301 된다.",
   "guides": [
     {
       "slug": "원상복구-철거",
@@ -14,6 +14,43 @@
       "title": "폐업 철거지원금 2026 | 점포철거비 최대 600만원 조건·신청방법 | 철거온",
       "description": "희망리턴패키지 점포철거비(2026.1.19 공고)를 정리했습니다. 전용면적 1평당 20만원, 최대 600만원 한도와 지원 대상·제외 조건, 소상공인24 신청 절차와 정산 서류를 확인하세요.",
       "image": "/images/cheolgeoon/sections/store-demolition.webp"
+    },
+    {
+      "slug": "상가-철거",
+      "keyword": "상가 철거",
+      "aliases": [
+        "상가-철거-비용",
+        "학원-철거"
+      ],
+      "title": "상가 철거 비용과 업체 고르는 법 | 인테리어 철거 무료견적 | 철거온",
+      "description": "상가·인테리어 철거비용 참고 범위(평당 10~15만원)와 미용실·노래방·헬스장·학원 등 업종별 확인 항목, 업체 비교 기준을 정리했습니다. 사진만 보내면 무료견적을 안내합니다.",
+      "image": "/images/cheolgeoon/hero/interior-removal-hero.webp"
+    },
+    {
+      "slug": "폐업-철거",
+      "keyword": "폐업 철거",
+      "aliases": [],
+      "title": "폐업 철거 순서와 비용 | 점포철거비 지원금까지 한 번에 | 철거온",
+      "description": "가게 폐업 철거, 지원금 확인부터 원상복구·정산 서류까지 순서대로 정리했습니다. 점포철거비 최대 600만원 조건과 철거비용 참고 범위를 확인하세요.",
+      "image": "/images/cheolgeoon/hero/restaurant-demolition-hero.webp"
+    },
+    {
+      "slug": "사무실-철거",
+      "keyword": "사무실 철거",
+      "aliases": [],
+      "title": "사무실 철거 비용과 이전 원상복구 | 퇴거일 맞춤 무료견적 | 철거온",
+      "description": "사무실 이전 철거비용(20평 약 200~300만원 참고)과 파티션·OA 바닥·배선 철거 범위, 빌딩 작업 규정과 원상복구를 정리했습니다.",
+      "image": "/images/cheolgeoon/hero/final-check-hero.webp"
+    },
+    {
+      "slug": "식당-철거",
+      "keyword": "식당·카페 철거",
+      "aliases": [
+        "카페-철거"
+      ],
+      "title": "식당·카페 철거 비용 | 후드·덕트 주방 설비 철거 무료견적 | 철거온",
+      "description": "식당·카페 철거비용 참고 범위와 후드·덕트·가스·배수 등 주방 설비 확인 항목, 폐업 점포철거비 지원까지 정리했습니다.",
+      "image": "/images/cheolgeoon/hero/office-clearance-hero.webp"
     }
   ]
 }

@@ -100,11 +100,15 @@ function buildRedirects({ retired, topics, guides }) {
     lines.push(`${encodeRoute(`/regions/${slug}`)}/* ${target} 301`);
   }
 
-  const guideSlugs = new Set(guides.map((guide) => guide.slug));
+  // 같은 주제(또는 별칭)의 전국 가이드가 있으면 그쪽이 검색 의도에 더 가깝다.
+  const guideFor = new Map();
+  for (const guide of guides) {
+    guideFor.set(guide.slug, guide.slug);
+    for (const alias of guide.aliases ?? []) guideFor.set(alias, guide.slug);
+  }
   for (const serviceSlug of retired.retiredServiceSlugs) {
-    // 같은 주제의 전국 가이드가 있으면 그쪽이 검색 의도에 더 가깝다.
-    const target = guideSlugs.has(serviceSlug)
-      ? encodeRoute(`/guide/${serviceSlug}/`)
+    const target = guideFor.has(serviceSlug)
+      ? encodeRoute(`/guide/${guideFor.get(serviceSlug)}/`)
       : `/regions/:region/${encodeRoute(primaryTopic.slug)}/`;
     lines.push(`/regions/:region/${encodeRoute(serviceSlug)}/ ${target} 301`);
   }

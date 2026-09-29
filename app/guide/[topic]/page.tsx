@@ -36,7 +36,11 @@ import {
   LandingTitle,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
+import { ClosureGuide } from "@/app/guide/_guides/closure";
 import { ClosureSubsidyGuide } from "@/app/guide/_guides/closure-subsidy";
+import { OfficeGuide } from "@/app/guide/_guides/office";
+import { RestaurantGuide } from "@/app/guide/_guides/restaurant";
+import { StoreGuide } from "@/app/guide/_guides/store";
 import { RestorationGuide } from "@/app/guide/_guides/restoration";
 import { getGuide, guides } from "@/app/lib/guides";
 import {
@@ -65,6 +69,10 @@ const SITE_URL = "https://cheolgeoon.netlify.app";
 const GUIDE_PAGES: Record<string, ComponentType<{ keyword: string }>> = {
   "원상복구-철거": RestorationGuide,
   "폐업-철거지원금": ClosureSubsidyGuide,
+  "상가-철거": StoreGuide,
+  "폐업-철거": ClosureGuide,
+  "사무실-철거": OfficeGuide,
+  "식당-철거": RestaurantGuide,
 };
 
 export const dynamicParams = false;

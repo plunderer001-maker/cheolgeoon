@@ -138,6 +138,15 @@ export default function Home() {
           어떤 <em>도움</em>이 필요하세요?
         </LandingTitle>
         <LandingCards items={GUIDES} linkAll />
+        <p className="lp-chips-label">현장별 안내</p>
+        <LandingChips
+          links={[
+            { label: "상가·인테리어 철거", href: "/guide/상가-철거/" },
+            { label: "폐업 철거", href: "/guide/폐업-철거/" },
+            { label: "사무실 철거", href: "/guide/사무실-철거/" },
+            { label: "식당·카페 철거", href: "/guide/식당-철거/" },
+          ]}
+        />
       </section>
 
       <section className="lp-section">
