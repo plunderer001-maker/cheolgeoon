@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Layers3, MapPinned } from "lucide-react";
-import { Breadcrumb } from "@/app/components/Breadcrumb";
+import { Building2, Calculator, DoorOpen, FileText, HandCoins, Store, UtensilsCrossed } from "lucide-react";
+import { LandingCards, LandingChips, LandingFinal, LandingHero, LandingTitle } from "@/app/components/Landing";
 import { guidePath, guides } from "@/app/lib/guides";
-import { PRIORITY_REGION_SLUGS, regionMap, sidos, topicHubPath, topics } from "@/app/lib/region-pages";
+import { PRIORITY_REGION_SLUGS, regionMap, regionTopicPath, sidoHubPath, sidos, topicHubPath, topics } from "@/app/lib/region-pages";
+
+/* 철거 가이드 목록. 주제 허브와 전국 가이드를 한곳에 모은다. */
+
+const TITLE = "철거 가이드 모음 | 비용·원상복구·지원금·현장별 안내 | 철거온";
+const DESCRIPTION =
+  "철거 비용, 원상복구, 폐업 철거지원금부터 상가·사무실·식당 철거까지 상황별 안내를 모았습니다. 필요한 가이드를 고르고 지역별 철거비용도 확인하세요.";
 
 export const metadata: Metadata = {
-  title: "철거 상담 주제 안내 | 철거 비용부터 순서대로 | 철거온",
-  description:
-    "철거 비용 등 주제별 안내 페이지와 전국 시도별 상담 페이지를 모았습니다. 견적이 달라지는 기준을 먼저 확인하고 지역 페이지로 이동하세요.",
-  alternates: {
-    canonical: "/guide/",
-  },
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/guide/" },
   openGraph: {
-    title: "철거 상담 주제 안내 | 철거온",
-    description: "주제별 철거 안내와 전국 시도별 상담 페이지를 한곳에서 확인하세요.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/guide/",
     siteName: "철거온",
     locale: "ko_KR",
@@ -23,82 +25,80 @@ export const metadata: Metadata = {
   },
 };
 
+/* 가이드별 아이콘과 한 줄 설명. 새 가이드를 추가하면 여기에도 넣는다(없으면 기본값). */
+const GUIDE_META: Record<string, { icon: typeof Store; body: string; group: "money" | "site" }> = {
+  "철거-비용": { icon: Calculator, body: "평당 참고 범위와 금액이 달라지는 이유", group: "money" },
+  "원상복구-철거": { icon: FileText, body: "어디까지 철거하고 복구해야 하는지", group: "money" },
+  "폐업-철거지원금": { icon: HandCoins, body: "점포철거비 최대 600만원 조건과 서류", group: "money" },
+  "상가-철거": { icon: Store, body: "업종별 확인 항목과 업체 비교 기준", group: "site" },
+  "폐업-철거": { icon: DoorOpen, body: "지원금부터 정산 서류까지 폐업 순서", group: "site" },
+  "사무실-철거": { icon: Building2, body: "파티션·배선 철거와 퇴거일 맞춤 일정", group: "site" },
+  "식당-철거": { icon: UtensilsCrossed, body: "후드·덕트 등 주방 설비 철거", group: "site" },
+};
+
 const priorityRegions = Array.from(PRIORITY_REGION_SLUGS)
   .map((slug) => regionMap.get(slug))
   .filter((region): region is NonNullable<typeof region> => Boolean(region));
 
-export default function ServicesIndexPage() {
+export default function GuideIndexPage() {
+  const all = [
+    ...topics.map((topic) => ({ slug: topic.slug, keyword: topic.keyword, href: topicHubPath(topic) })),
+    ...guides.map((guide) => ({ slug: guide.slug, keyword: guide.keyword, href: guidePath(guide) })),
+  ];
+  const cards = (group: "money" | "site") =>
+    all
+      .filter((item) => (GUIDE_META[item.slug]?.group ?? "site") === group)
+      .map((item) => ({
+        icon: GUIDE_META[item.slug]?.icon ?? FileText,
+        title: item.keyword,
+        body: GUIDE_META[item.slug]?.body ?? `${item.keyword} 안내`,
+        href: item.href,
+      }));
+  const topic = topics[0];
+
   return (
-    <main className="seo-main">
-      <section className="seo-hero compact">
-        <Link className="seo-brand" href="/">
-          철거온
-        </Link>
-        <Breadcrumb items={[{ name: "홈", href: "/" }, { name: "철거 상담 주제" }]} />
-        <p className="eyebrow">철거 상담 주제</p>
-        <h1>무엇부터 확인해야 할지 주제별로 정리했습니다.</h1>
-        <p>
-          철거는 평수만으로 견적이 정해지지 않습니다. 주제별 안내에서 비용이 달라지는
-          기준과 준비물을 먼저 확인한 뒤, 현장이 있는 지역 페이지에서 지역 조건을 함께
-          보시면 상담이 빨라집니다.
-        </p>
+    <main className="lp">
+      <LandingHero
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제" }]}
+        kicker="철거 가이드 모음"
+        title={
+          <>
+            무엇부터 알아볼지,
+            <br />
+            상황에 맞는 안내를 고르세요
+          </>
+        }
+        lead="비용·원상복구·지원금부터 상가·사무실·식당 철거까지."
+        checks={["견적 상담 무료", "출처 있는 참고 금액", "지원금 정산 서류 발급"]}
+        secondary={{ label: "현장별 안내 보기", href: "#site" }}
+      />
+
+      <section className="lp-section">
+        <LandingTitle>
+          비용·<em>원상복구</em>·지원금
+        </LandingTitle>
+        <LandingCards items={cards("money")} />
       </section>
 
-      <section className="seo-section">
-        <div className="seo-section-head">
-          <div>
-            <p className="eyebrow dark">주제별 안내</p>
-            <h2>지금 확인할 수 있는 철거 상담 주제입니다.</h2>
-          </div>
-          <Layers3 size={30} aria-hidden="true" />
-        </div>
-        <div className="seo-link-grid">
-          {topics.map((topic) => (
-            <Link key={topic.slug} href={topicHubPath(topic)}>
-              {topic.keyword} 안내
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          ))}
-          {guides.map((guide) => (
-            <Link key={guide.slug} href={guidePath(guide)}>
-              {guide.keyword} 안내
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          ))}
-        </div>
+      <section className="lp-section" id="site">
+        <LandingTitle>
+          <em>현장별</em> 철거 안내
+        </LandingTitle>
+        <LandingCards items={cards("site")} />
       </section>
 
-      <section className="seo-section">
-        <div className="seo-section-head">
-          <div>
-            <p className="eyebrow dark">지역별 확인</p>
-            <h2>현장이 있는 지역에서 바로 확인하세요.</h2>
-          </div>
-          <MapPinned size={30} aria-hidden="true" />
-        </div>
-        <div className="seo-link-grid">
-          {priorityRegions.map((region) => (
-            <Link key={region.slug} href={`/regions/${region.slug}/`}>
-              {region.name} 철거
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          ))}
-        </div>
-        <p style={{ marginTop: 16 }}>
-          그 밖의 지역은{" "}
-          {topics.map((topic) => (
-            <span key={topic.slug}>
-              {sidos.map((sido, index) => (
-                <span key={sido.slug}>
-                  <Link href={`/guide/${topic.slug}/${sido.slug}/`}>{sido.short}</Link>
-                  {index < sidos.length - 1 ? " · " : ""}
-                </span>
-              ))}
-            </span>
-          ))}{" "}
-          시도 페이지에서 시군구를 고르실 수 있습니다.
-        </p>
-      </section>
+      {topic && (
+        <section className="lp-section lp-regions">
+          <LandingTitle>지역별 철거비용</LandingTitle>
+          <LandingChips links={sidos.map((sido) => ({ label: sido.short, href: sidoHubPath(topic, sido) }))} />
+          <p className="lp-chips-label">상담이 많은 지역</p>
+          <LandingChips soft links={priorityRegions.map((region) => ({ label: region.name, href: regionTopicPath(region, topic) }))} />
+          <p className="lp-chips-label">전체 지역</p>
+          <LandingChips links={[{ label: "전국 시군구 전체 보기", href: "/regions/" }]} />
+        </section>
+      )}
+
+      <LandingFinal />
     </main>
   );
 }

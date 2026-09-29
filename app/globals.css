@@ -2532,3 +2532,53 @@ h2 {
   background: none;
   font-size: 15px;
 }
+
+/* 지역 목록: 시도별 묶음 */
+.lp-sido-list {
+  display: grid;
+  gap: 12px;
+}
+
+.lp-sido-block {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--lp-radius);
+  padding: 18px 20px;
+}
+
+.lp .lp-sido-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.lp-sido-head a {
+  align-items: center;
+  display: inline-flex;
+  font-size: 18px;
+  font-weight: 900;
+  gap: 6px;
+}
+
+.lp-sido-head a svg {
+  color: var(--clay);
+}
+
+.lp-sido-head span {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.lp-sido-block .lp-chips a {
+  font-size: 14px;
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+@media (max-width: 560px) {
+  .lp-sido-block {
+    padding: 16px;
+  }
+}
