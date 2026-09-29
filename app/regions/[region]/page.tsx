@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { josa } from "@/app/lib/josa";
 import { ArrowLeft, ArrowRight, ClipboardCheck, MapPinned, MessageCircle } from "lucide-react";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
 import {
@@ -44,9 +45,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const type = REGION_TYPE_COPY[getRegionType(region)];
   const title = `${region.name} 철거 상담 안내 | 현장 조건과 견적 준비`;
-  const description = `${region.fullName} 철거 상담 안내입니다. ${type.label} 현장에서 먼저 확인하는 ${type.checks
-    .map(([item]) => item)
-    .join(", ")}과 주제별 견적 기준을 정리했습니다.`;
+  const checkList = type.checks.map(([item]) => item).join(", ");
+  const description = `${region.fullName} 철거 상담 안내입니다. ${type.label} 현장에서 먼저 확인하는 ${josa(checkList, "과/와")} 주제별 견적 기준을 정리했습니다.`;
 
   return {
     title,
@@ -100,7 +100,7 @@ export default async function RegionHubPage({ params }: PageProps) {
         <h1>{region.name} 철거, 현장 조건부터 확인합니다.</h1>
         <p>
           {region.name}에서 철거를 알아보실 때는 평수보다 먼저 작업 범위, 원상복구 기준, 폐기물
-          반출 조건을 확인해야 합니다. {typeCopy.label} 현장은 {typeCopy.checks[0][0]}이 견적을
+          반출 조건을 확인해야 합니다. {typeCopy.label} 현장은 {josa(typeCopy.checks[0][0], "이/가")} 견적을
           크게 바꾸므로 이 부분부터 봅니다.
         </p>
         <div className="seo-actions">

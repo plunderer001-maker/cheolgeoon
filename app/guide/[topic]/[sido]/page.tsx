@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { josa } from "@/app/lib/josa";
 import { ArrowLeft, ArrowRight, ClipboardCheck, HelpCircle, MapPinned, MessageCircle } from "lucide-react";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
 import {
@@ -155,7 +156,7 @@ export default async function SidoHubPage({ params }: PageProps) {
             <p className="eyebrow dark">{sido.name} 현장 조건</p>
             <h2>{sido.name}에서 견적 전에 먼저 보는 조건입니다.</h2>
             <p>
-              {copy.note} {sido.name}은 {typeCopy.label} 현장 비중이 커서 {typeCopy.summary}
+              {copy.note} {josa(sido.name, "은/는")} {typeCopy.label} 현장 비중이 커서 {typeCopy.summary}
             </p>
           </div>
           <div className="seo-check-list">

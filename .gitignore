@@ -46,3 +46,6 @@ next-env.d.ts
 /db/
 /drizzle/
 /examples/
+
+# 튜닝·점검용 임시 파일
+.tmp/

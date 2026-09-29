@@ -10,6 +10,7 @@ const workerPath = path.join(rootDir, "dist", "server", "index.js");
 const regionsDataPath = path.join(rootDir, "data", "generated", "regions.json");
 const regionTopicDataPath = path.join(rootDir, "data", "generated", "region-service-pages.json");
 const retiredRoutesPath = path.join(rootDir, "data", "generated", "retired-routes.json");
+const guidesPath = path.join(rootDir, "data", "guides.json");
 
 const SIDO_ORDER = ["서울", "경기", "인천", "부산", "대구", "광주", "대전", "울산", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주"];
 const DUPLICATE_SIDO_SHORT = "전남광주통합";
@@ -85,7 +86,7 @@ async function writeRoute(worker, route) {
  * - /regions/:region/{옛 서비스}/ → 같은 지역의 주제 페이지
  * - /regions/전남광주통합-…/* (중복 시도 코드) → 대응 지역의 주제 페이지
  */
-function buildRedirects({ retired, topics }) {
+function buildRedirects({ retired, topics, guides }) {
   const primaryTopic = topics[0];
   const hub = encodeRoute(`/guide/${primaryTopic.slug}/`);
   const lines = [
@@ -99,11 +100,17 @@ function buildRedirects({ retired, topics }) {
     lines.push(`${encodeRoute(`/regions/${slug}`)}/* ${target} 301`);
   }
 
+  const guideSlugs = new Set(guides.map((guide) => guide.slug));
   for (const serviceSlug of retired.retiredServiceSlugs) {
-    lines.push(`/regions/:region/${encodeRoute(serviceSlug)}/ /regions/:region/${encodeRoute(primaryTopic.slug)}/ 301`);
+    // 같은 주제의 전국 가이드가 있으면 그쪽이 검색 의도에 더 가깝다.
+    const target = guideSlugs.has(serviceSlug)
+      ? encodeRoute(`/guide/${serviceSlug}/`)
+      : `/regions/:region/${encodeRoute(primaryTopic.slug)}/`;
+    lines.push(`/regions/:region/${encodeRoute(serviceSlug)}/ ${target} 301`);
   }
 
-  lines.push("/index.html / 301");
+  // 실제 index.html 파일이 있어 force(!) 없이는 규칙이 적용되지 않는다.
+  lines.push("/index.html / 301!");
 
   return `${lines.join("\n")}\n`;
 }
@@ -126,6 +133,7 @@ async function main() {
   const regionsData = JSON.parse(await readFile(regionsDataPath, "utf8"));
   const regionTopicData = JSON.parse(await readFile(regionTopicDataPath, "utf8"));
   const retired = JSON.parse(await readFile(retiredRoutesPath, "utf8"));
+  const { guides } = JSON.parse(await readFile(guidesPath, "utf8"));
 
   const regions = regionsData.regions.filter((region) => region.sidoShort !== DUPLICATE_SIDO_SHORT);
   const topics = regionTopicData.services;
@@ -135,6 +143,7 @@ async function main() {
     "/",
     "/guide",
     ...topics.map((topic) => `/guide/${topic.slug}`),
+    ...guides.map((guide) => `/guide/${guide.slug}`),
     ...topics.flatMap((topic) => sidoSlugs.map((sido) => `/guide/${topic.slug}/${sido}`)),
     "/regions",
     ...regions.map((region) => `/regions/${region.slug}`),
@@ -150,7 +159,7 @@ async function main() {
   await cp(clientDir, outputDir, { recursive: true });
 
   await appendFile(path.join(outputDir, "_headers"), EXTRA_HEADERS, "utf8");
-  const redirects = buildRedirects({ retired, topics });
+  const redirects = buildRedirects({ retired, topics, guides });
   await writeFile(path.join(outputDir, "_redirects"), redirects, "utf8");
   console.log(`Redirect rules: ${redirects.split("\n").filter((line) => line && !line.startsWith("#")).length}`);
 

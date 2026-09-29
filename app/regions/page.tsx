@@ -2,7 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MapPinned } from "lucide-react";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
-import { regionHubPath, regions, sidoHubPath, sidos, topics } from "@/app/lib/region-pages";
+import {
+  PRIORITY_REGION_SLUGS,
+  regionHubPath,
+  regionMap,
+  regions,
+  regionTopicPath,
+  sidoHubPath,
+  sidos,
+  topics,
+} from "@/app/lib/region-pages";
+
+const priorityRegions = [...PRIORITY_REGION_SLUGS].flatMap((slug) => {
+  const region = regionMap.get(slug);
+  return region ? [region] : [];
+});
 
 export const metadata: Metadata = {
   title: "전국 지역별 철거 상담 안내 | 시도·시군구 선택 | 철거온",
@@ -39,6 +53,24 @@ export default function RegionsIndexPage() {
           건물 규정, 차량 진입, 폐기물 반출 거리가 달라 같은 작업이라도 견적 항목이 바뀝니다.
           시도를 고른 뒤 시군구 페이지에서 지역 조건을 확인하세요.
         </p>
+      </section>
+
+      <section className="seo-section">
+        <div className="seo-section-head">
+          <div>
+            <p className="eyebrow dark">주요 지역</p>
+            <h2>상담 요청이 많은 지역의 철거 비용 기준입니다.</h2>
+          </div>
+        </div>
+        <div className="seo-link-grid">
+          {primaryTopic &&
+            priorityRegions.map((region) => (
+              <Link key={region.slug} href={regionTopicPath(region, primaryTopic)}>
+                {region.name} 철거 비용
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            ))}
+        </div>
       </section>
 
       <section className="seo-section">

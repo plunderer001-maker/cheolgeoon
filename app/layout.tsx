@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "철거온 | 전국 철거 무료견적 상담",
     description:
       "철거가 필요한 현장의 범위, 일정, 방문 견적, 지원금 신청 가능 여부를 함께 확인합니다.",
-    url: "https://cheolgeoon.netlify.app",
+    url: "https://cheolgeoon.netlify.app/",
     siteName: "철거온",
     locale: "ko_KR",
     type: "website",
@@ -35,8 +35,11 @@ export const metadata: Metadata = {
     images: ["/images/cheolgeoon/og/main-og.webp"],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   verification: {
     google: "pIY3u_Xq-v1EjG37G6Gq2azRJRvmhnhDQH_chnGGdAE",
@@ -52,6 +55,32 @@ export const viewport: Viewport = {
   themeColor: "#101713",
 };
 
+const SITE_URL = "https://cheolgeoon.netlify.app/";
+
+/* 사이트 공통 구조화 데이터. 사업자 정보(전화·주소·사업자번호)가 확정되면 Organization 에 추가한다. */
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}#org`,
+      name: "철거온",
+      url: SITE_URL,
+      logo: `${SITE_URL}icon-512.png`,
+      description: "상가, 사무실, 식당, 카페, 학원 철거와 원상복구 무료견적·방문견적 상담",
+      areaServed: { "@type": "Country", name: "대한민국" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}#website`,
+      name: "철거온",
+      url: SITE_URL,
+      inLanguage: "ko-KR",
+      publisher: { "@id": `${SITE_URL}#org` },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -60,6 +89,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
+        />
         {children}
         <FloatingFormButton />
       </body>

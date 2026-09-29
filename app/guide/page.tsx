@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Layers3, MapPinned } from "lucide-react";
 import { Breadcrumb } from "@/app/components/Breadcrumb";
+import { guidePath, guides } from "@/app/lib/guides";
 import { PRIORITY_REGION_SLUGS, regionMap, sidos, topicHubPath, topics } from "@/app/lib/region-pages";
 
 export const metadata: Metadata = {
@@ -55,6 +56,12 @@ export default function ServicesIndexPage() {
           {topics.map((topic) => (
             <Link key={topic.slug} href={topicHubPath(topic)}>
               {topic.keyword} 안내
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          ))}
+          {guides.map((guide) => (
+            <Link key={guide.slug} href={guidePath(guide)}>
+              {guide.keyword} 안내
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           ))}

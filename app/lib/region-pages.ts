@@ -44,6 +44,13 @@ export type RegionNotes = {
   cases?: string[];
   tips?: string[];
   waste?: string;
+  /* 공개 자료로 조사한 지역 사실. 시군구 철거비용 페이지 색인 판단(isIndexableRegionTopic)에 쓴다. */
+  profile?: {
+    areas: string[];
+    areaNotes?: { name: string; note: string }[];
+    facts: string[];
+    sources: { label: string; href: string }[];
+  };
 };
 
 type RegionsData = {
@@ -138,6 +145,15 @@ export function hasRegionNotes(regionSlug: string) {
 export function isIndexableRegion(regionSlug: string) {
   const decoded = decodeURIComponent(regionSlug);
   return PRIORITY_REGION_SLUGS.has(decoded) || hasRegionNotes(decoded);
+}
+
+/* 시군구 철거비용 페이지 색인 여부. 조사한 지역 사실이 4개 이상이면 지역 고유 내용이 충분하다고 본다. */
+export const MIN_PROFILE_FACTS = 4;
+
+export function isIndexableRegionTopic(regionSlug: string) {
+  const decoded = decodeURIComponent(regionSlug);
+  const facts = getRegionNotes(decoded)?.profile?.facts.length ?? 0;
+  return isIndexableRegion(decoded) || facts >= MIN_PROFILE_FACTS;
 }
 
 export function getRegionType(region: Region): RegionType {

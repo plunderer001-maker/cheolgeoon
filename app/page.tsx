@@ -1,300 +1,196 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import {
-  ArrowRight,
   BadgeCheck,
-  Ban,
-  Building2,
-  ClipboardCheck,
+  CalendarCheck,
+  Calculator,
   FileSearch,
-  MapPin,
-  MessageCircle,
-  PhoneCall,
-  Ruler,
-  ShieldCheck,
-  Sparkles,
-  Truck,
+  FileText,
+  HandCoins,
+  PaintRoller,
+  Receipt,
+  Recycle,
+  TriangleAlert,
 } from "lucide-react";
+import {
+  LandingBanner,
+  LandingCards,
+  LandingChips,
+  LandingFactors,
+  LandingFaq,
+  LandingFinal,
+  LandingHero,
+  LandingNote,
+  LandingPrice,
+  LandingSpaces,
+  LandingSplit,
+  LandingSteps,
+  LandingTitle,
+  SERVICE_SCOPE,
+} from "@/app/components/Landing";
+import {
+  MARKET_PRICE_CAPTION,
+  MARKET_PRICE_ROWS,
+  MARKET_PRICE_SOURCES,
+  MARKET_PRICE_UPS,
+} from "@/app/lib/market-prices";
+import { PRIORITY_REGION_SLUGS, regionMap, regionHubPath, sidoHubPath, sidos, topics } from "@/app/lib/region-pages";
 
-const NAVER_FORM_URL = "https://naver.me/FLEWiPhf";
+/* 메인은 "철거업체"를 주 키워드로, "철거비용"은 요약만 두고 비용 가이드로 넘긴다. */
+const TITLE = "철거업체 순위보다 중요한 기준 | 철거비용 무료견적 | 철거온";
+const DESCRIPTION =
+  "철거업체를 고를 때 순위보다 먼저 봐야 할 기준 5가지와 상가·사무실 철거비용 참고 범위를 정리했습니다. 사진만 보내면 무료견적, 원상복구와 지원금 정산 서류까지 안내합니다.";
 
-const serviceCards = [
-  {
-    icon: Building2,
-    title: "상가·사무실 철거",
-    text: "가게를 비우거나 사무실을 옮기실 때, 어디까지 철거해야 하는지부터 같이 확인합니다.",
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://cheolgeoon.netlify.app/",
+    siteName: "철거온",
+    locale: "ko_KR",
+    type: "website",
+    images: [{ url: "/images/cheolgeoon/og/main-og.webp", width: 1200, height: 630, alt: "철거온 전국 철거 무료견적 상담" }],
   },
-  {
-    icon: ShieldCheck,
-    title: "식당·카페·학원 철거",
-    text: "바닥, 천장, 벽면, 집기, 설비처럼 놓치기 쉬운 부분까지 현장 기준으로 살펴봅니다.",
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/images/cheolgeoon/og/main-og.webp"],
   },
-  {
-    icon: Truck,
-    title: "철거 포함 정리·반출",
-    text: "단순 폐기물 처리만은 어렵지만, 철거하면서 나오는 정리와 반출은 함께 상담할 수 있습니다.",
-  },
+};
+
+/* "철거업체 순위" 검색 의도: 순위표 대신 믿을 만한 업체를 가리는 기준을 준다. */
+const CRITERIA = [
+  { icon: Receipt, title: "세금계산서 발급", body: "사업자등록된 업체인지, 지원금 정산이 되는지" },
+  { icon: Recycle, title: "폐기물 처리 포함", body: "폐기물 처리비가 견적에 들어 있는지" },
+  { icon: FileSearch, title: "항목별 견적서", body: "인건비·폐기물·운반비가 나눠져 있는지" },
+  { icon: TriangleAlert, title: "추가 비용 조건", body: "어떤 경우 금액이 바뀌는지 적혀 있는지" },
+  { icon: PaintRoller, title: "원상복구까지", body: "철거 후 마감 복구까지 한 번에 되는지" },
 ];
 
-const process = [
-  ["상담 접수", "주소, 업종, 평수, 현재 상태를 편하게 알려주세요."],
-  ["사진 확인", "사진이 있으면 대략적인 철거 범위와 방문 필요 여부를 먼저 봅니다."],
-  ["방문 견적", "현장에서 원상복구 기준, 작업 동선, 반출 조건을 함께 확인합니다."],
-  ["일정 조율", "건물 규정, 소음 가능 시간, 엘리베이터 사용 조건까지 맞춰봅니다."],
-  ["철거 진행", "작업 후 정리와 확인까지 마무리 흐름에 맞춰 진행합니다."],
+const GUIDES = [
+  { icon: Calculator, title: "철거비용이 궁금해요", body: "평당 참고 범위와 금액이 달라지는 이유", href: "/guide/철거-비용/" },
+  { icon: FileText, title: "원상복구를 해야 해요", body: "어디까지 철거하고 복구해야 하는지", href: "/guide/원상복구-철거/" },
+  { icon: HandCoins, title: "폐업 지원금을 받고 싶어요", body: "점포철거비 최대 600만원 조건과 서류", href: "/guide/폐업-철거지원금/" },
+  { icon: CalendarCheck, title: "바로 견적을 받고 싶어요", body: "사진·주소만 남기면 1차 범위를 안내합니다" },
 ];
 
-const proofItems = [
-  "전국 상담 가능",
-  "무료견적 상담",
-  "방문 견적 진행",
-  "지원금 가능 여부 안내",
+const FAQ: [string, string][] = [
+  [
+    "철거업체 순위는 어디서 볼 수 있나요?",
+    "공식적으로 매기는 철거업체 순위는 없습니다. 세금계산서 발급, 폐기물 처리비 포함, 항목별 견적서, 추가 비용 조건을 기준으로 2~3곳을 비교해 보시는 방법을 권합니다.",
+  ],
+  ["견적은 정말 무료인가요?", "견적 상담은 무료입니다. 도서산간 지역은 방문·출장 비용이 생길 수 있습니다."],
+  ["사진이나 평수를 몰라도 되나요?", "괜찮습니다. 주소와 업종만 알려주셔도 상담할 수 있고, 사진이 있으면 범위를 더 빨리 봅니다."],
+  ["전국 어디든 가능한가요?", "전국 상담이 가능합니다. 지역마다 건물 규정과 반출 조건이 달라 주소를 기준으로 일정을 안내합니다."],
 ];
 
-const excludedItems = [
-  "부분철거만 단독 진행",
-  "단순 폐기물 처리만 의뢰",
-  "집기 매입만 별도 의뢰",
-];
-
-const regionLinks = [
-  ["서울 강남구 철거", "/regions/서울-강남구/"],
-  ["인천 남동구 철거", "/regions/인천-남동구/"],
-  ["수원 철거", "/regions/수원/"],
-  ["성남 철거", "/regions/성남/"],
-  ["고양 철거", "/regions/고양/"],
-  ["용인 철거", "/regions/용인/"],
-  ["대전 서구 철거", "/regions/대전-서구/"],
-  ["대구 수성구 철거", "/regions/대구-수성구/"],
-  ["부산 해운대구 철거", "/regions/부산-해운대구/"],
-  ["광주 북구 철거", "/regions/광주-북구/"],
-  ["청주 철거", "/regions/청주/"],
-  ["강릉 철거", "/regions/강릉/"],
-];
-
-const galleryImages = [
-  ["/images/cheolgeoon/sections/commercial-unit-demolition.webp", "상가 내부 철거 현장"],
-  ["/images/cheolgeoon/sections/fixture-removal.webp", "집기와 설비 철거"],
-  ["/images/cheolgeoon/sections/floor-removal.webp", "바닥 철거 작업"],
-  ["/images/cheolgeoon/sections/final-inspection.webp", "철거 후 현장 확인"],
-];
-
-const supportImages = [
-  ["/images/cheolgeoon/ai-pool/ai-consultation-01.webp", "상담 준비 이미지"],
-  ["/images/cheolgeoon/ai-pool/ai-site-estimate-01.webp", "방문 견적 이미지"],
-  ["/images/cheolgeoon/ai-pool/ai-document-guide-01.webp", "서류 안내 이미지"],
-];
+const priorityRegions = Array.from(PRIORITY_REGION_SLUGS)
+  .map((slug) => regionMap.get(slug))
+  .filter((region): region is NonNullable<typeof region> => Boolean(region));
 
 export default function Home() {
+  const primaryTopic = topics[0];
+
   return (
-    <main>
-      <header className="site-header" aria-label="철거온 상단 메뉴">
-        <a className="brand" href="#top" aria-label="철거온 홈">
-          <span className="brand-mark">철</span>
-          <span>철거온</span>
-        </a>
-        <nav aria-label="주요 메뉴">
-          <a href="#services">가능 작업</a>
-          <a href="#process">진행 순서</a>
-          <a href="#regions">지역 안내</a>
-          <a href="#consultation">견적 준비</a>
-        </nav>
-      </header>
+    <main className="lp">
+      <LandingHero
+        kicker="전국 상가·사무실 철거 무료견적"
+        title={
+          <>
+            철거업체 순위보다 중요한 건,
+            <br />
+            우리 현장 철거비용입니다
+          </>
+        }
+        lead="사진만 보내면 금액이 달라지는 항목부터 알려드립니다."
+        checks={["견적 상담 무료", "원상복구·마감까지", "지원금 정산 서류 발급"]}
+        secondary={{ label: "업체 고르는 기준 보기", href: "#criteria" }}
+      />
 
-      <section id="top" className="hero">
-        <img
-          className="hero-bg"
-          src="/images/cheolgeoon/hero/main-hero.webp"
-          alt="철거 현장 내부 정리 모습"
+      <section className="lp-section" id="criteria">
+        <LandingTitle>
+          좋은 철거업체 고르는 <em>5가지</em> 기준
+        </LandingTitle>
+        <LandingFactors items={CRITERIA} />
+        <LandingNote icon={BadgeCheck}>
+          공식 철거업체 순위는 없습니다. 견적을 받을 때 이 다섯 가지를 기준으로 비교해 보세요.
+        </LandingNote>
+      </section>
+
+      <section className="lp-section" id="price">
+        <LandingTitle>
+          철거비용, <em>평당</em> 얼마쯤 할까요?
+        </LandingTitle>
+        <LandingPrice
+          rows={MARKET_PRICE_ROWS}
+          ups={MARKET_PRICE_UPS}
+          sources={MARKET_PRICE_SOURCES}
+          caption={MARKET_PRICE_CAPTION}
         />
-        <div className="hero-shade" />
-        <div className="hero-content">
-          <p className="eyebrow">전국 철거 무료견적 상담</p>
-          <h1>철거, 어디서부터 알아봐야 할지 막막하셨죠?</h1>
-          <p className="hero-copy">
-            가게를 정리해야 하거나 원상복구가 필요할 때, 제일 헷갈리는 건
-            “어디까지 철거해야 하는지”입니다. 철거온이 현장 상황을 먼저 듣고
-            견적과 진행 순서를 차근차근 안내해드립니다.
-          </p>
-          <div className="hero-actions">
-            <a className="primary-button" href={NAVER_FORM_URL}>
-              <MessageCircle size={19} aria-hidden="true" />
-              네이버 폼으로 문의
-            </a>
-            <a className="secondary-button" href="#services">
-              가능한 작업 보기
-              <ArrowRight size={18} aria-hidden="true" />
-            </a>
-          </div>
-          <div className="hero-note">
-            <BadgeCheck size={18} aria-hidden="true" />
-            견적 상담은 무료입니다. 도서산간 지역은 방문·출동 비용이 생길 수 있습니다.
-          </div>
-        </div>
+        <LandingChips links={[{ label: "철거비용 자세히 보기", href: "/guide/철거-비용/" }]} />
       </section>
 
-      <section className="proof-band" aria-label="철거온 상담 특징">
-        {proofItems.map((item) => (
-          <div key={item}>
-            <Sparkles size={18} aria-hidden="true" />
-            <span>{item}</span>
-          </div>
-        ))}
+      <section className="lp-section">
+        <LandingTitle>
+          어떤 <em>도움</em>이 필요하세요?
+        </LandingTitle>
+        <LandingCards items={GUIDES} linkAll />
       </section>
 
-      <section className="section intro-grid">
-        <div>
-          <p className="eyebrow dark">견적 전에 먼저 확인할 것</p>
-          <h2>철거 비용은 평수만 보고 딱 정해지지 않습니다.</h2>
-        </div>
-        <p>
-          같은 20평 매장이라도 바닥재, 천장 마감, 벽체 상태, 집기 양,
-          폐기물 반출 동선에 따라 견적이 달라집니다. 그래서 철거온은 무작정
-          금액부터 말하기보다, 현장 조건을 먼저 듣고 필요한 철거 범위를 함께
-          정리해드립니다.
-        </p>
+      <section className="lp-section">
+        <LandingTitle>이런 현장을 철거합니다</LandingTitle>
+        <LandingSpaces />
+        <LandingNote>창고·공장·주택 내부 철거도 상담할 수 있습니다.</LandingNote>
       </section>
 
-      <section id="services" className="section service-section">
-        <div className="section-head">
-          <p className="eyebrow dark">가능 작업</p>
-          <h2>상가, 사무실, 식당처럼 철거가 필요한 현장을 봅니다.</h2>
-          <p>
-            원상복구가 필요한지, 폐업 정리인지, 일부 설비만 남겨야 하는지에 따라
-            작업 방식이 달라집니다. 처음 문의하실 때 정확히 모르셔도 괜찮습니다.
-          </p>
-        </div>
-        <div className="service-grid">
-          {serviceCards.map(({ icon: Icon, title, text }) => (
-            <article className="service-card" key={title}>
-              <Icon size={28} aria-hidden="true" />
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
-        <div className="limits-panel">
-          <div>
-            <Ban size={24} aria-hidden="true" />
-            <h3>이런 의뢰는 단독 진행이 어렵습니다</h3>
-          </div>
-          <ul>
-            {excludedItems.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <p>다만 철거 작업에 포함되는 경우라면 현장 상황을 보고 함께 안내드립니다.</p>
-        </div>
+      <section className="lp-section">
+        <LandingTitle>
+          철거온이 <em>맡는</em> 범위
+        </LandingTitle>
+        <LandingSplit yes={SERVICE_SCOPE.yes} no={SERVICE_SCOPE.no} tip={SERVICE_SCOPE.tip} />
       </section>
 
-      <section className="image-strip" aria-label="철거 시공 이미지">
-        {galleryImages.map(([src, alt]) => (
-          <figure key={src}>
-            <img src={src} alt={alt} />
-          </figure>
-        ))}
+      <section className="lp-section">
+        <LandingTitle>3단계면 끝납니다</LandingTitle>
+        <LandingSteps />
       </section>
 
-      <section id="process" className="section process-section">
-        <div className="section-head">
-          <p className="eyebrow dark">진행 순서</p>
-          <h2>문의 후에는 이렇게 진행됩니다.</h2>
-          <p>
-            처음부터 모든 내용을 알고 계실 필요는 없습니다. 가능한 정보부터 받고,
-            부족한 부분은 방문 견적에서 같이 확인합니다.
-          </p>
-        </div>
-        <ol className="process-list">
-          {process.map(([title, text], index) => (
-            <li key={title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+      <section className="lp-section">
+        <LandingBanner
+          icon={HandCoins}
+          title="폐업 예정이라면 철거지원금부터 확인하세요"
+          body="희망리턴패키지 점포철거비는 전용면적 1평당 20만원, 최대 600만원까지 지원됩니다. 정산 서류(공사내역서·세금계산서)도 철거온이 발급합니다."
+          action={{ label: "지원 조건 보기", href: "/guide/폐업-철거지원금/" }}
+        />
       </section>
 
-      <section className="section support-section">
-        <div className="support-copy">
-          <p className="eyebrow dark">철거지원금 안내</p>
-          <h2>지원금은 받을 수 있는 조건인지부터 확인합니다.</h2>
-          <p>
-            철거지원금은 업종, 폐업 여부, 신청 조건, 준비 서류에 따라 가능 여부가
-            달라질 수 있습니다. 그래서 확정처럼 말씀드리기보다, 해당되는 조건이
-            있는지 먼저 확인하고 준비할 내용을 안내해드립니다.
-          </p>
-          <a className="text-link" href="#consultation">
-            견적 문의 전에 준비할 것 보기
-            <ArrowRight size={17} aria-hidden="true" />
-          </a>
-        </div>
-        <div className="support-gallery">
-          {supportImages.map(([src, alt]) => (
-            <img key={src} src={src} alt={alt} />
-          ))}
-        </div>
+      <section className="lp-section">
+        <LandingTitle>자주 묻는 질문</LandingTitle>
+        <LandingFaq items={FAQ} />
       </section>
 
-      <section id="consultation" className="section consult-section">
-        <div>
-          <p className="eyebrow dark">견적 문의 준비</p>
-          <h2>정확하지 않아도 괜찮습니다. 아는 만큼만 보내주세요.</h2>
-          <p>
-            사진이나 평수를 모르셔도 상담은 가능합니다. 그래도 아래 정보가 있으면
-            견적 확인이 훨씬 빨라집니다.
-          </p>
-        </div>
-        <div className="consult-grid">
-          <article>
-            <ClipboardCheck size={24} aria-hidden="true" />
-            <h3>현장 주소</h3>
-            <p>어느 지역인지 알아야 방문 가능 일정과 도서산간 비용 여부를 확인할 수 있습니다.</p>
-          </article>
-          <article>
-            <Ruler size={24} aria-hidden="true" />
-            <h3>평수와 업종</h3>
-            <p>식당, 카페, 사무실, 학원처럼 업종에 따라 봐야 할 철거 범위가 달라집니다.</p>
-          </article>
-          <article>
-            <FileSearch size={24} aria-hidden="true" />
-            <h3>현장 사진</h3>
-            <p>바닥, 천장, 벽면, 집기 사진이 있으면 대략적인 범위를 먼저 볼 수 있습니다.</p>
-          </article>
-        </div>
-        <div className="final-cta">
-          <h2>철거가 필요하다면, 우선 상황만 남겨주세요.</h2>
-          <p>네이버 폼으로 접수되면 현장 조건을 확인한 뒤 상담 순서대로 안내드립니다.</p>
-          <a className="primary-button" href={NAVER_FORM_URL}>
-            <MessageCircle size={19} aria-hidden="true" />
-            네이버 폼 작성
-          </a>
-        </div>
+      <section className="lp-section lp-regions" id="regions">
+        <LandingTitle>지역별 철거 상담</LandingTitle>
+        <LandingChips
+          links={priorityRegions.map((region) => ({ label: `${region.name} 철거`, href: regionHubPath(region) }))}
+        />
+        {primaryTopic && (
+          <>
+            <p className="lp-chips-label">시도별 철거비용</p>
+            <LandingChips
+              soft
+              links={sidos.map((sido) => ({ label: sido.short, href: sidoHubPath(primaryTopic, sido) }))}
+            />
+          </>
+        )}
+        <p className="lp-chips-label">전체 지역</p>
+        <LandingChips links={[{ label: "전국 시군구 전체 보기", href: "/regions/" }, { label: "철거 가이드 모아보기", href: "/guide/" }]} />
       </section>
 
-      <section id="regions" className="section region-section">
-        <div className="section-head">
-          <p className="eyebrow dark">전국 지역 안내</p>
-          <h2>전국 어디든 철거 상담을 받아볼 수 있습니다.</h2>
-          <p>
-            시군구 지역 페이지에서 지역 조건에 맞는 철거 비용 기준과 상담 순서를
-            확인할 수 있습니다. 견적이 달라지는 기준은{" "}
-            <Link className="text-link" href="/guide/철거-비용/">
-              전국 철거 비용 안내
-            </Link>
-            에서 먼저 볼 수 있습니다.
-          </p>
-        </div>
-        <div className="region-grid">
-          {regionLinks.map(([region, href]) => (
-            <a key={region} href={href}>
-              <MapPin size={16} aria-hidden="true" />
-              {region}
-            </a>
-          ))}
-        </div>
-      </section>
+      <LandingFinal />
     </main>
   );
 }
