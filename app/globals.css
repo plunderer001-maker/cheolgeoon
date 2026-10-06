@@ -1813,6 +1813,13 @@ h2 {
   flex: 0 0 auto;
 }
 
+.lp .lp-note a {
+  color: var(--clay);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .lp-btn-dark {
   background: var(--ink);
   color: var(--white);

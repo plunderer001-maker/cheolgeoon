@@ -1,4 +1,4 @@
-import { Building2, CalendarCheck, Cable, Grid2x2, LayoutPanelLeft, Lightbulb } from "lucide-react";
+import { Building2, CalendarCheck, Cable, Grid2x2, LayoutPanelLeft, Lightbulb, Truck } from "lucide-react";
 import {
   LandingBanner,
   LandingCards,
@@ -91,6 +91,11 @@ export function OfficeGuide({ keyword }: { keyword: string }) {
         </LandingTitle>
         <LandingChecklist items={MOVE_CHECKS} />
         <LandingNote icon={CalendarCheck}>퇴거일이 정해졌다면 날짜부터 알려주세요. 빌딩 작업 시간에 맞춰 순서를 짭니다.</LandingNote>
+        <LandingNote icon={Truck}>
+          <span>
+            철거 후 새 사무실로 짐을 옮길 업체는 <a href="https://isabaro.com/movers/">이사업체 고르는 기준</a>부터 보고 비교해 보세요.
+          </span>
+        </LandingNote>
       </section>
 
       <section className="lp-section">
