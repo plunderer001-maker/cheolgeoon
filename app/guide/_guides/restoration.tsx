@@ -1,4 +1,4 @@
-import { CalendarCheck, FileText, Hammer, KeyRound, PaintRoller, Receipt, Scale, Truck, Wallet } from "lucide-react";
+import { CalendarCheck, FileText, Hammer, KeyRound, PaintRoller, Receipt, Scale, Wallet } from "lucide-react";
 import {
   LandingCards,
   LandingChecklist,
@@ -176,11 +176,6 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
         </LandingTitle>
         <LandingChecklist items={PREPARE} />
         <LandingNote icon={Receipt}>계약서가 있으면 범위가 빨리 정해지고 불필요한 철거가 줄어듭니다.</LandingNote>
-        <LandingNote icon={Truck}>
-          <span>
-            원상복구 뒤 이삿날까지 맞춰야 한다면 <a href="https://isabaro.com/quote-compare/">포장이사 견적 비교하는 법</a>도 함께 확인해 두세요.
-          </span>
-        </LandingNote>
       </section>
 
       <section className="lp-section">

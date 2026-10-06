@@ -1,4 +1,4 @@
-import { Dumbbell, FileText, GraduationCap, Layers, MicVocal, Monitor, Scissors, Stethoscope, Store, Wrench } from "lucide-react";
+import { Dumbbell, FileText, GraduationCap, Layers, MicVocal, Monitor, Scissors, Stethoscope, Store, Truck, Wrench } from "lucide-react";
 import {
   LandingBanner,
   LandingCards,
@@ -114,6 +114,11 @@ export function StoreGuide({ keyword }: { keyword: string }) {
           상가 철거 업체, <em>이것</em>만 비교하세요
         </LandingTitle>
         <LandingChecklist items={QUOTE_CHECKS} />
+        <LandingNote icon={Truck}>
+          <span>
+            매장을 옮기면서 집기 운반까지 맡겨야 한다면 <a href="https://isabaro.com/quote-compare/">포장이사 견적 비교하는 법</a>도 함께 확인해 보세요.
+          </span>
+        </LandingNote>
       </section>
 
       <section className="lp-section">
