@@ -31,7 +31,7 @@ import {
   LandingTitle,
   RelatedGuides,
 } from "@/app/components/Landing";
-import { PRIORITY_REGION_SLUGS, regionMap } from "@/app/lib/region-pages";
+import { PRIORITY_REGION_SLUGS, regionMap, sidos } from "@/app/lib/region-pages";
 
 /* 철거전문업체: 철거전문업체, 철거업체 추천, 철거 잘하는 곳 검색 의도. 업체를 고르는 사람에게 '무엇이 다른지'를 보여준다. */
 
@@ -209,12 +209,26 @@ export function CompanyGuide({ keyword }: { keyword: string }) {
         <LandingFaq items={FAQ} />
       </section>
 
-      <section className="lp-section lp-regions">
+      {/* 전국 시군구 철거전문업체 전체 목록. 모든 지역 페이지가 부모(이 허브)에서 한 번에 닿도록 둔다. */}
+      <section className="lp-section" id="regions">
         <LandingTitle>
           지역별 <em>철거전문업체</em>
         </LandingTitle>
         <LandingChips links={priorityRegions.map((region) => ({ label: `${region.name} 철거전문업체`, href: `/regions/${region.slug}/철거전문업체/` }))} />
-        <LandingChips soft links={[{ label: "전국 시군구 전체 보기", href: "/regions/" }]} />
+        <div className="lp-sido-list">
+          {sidos.map((sido) => (
+            <div key={sido.slug} className="lp-sido-block">
+              <p className="lp-sido-head">
+                <span>{sido.name} 철거전문업체</span>
+                <span>{sido.regions.length}곳</span>
+              </p>
+              <LandingChips
+                soft
+                links={sido.regions.map((region) => ({ label: region.sigungu, href: `/regions/${region.slug}/철거전문업체/` }))}
+              />
+            </div>
+          ))}
+        </div>
       </section>
 
       <RelatedGuides current="철거전문업체" />

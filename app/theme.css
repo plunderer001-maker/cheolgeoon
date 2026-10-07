@@ -292,3 +292,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.lp-sido-head > span:first-child {
+  font-size: 18px;
+  font-weight: 800;
+}
