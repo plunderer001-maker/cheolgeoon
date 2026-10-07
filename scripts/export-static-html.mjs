@@ -1,4 +1,4 @@
-import { appendFile, cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { appendFile, cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -138,6 +138,36 @@ const EXTRA_HEADERS = `
   Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://naver.me https://form.naver.com
 `;
 
+async function listFiles(dir) {
+  const entries = await readdir(dir, { recursive: true, withFileTypes: true });
+  return entries.filter((entry) => entry.isFile()).map((entry) => path.join(entry.parentPath, entry.name));
+}
+
+/**
+ * 어떤 페이지·CSS 에서도 참조하지 않는 /images/ 파일은 배포에서 뺀다.
+ * 원본은 public/images/ 에 그대로 남아 있어 다시 쓰면 다음 빌드에 자동으로 포함된다.
+ */
+async function pruneUnusedImages() {
+  const imagesDir = path.join(outputDir, "images");
+  const files = await listFiles(outputDir);
+  const referenced = new Set();
+  for (const file of files) {
+    if (file.startsWith(imagesDir) || !/\.(html|css|xml|txt|webmanifest)$|_headers$/.test(file)) continue;
+    const text = await readFile(file, "utf8");
+    for (const [match] of text.matchAll(/\/images\/[^"'()\s,<>?#]+/g)) referenced.add(decodeURIComponent(match));
+  }
+
+  let removed = 0;
+  for (const file of files) {
+    if (!file.startsWith(imagesDir)) continue;
+    const route = `/${path.relative(outputDir, file).split(path.sep).join("/")}`;
+    if (referenced.has(route)) continue;
+    await rm(file);
+    removed += 1;
+  }
+  console.log(`Images: kept ${referenced.size} referenced, removed ${removed} unused`);
+}
+
 async function main() {
   const regionsData = JSON.parse(await readFile(regionsDataPath, "utf8"));
   const regionTopicData = JSON.parse(await readFile(regionTopicDataPath, "utf8"));
@@ -186,6 +216,7 @@ async function main() {
     }
   }
 
+  await pruneUnusedImages();
   console.log(`Static HTML export complete: ${outputDir}`);
 }
 
