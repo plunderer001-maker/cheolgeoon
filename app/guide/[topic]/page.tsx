@@ -207,7 +207,7 @@ export default async function TopicHubPage({ params }: PageProps) {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제", href: "/guide/" }, { name: topic.keyword }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드", href: "/guide/" }, { name: topic.keyword }]}
         kicker={`전국 ${topic.keyword} 무료견적`}
         title={
           <>
@@ -308,6 +308,7 @@ export default async function TopicHubPage({ params }: PageProps) {
         />
         <p className="lp-chips-label">함께 보면 좋은 안내</p>
         <LandingChips links={guides.map((item) => ({ label: item.keyword, href: `/guide/${item.slug}/` }))} />
+        <LandingChips soft links={[{ label: "철거 가이드 모음", href: "/guide/" }]} />
       </section>
 
       <LandingFinal />

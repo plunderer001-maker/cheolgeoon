@@ -2,7 +2,6 @@ import { BadgeCheck, Banknote, Calculator, Camera, ClipboardCheck, Landmark, Tri
 import {
   LandingCards,
   LandingChecklist,
-  LandingChips,
   LandingFaq,
   LandingFinal,
   LandingHero,
@@ -12,6 +11,7 @@ import {
   LandingSteps,
   LandingTiles,
   LandingTitle,
+  RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
 
@@ -125,7 +125,7 @@ export function ClosureSubsidyGuide({ keyword }: { keyword: string }) {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제", href: "/guide/" }, { name: keyword }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드", href: "/guide/" }, { name: keyword }]}
         kicker="2026 점포철거비 지원 안내"
         title={
           <>
@@ -237,16 +237,7 @@ export function ClosureSubsidyGuide({ keyword }: { keyword: string }) {
         </LandingNote>
       </section>
 
-      <section className="lp-section">
-        <LandingTitle>함께 보면 좋은 안내</LandingTitle>
-        <LandingChips
-          links={[
-            { label: "원상복구 철거", href: "/guide/원상복구-철거/" },
-            { label: "철거 비용 가이드", href: "/guide/철거-비용/" },
-            { label: "지역별 철거 상담", href: "/regions/" },
-          ]}
-        />
-      </section>
+      <RelatedGuides current="폐업-철거지원금" />
 
       <LandingFinal lead="폐업 준비가 막막하다면" title="철거 견적과 지원 대상 여부를 함께 확인하세요" />
     </main>

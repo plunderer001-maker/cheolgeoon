@@ -73,6 +73,7 @@ import {
   isIndexableRegionTopic,
   regionTopicPages,
   regionTopicPath,
+  regions,
   sidoHubPath,
   topicHubPath,
   type Region,
@@ -80,6 +81,8 @@ import {
 } from "@/app/lib/region-pages";
 import { REGION_TYPE_COPY } from "@/app/lib/topic-copy";
 import variantSalts from "@/data/region-variant-salts.json";
+import { COMPANY_SLUG } from "@/app/lib/company-copy";
+import { RegionCompanyPage, companyMetadata, companyPath } from "./company";
 
 /*
  * 시군구 철거비용 페이지.
@@ -99,10 +102,10 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export function generateStaticParams() {
-  return regionTopicPages.map((page) => ({
-    region: page.regionSlug,
-    service: page.serviceSlug,
-  }));
+  return [
+    ...regionTopicPages.map((page) => ({ region: page.regionSlug, service: page.serviceSlug })),
+    ...regions.map((region) => ({ region: region.slug, service: COMPANY_SLUG })),
+  ];
 }
 
 /* 조사한 생활권이 없는 지역의 도입 문장. 행정 유형에 따라 달라진다. */
@@ -135,6 +138,10 @@ function pageText(regionName: string, typeLabel: string) {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { region: regionSlug, service } = await params;
+  if (decodeURIComponent(service) === COMPANY_SLUG) {
+    const companyRegion = getRegion(regionSlug);
+    return companyRegion ? companyMetadata(companyRegion) : { title: "지역 철거 상담 | 철거온" };
+  }
   const page = getRegionTopicPage(regionSlug, service);
   const region = page ? getRegion(page.regionSlug) : undefined;
   if (!page || !region) return { title: "지역 철거 상담 | 철거온" };
@@ -163,6 +170,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function RegionTopicPage({ params }: PageProps) {
   const { region: regionSlug, service: serviceSlug } = await params;
+  if (decodeURIComponent(serviceSlug) === COMPANY_SLUG) {
+    const companyRegion = getRegion(regionSlug);
+    if (!companyRegion) notFound();
+    return <RegionCompanyPage region={companyRegion} />;
+  }
   const page = getRegionTopicPage(regionSlug, serviceSlug);
   if (!page) notFound();
 
@@ -326,6 +338,26 @@ export default async function RegionTopicPage({ params }: PageProps) {
         <LandingFaq items={faq} />
       </section>
 
+      <section className="lp-section lp-regions">
+        <LandingTitle>{pick("nearby-title", NEARBY_TITLE)(sido ? sido.short : "주변")}</LandingTitle>
+        <LandingChips links={siblings.map((sibling) => ({ label: sibling.name, href: regionTopicPath(sibling, topic) }))} />
+        <p className="lp-chips-label">{pick("more-label", MORE_LINKS_LABEL)}</p>
+        <LandingChips
+          soft
+          links={rotate(
+            [
+              { label: pick("more-link:0", MORE_LINK_SLOTS[0]), href: topicHubPath(topic) },
+              { label: pick("more-link:1", MORE_LINK_SLOTS[1]), href: "/guide/원상복구-철거/" },
+              { label: pick("more-link:2", MORE_LINK_SLOTS[2]), href: "/guide/폐업-철거지원금/" },
+              { label: pick("more-link:3", MORE_LINK_SLOTS[3]), href: "/#criteria" },
+              { label: `${name} 철거전문업체`, href: companyPath(region) },
+            ],
+            order("more-links", 4),
+          )}
+        />
+      </section>
+
+      {/* 지역 고유 정보(유사도 보정용)는 사용자 요청대로 최하단, 마지막 상담 바로 위에 둔다. */}
       <section className="lp-section">
         <div className="lp-answer lp-region-facts">
           <MapPinned size={28} aria-hidden="true" />
@@ -400,24 +432,6 @@ export default async function RegionTopicPage({ params }: PageProps) {
             )}
           </div>
         </div>
-      </section>
-
-      <section className="lp-section lp-regions">
-        <LandingTitle>{pick("nearby-title", NEARBY_TITLE)(sido ? sido.short : "주변")}</LandingTitle>
-        <LandingChips links={siblings.map((sibling) => ({ label: sibling.name, href: regionTopicPath(sibling, topic) }))} />
-        <p className="lp-chips-label">{pick("more-label", MORE_LINKS_LABEL)}</p>
-        <LandingChips
-          soft
-          links={rotate(
-            [
-              { label: pick("more-link:0", MORE_LINK_SLOTS[0]), href: topicHubPath(topic) },
-              { label: pick("more-link:1", MORE_LINK_SLOTS[1]), href: "/guide/원상복구-철거/" },
-              { label: pick("more-link:2", MORE_LINK_SLOTS[2]), href: "/guide/폐업-철거지원금/" },
-              { label: pick("more-link:3", MORE_LINK_SLOTS[3]), href: "/#criteria" },
-            ],
-            order("more-links", 4),
-          )}
-        />
       </section>
 
       <LandingFinal lead={finalLead} title={finalTitle} note={pick("final-note", FINAL_NOTE)} />

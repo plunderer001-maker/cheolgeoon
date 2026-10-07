@@ -2,7 +2,6 @@ import { CalendarCheck, FileText, Hammer, KeyRound, PaintRoller, Receipt, Scale,
 import {
   LandingCards,
   LandingChecklist,
-  LandingChips,
   LandingFaq,
   LandingFinal,
   LandingHero,
@@ -12,6 +11,7 @@ import {
   LandingSplit,
   LandingSteps,
   LandingTitle,
+  RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
 
@@ -108,7 +108,7 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제", href: "/guide/" }, { name: keyword }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드", href: "/guide/" }, { name: keyword }]}
         kicker={`${keyword} 무료견적`}
         title={
           <>
@@ -201,16 +201,7 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
         <LandingNote icon={Scale}>법률 판단이 필요한 분쟁은 변호사나 대한법률구조공단 상담을 권합니다.</LandingNote>
       </section>
 
-      <section className="lp-section">
-        <LandingTitle>함께 보면 좋은 안내</LandingTitle>
-        <LandingChips
-          links={[
-            { label: "철거 비용 가이드", href: "/guide/철거-비용/" },
-            { label: "폐업 철거지원금", href: "/guide/폐업-철거지원금/" },
-            { label: "지역별 철거 상담", href: "/regions/" },
-          ]}
-        />
-      </section>
+      <RelatedGuides current="원상복구-철거" />
 
       <LandingFinal lead="퇴거일이 다가오는데 막막하다면" title="계약서와 현장 사진만 먼저 보내주세요" />
     </main>

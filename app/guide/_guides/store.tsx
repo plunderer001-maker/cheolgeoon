@@ -3,7 +3,6 @@ import {
   LandingBanner,
   LandingCards,
   LandingChecklist,
-  LandingChips,
   LandingFaq,
   LandingFinal,
   LandingHero,
@@ -13,6 +12,7 @@ import {
   LandingSplit,
   LandingSteps,
   LandingTitle,
+  RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
 import { MARKET_PRICE_CAPTION, MARKET_PRICE_SOURCES } from "@/app/lib/market-prices";
@@ -67,7 +67,7 @@ export function StoreGuide({ keyword }: { keyword: string }) {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제", href: "/guide/" }, { name: keyword }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드", href: "/guide/" }, { name: keyword }]}
         kicker="상가·인테리어 철거 무료견적"
         title={
           <>
@@ -147,17 +147,7 @@ export function StoreGuide({ keyword }: { keyword: string }) {
         <LandingFaq items={FAQ} />
       </section>
 
-      <section className="lp-section">
-        <LandingTitle>함께 보면 좋은 안내</LandingTitle>
-        <LandingChips
-          links={[
-            { label: "철거 비용 가이드", href: "/guide/철거-비용/" },
-            { label: "원상복구 철거", href: "/guide/원상복구-철거/" },
-            { label: "폐업 철거", href: "/guide/폐업-철거/" },
-            { label: "식당·카페 철거", href: "/guide/식당-철거/" },
-          ]}
-        />
-      </section>
+      <RelatedGuides current="상가-철거" />
 
       <LandingFinal lead="상가를 비워야 한다면" title="매장 사진부터 보내주세요" />
     </main>

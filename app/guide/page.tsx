@@ -65,7 +65,7 @@ export default function GuideIndexPage() {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제" }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드" }]}
         kicker="철거 가이드 모음"
         title={
           <>

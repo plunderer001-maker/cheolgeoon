@@ -3,7 +3,6 @@ import {
   LandingBanner,
   LandingCards,
   LandingChecklist,
-  LandingChips,
   LandingFaq,
   LandingFinal,
   LandingHero,
@@ -13,6 +12,7 @@ import {
   LandingSplit,
   LandingSteps,
   LandingTitle,
+  RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
 import { MARKET_PRICE_CAPTION, MARKET_PRICE_SOURCES } from "@/app/lib/market-prices";
@@ -59,7 +59,7 @@ export function ClosureGuide({ keyword }: { keyword: string }) {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제", href: "/guide/" }, { name: keyword }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드", href: "/guide/" }, { name: keyword }]}
         kicker="폐업 철거 무료견적"
         title={
           <>
@@ -139,17 +139,7 @@ export function ClosureGuide({ keyword }: { keyword: string }) {
         <LandingFaq items={FAQ} />
       </section>
 
-      <section className="lp-section">
-        <LandingTitle>함께 보면 좋은 안내</LandingTitle>
-        <LandingChips
-          links={[
-            { label: "폐업 철거지원금", href: "/guide/폐업-철거지원금/" },
-            { label: "원상복구 철거", href: "/guide/원상복구-철거/" },
-            { label: "식당·카페 철거", href: "/guide/식당-철거/" },
-            { label: "상가 철거", href: "/guide/상가-철거/" },
-          ]}
-        />
-      </section>
+      <RelatedGuides current="폐업-철거" />
 
       <LandingFinal lead="폐업 정리가 막막하다면" title="철거 견적과 지원금을 함께 확인하세요" />
     </main>

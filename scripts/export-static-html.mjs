@@ -186,10 +186,11 @@ async function main() {
     ...topics.flatMap((topic) => sidoSlugs.map((sido) => `/guide/${topic.slug}/${sido}`)),
     "/regions",
     ...regionTopicData.pages.map((page) => `/regions/${page.slug}`),
+    ...regions.map((region) => `/regions/${region.slug}/철거전문업체`),
   ];
 
   console.log(
-    `Routes: ${routes.length} (topics ${topics.length}, sido hubs ${sidoSlugs.length * topics.length}, region topic pages ${regionTopicData.pages.length})`,
+    `Routes: ${routes.length} (topics ${topics.length}, sido hubs ${sidoSlugs.length * topics.length}, region topic pages ${regionTopicData.pages.length}, company pages ${regions.length})`,
   );
 
   await rm(outputDir, { recursive: true, force: true });

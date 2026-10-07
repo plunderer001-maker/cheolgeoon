@@ -19,9 +19,9 @@ import {
 import {
   LandingNote,
   LandingBanner,
+  LandingChips,
   LandingCards,
   LandingChecklist,
-  LandingChips,
   LandingFaq,
   LandingFinal,
   LandingHero,
@@ -29,9 +29,15 @@ import {
   LandingSteps,
   LandingTiles,
   LandingTitle,
+  RelatedGuides,
 } from "@/app/components/Landing";
+import { PRIORITY_REGION_SLUGS, regionMap } from "@/app/lib/region-pages";
 
 /* 철거전문업체: 철거전문업체, 철거업체 추천, 철거 잘하는 곳 검색 의도. 업체를 고르는 사람에게 '무엇이 다른지'를 보여준다. */
+
+const priorityRegions = Array.from(PRIORITY_REGION_SLUGS)
+  .map((slug) => regionMap.get(slug))
+  .filter((region): region is NonNullable<typeof region> => Boolean(region));
 
 export const COMPANY_IMAGE = "/images/cheolgeoon/og-square/철거전문업체.webp";
 
@@ -118,7 +124,7 @@ export function CompanyGuide({ keyword }: { keyword: string }) {
   return (
     <main className="lp">
       <LandingHero
-        crumbs={[{ name: "홈", href: "/" }, { name: "철거 상담 주제", href: "/guide/" }, { name: keyword }]}
+        crumbs={[{ name: "홈", href: "/" }, { name: "철거 가이드", href: "/guide/" }, { name: keyword }]}
         kicker="철거전문업체 무료견적"
         title={
           <>
@@ -203,17 +209,15 @@ export function CompanyGuide({ keyword }: { keyword: string }) {
         <LandingFaq items={FAQ} />
       </section>
 
-      <section className="lp-section">
-        <LandingTitle>함께 보면 좋은 안내</LandingTitle>
-        <LandingChips
-          links={[
-            { label: "철거 비용 가이드", href: "/guide/철거-비용/" },
-            { label: "상가 철거", href: "/guide/상가-철거/" },
-            { label: "사무실 철거", href: "/guide/사무실-철거/" },
-            { label: "원상복구 철거", href: "/guide/원상복구-철거/" },
-          ]}
-        />
+      <section className="lp-section lp-regions">
+        <LandingTitle>
+          지역별 <em>철거전문업체</em>
+        </LandingTitle>
+        <LandingChips links={priorityRegions.map((region) => ({ label: `${region.name} 철거전문업체`, href: `/regions/${region.slug}/철거전문업체/` }))} />
+        <LandingChips soft links={[{ label: "전국 시군구 전체 보기", href: "/regions/" }]} />
       </section>
+
+      <RelatedGuides current="철거전문업체" />
 
       <LandingFinal lead="믿고 맡길 철거전문업체를 찾는다면" title="현장 사진부터 보내주세요" />
     </main>

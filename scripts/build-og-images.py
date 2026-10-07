@@ -5,6 +5,7 @@
 휴대폰 검색 결과처럼 작게 보여도 읽히도록 제목을 최대한 크게(두 줄 이내) 잡는다.
 
 사용: py scripts/build-og-images.py [출력 폴더]  (기본: public/images/cheolgeoon/og-square)
+     py scripts/build-og-images.py --regions [지역 slug ...]  (시군구 철거전문업체, 기본: 전체 → og-region)
 """
 
 import sys
@@ -113,7 +114,59 @@ def make(slug, out_dir, with_jpg=False):
     return out
 
 
+# 시군구 철거전문업체 대표 이미지. app/lib/company-copy.ts 의 COMPANY_PHOTOS 와 같은 목록.
+REGION_PHOTOS = [5, 6, 11, 12, 20, 21, 22, 23, 32, 33, 34, 36, 37, 40, 41]
+
+
+def make_region(region, index, out_dir):
+    """지역 이름(블루) + 철거전문업체(흰색). 사진은 실제 현장이지만 그 지역 현장이라는 뜻은 아니어서 칩은 '철거 완료 현장'."""
+    photo = REGION_PHOTOS[index % len(REGION_PHOTOS)]
+    probe = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    name = region["name"]
+    name_size = fit(probe, [name], BOLD, 110, SIZE - PAD * 2)
+    title_size = 150
+    sub_size, accent_size = 46, 46
+    block = 70 + 30 + name_size + 14 + title_size + 36 + sub_size + 22 + accent_size
+    top = SIZE - PAD - block
+
+    image = shade(cover(photo, 0.5), max(200, top - 220))
+    draw = ImageDraw.Draw(image)
+    chip = "철거 완료 현장"
+    chip_font = font(SEMI, 34)
+    chip_w = draw.textlength(chip, font=chip_font)
+    draw.rounded_rectangle([PAD, top, PAD + chip_w + 48, top + 70], radius=35, fill=BLUE)
+    draw.text((PAD + 24, top + 35), chip, font=chip_font, fill=WHITE, anchor="lm")
+    y = top + 100
+    draw.text((PAD - 2, y), name, font=font(BOLD, name_size), fill=BLUE_BRIGHT)
+    y += name_size + 14
+    draw.text((PAD - 4, y), "철거전문업체", font=font(BOLD, title_size), fill=WHITE)
+    y += title_size + 36
+    draw.text((PAD, y), "상가·사무실·식당 철거와 원상복구", font=font(MEDIUM, sub_size), fill=SOFT)
+    y += sub_size + 22
+    draw.text((PAD, y), "당일 방문 · 1년 무상 A/S", font=font(BOLD, accent_size), fill=BLUE_BRIGHT)
+
+    out = out_dir / f"{region['slug']}.webp"
+    image.convert("RGB").save(out, quality=80)
+    return out
+
+
+def main_regions(slugs):
+    import json
+
+    data = json.loads((ROOT / "data/generated/regions.json").read_text(encoding="utf-8"))
+    regions = [r for r in data["regions"] if r["sidoShort"] != "전남광주통합"]
+    out_dir = ROOT / "public/images/cheolgeoon/og-region"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for index, region in enumerate(regions):
+        if not slugs or region["slug"] in slugs:
+            make_region(region, index, out_dir)
+    print(f"regions: {len(slugs) if slugs else len(regions)} -> {out_dir}")
+
+
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "--regions":
+        main_regions(sys.argv[2:])
+        return
     custom = len(sys.argv) > 1
     out_dir = Path(sys.argv[1]) if custom else ROOT / "public/images/cheolgeoon/og-square"
     out_dir.mkdir(parents=True, exist_ok=True)
