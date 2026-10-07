@@ -84,6 +84,7 @@ async function writeRoute(worker, route) {
  * 옛 /services/* 경로와 겹치지 않는다.
  * - /services/*(옛 대상별 서비스 페이지 13,720개) → 주제 허브
  * - /regions/:region/{옛 서비스}/ → 같은 지역의 주제 페이지
+ * - /regions/:region/(폐지한 시군구 안내) → 같은 지역의 대표 주제 페이지
  * - /regions/전남광주통합-…/* (중복 시도 코드) → 대응 지역의 주제 페이지
  */
 function buildRedirects({ retired, topics, guides }) {
@@ -112,6 +113,10 @@ function buildRedirects({ retired, topics, guides }) {
       : `/regions/:region/${encodeRoute(primaryTopic.slug)}/`;
     lines.push(`/regions/:region/${encodeRoute(serviceSlug)}/ ${target} 301`);
   }
+
+  // 시군구 안내 페이지(/regions/:region/)는 2026-10-07 폐지. 같은 지역의 대표 주제 페이지로 보낸다.
+  // 위의 중복 시도 규칙(/regions/{중복}/*)이 먼저 걸리도록 뒤에 둔다.
+  lines.push(`/regions/:region/ /regions/:region/${encodeRoute(primaryTopic.slug)}/ 301`);
 
   // 실제 index.html 파일이 있어 force(!) 없이는 규칙이 적용되지 않는다.
   lines.push("/index.html / 301!");
@@ -150,12 +155,11 @@ async function main() {
     ...guides.map((guide) => `/guide/${guide.slug}`),
     ...topics.flatMap((topic) => sidoSlugs.map((sido) => `/guide/${topic.slug}/${sido}`)),
     "/regions",
-    ...regions.map((region) => `/regions/${region.slug}`),
     ...regionTopicData.pages.map((page) => `/regions/${page.slug}`),
   ];
 
   console.log(
-    `Routes: ${routes.length} (topics ${topics.length}, sido hubs ${sidoSlugs.length * topics.length}, regions ${regions.length}, region topic pages ${regionTopicData.pages.length})`,
+    `Routes: ${routes.length} (topics ${topics.length}, sido hubs ${sidoSlugs.length * topics.length}, region topic pages ${regionTopicData.pages.length})`,
   );
 
   await rm(outputDir, { recursive: true, force: true });

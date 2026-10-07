@@ -246,10 +246,6 @@ export function sidoHubPath(topic: Topic, sido: Sido) {
   return `/guide/${topic.slug}/${sido.slug}/`;
 }
 
-export function regionHubPath(region: Region) {
-  return `/regions/${region.slug}/`;
-}
-
 export function regionTopicPath(region: Region, topic: Topic) {
   return `/regions/${region.slug}/${topic.slug}/`;
 }

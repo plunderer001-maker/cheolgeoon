@@ -33,7 +33,7 @@ import {
   MARKET_PRICE_SOURCES,
   MARKET_PRICE_UPS,
 } from "@/app/lib/market-prices";
-import { PRIORITY_REGION_SLUGS, regionMap, regionHubPath, sidoHubPath, sidos, topics } from "@/app/lib/region-pages";
+import { PRIORITY_REGION_SLUGS, regionMap, regionTopicPath, sidoHubPath, sidos, topics } from "@/app/lib/region-pages";
 
 /* 메인은 "철거업체"를 주 키워드로, "철거비용"은 요약만 두고 비용 가이드로 넘긴다. */
 const TITLE = "철거업체 순위보다 중요한 기준 | 철거비용 무료견적 | 철거온";
@@ -184,7 +184,7 @@ export default function Home() {
       <section className="lp-section lp-regions" id="regions">
         <LandingTitle>지역별 철거 상담</LandingTitle>
         <LandingChips
-          links={priorityRegions.map((region) => ({ label: `${region.name} 철거`, href: regionHubPath(region) }))}
+          links={priorityRegions.map((region) => ({ label: `${region.name} 철거`, href: regionTopicPath(region, primaryTopic) }))}
         />
         {primaryTopic && (
           <>
