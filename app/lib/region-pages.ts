@@ -24,6 +24,8 @@ export type Topic = {
   hubTitle: string;
   hubDescription: string;
   hubH1: string;
+  /* 주제 허브 대표 이미지(1:1). 없으면 image 를 쓴다 */
+  hubImage?: string;
 };
 
 export type RegionTopicPage = {

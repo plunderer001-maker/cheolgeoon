@@ -21,7 +21,13 @@ export const metadata: Metadata = {
     siteName: "철거온",
     locale: "ko_KR",
     type: "website",
-    images: ["/images/cheolgeoon/og/main-og.webp"],
+    images: [{ url: "https://cheolgeoon.netlify.app/images/cheolgeoon/og-square/guide.webp", width: 1080, height: 1080, alt: "철거 가이드 모음" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["https://cheolgeoon.netlify.app/images/cheolgeoon/og-square/guide.webp"],
   },
 };
 

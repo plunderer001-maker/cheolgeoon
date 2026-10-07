@@ -11,7 +11,7 @@ export type Guide = {
   description: string;
   image: string;
   /* 대표 이미지 크기. 없으면 1200×630 */
-  imageSize?: [number, number];
+  imageSize?: number[];
   /* 이 가이드로 301 할 옛 지역 서비스 주소 이름 */
   aliases?: string[];
 };

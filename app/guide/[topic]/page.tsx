@@ -98,7 +98,7 @@ function pageMetadata({
   description: string;
   image: string;
   keyword: string;
-  imageSize?: [number, number];
+  imageSize?: number[];
 }): Metadata {
   const canonical = `/guide/${slug}/`;
   return {
@@ -134,8 +134,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     slug: topic.slug,
     title: topic.hubTitle,
     description: topic.hubDescription,
-    image: topic.image,
+    image: topic.hubImage ?? topic.image,
     keyword: topic.keyword,
+    imageSize: topic.hubImage ? [1080, 1080] : undefined,
   });
 }
 

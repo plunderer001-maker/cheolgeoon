@@ -33,7 +33,7 @@ import {
 
 /* 철거전문업체: 철거전문업체, 철거업체 추천, 철거 잘하는 곳 검색 의도. 업체를 고르는 사람에게 '무엇이 다른지'를 보여준다. */
 
-export const COMPANY_IMAGE = "/images/cheolgeoon/company/company-hub.webp";
+export const COMPANY_IMAGE = "/images/cheolgeoon/og-square/철거전문업체.webp";
 
 /* 전문업체에 맡기면 달라지는 것. 금액이 아니라 일하는 방식으로 설명한다. */
 const DIFFERENCE = [
