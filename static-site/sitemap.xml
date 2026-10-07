@@ -139,6 +139,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://cheolgeoon.netlify.app/guide/%EC%B2%A0%EA%B1%B0%EC%A0%84%EB%AC%B8%EC%97%85%EC%B2%B4/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://cheolgeoon.netlify.app/guide/%ED%8F%90%EC%97%85-%EC%B2%A0%EA%B1%B0/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>

@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #101713;
-  --muted: #5c655e;
-  --line: #dfe4dd;
-  --paper: #f6f4ed;
+  /* 대표 색 2가지(2026-10 확정): 차콜 블랙 + 철거온 블루. 옛 이름(green·amber·clay)은 호환용으로 블루 계열을 가리킨다. */
+  --ink: #0e1117;
+  --muted: #5d6573;
+  --line: #e3e7ee;
+  --paper: #f3f5f8;
   --white: #ffffff;
-  --green: #1c5b41;
-  --green-deep: #12372b;
-  --amber: #d69d34;
-  --clay: #9f5a3a;
+  --blue: #2563ff;
+  --blue-hover: #1a4fe0;
+  --blue-bright: #5b8cff;
+  --green: #2563ff;
+  --green-deep: #0e1117;
+  --amber: #2563ff;
+  --clay: #2563ff;
   --steel: #425261;
 }
 
@@ -25,7 +29,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   word-break: keep-all;
 }
 
@@ -41,7 +45,7 @@ img {
 
 .site-header {
   align-items: center;
-  background: rgba(16, 23, 19, 0.82);
+  background: rgba(14, 17, 23, 0.82);
   color: var(--white);
   display: flex;
   height: 72px;
@@ -98,7 +102,7 @@ nav a:hover {
   border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 8px;
   bottom: 24px;
-  box-shadow: 0 16px 36px rgba(16, 23, 19, 0.28);
+  box-shadow: 0 16px 36px rgba(14, 17, 23, 0.28);
   color: var(--white);
   display: inline-flex;
   font-size: 16px;
@@ -492,7 +496,7 @@ h2 {
 
 .seo-hero {
   background:
-    linear-gradient(90deg, rgba(16, 23, 19, 0.94), rgba(16, 23, 19, 0.76)),
+    linear-gradient(90deg, rgba(14, 17, 23, 0.94), rgba(14, 17, 23, 0.76)),
     var(--seo-hero-image, url("/images/cheolgeoon/hero/store-clearance-hero.webp")) center / cover;
   color: var(--white);
   padding: 88px 32px 84px;
@@ -535,7 +539,7 @@ h2 {
 }
 
 .secondary-button.dark {
-  border-color: rgba(16, 23, 19, 0.22);
+  border-color: rgba(14, 17, 23, 0.22);
   color: var(--ink);
 }
 
@@ -1114,7 +1118,7 @@ h2 {
 
 .seo-region-profile .seo-region-meta div {
   padding: 14px 16px;
-  border: 1px solid rgba(16, 23, 19, 0.12);
+  border: 1px solid rgba(14, 17, 23, 0.12);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.7);
 }
@@ -1197,8 +1201,8 @@ h2 {
 .lp {
   --lp-max: 1080px;
   --lp-radius: 14px;
-  --lp-shadow: 0 10px 30px rgba(16, 23, 19, 0.08);
-  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", Arial, sans-serif;
+  --lp-shadow: 0 10px 30px rgba(14, 17, 23, 0.08);
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   letter-spacing: -0.01em;
   padding-bottom: 88px;
 }
@@ -1229,12 +1233,12 @@ h2 {
 
 .lp-btn-primary {
   background: var(--amber);
-  box-shadow: 0 8px 22px rgba(214, 157, 52, 0.38);
+  box-shadow: 0 8px 22px rgba(37, 99, 255, 0.38);
   color: var(--ink);
 }
 
 .lp-btn-primary:hover {
-  background: #e3ab44;
+  background: #1a4fe0;
 }
 
 .lp-btn-ghost {
@@ -1261,7 +1265,7 @@ h2 {
 }
 
 .lp-hero::after {
-  background: linear-gradient(180deg, rgba(16, 23, 19, 0.55) 0%, rgba(16, 23, 19, 0.82) 55%, rgba(16, 23, 19, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(14, 17, 23, 0.55) 0%, rgba(14, 17, 23, 0.82) 55%, rgba(14, 17, 23, 0.95) 100%);
   content: "";
   inset: 0;
   position: absolute;
@@ -1315,10 +1319,10 @@ h2 {
 }
 
 .lp .lp-kicker {
-  background: rgba(214, 157, 52, 0.18);
-  border: 1px solid rgba(214, 157, 52, 0.55);
+  background: rgba(37, 99, 255, 0.18);
+  border: 1px solid rgba(37, 99, 255, 0.55);
   border-radius: 999px;
-  color: #f3c46d;
+  color: #8fb0ff;
   display: inline-block;
   font-size: 14px;
   font-weight: 800;
@@ -1425,7 +1429,7 @@ h2 {
 }
 
 .lp-factor-num {
-  color: #c9cec6;
+  color: #c3c9d4;
   font-size: 13px;
   font-weight: 900;
   position: absolute;
@@ -1471,7 +1475,7 @@ h2 {
 }
 
 .lp-spaces figcaption {
-  background: linear-gradient(180deg, transparent, rgba(16, 23, 19, 0.88));
+  background: linear-gradient(180deg, transparent, rgba(14, 17, 23, 0.88));
   bottom: 0;
   color: var(--white);
   display: grid;
@@ -1643,7 +1647,7 @@ h2 {
 }
 
 .lp-chips a:hover {
-  background: #fffaf0;
+  background: #eef3ff;
   border-color: var(--amber);
 }
 
@@ -1826,7 +1830,7 @@ h2 {
 }
 
 .lp-btn-dark:hover {
-  background: #26302a;
+  background: #1b2130;
 }
 
 /* 상황 선택 */
@@ -1872,7 +1876,7 @@ h2 {
 
 .lp-situations .lp-situation-arrow {
   align-self: center;
-  color: #b9bfb6;
+  color: #aab2c0;
   grid-column: 3;
   grid-row: 1 / span 2;
 }
@@ -1899,7 +1903,7 @@ h2 {
 }
 
 .lp-cost-items svg {
-  background: #f3efe3;
+  background: #eef1f6;
   border-radius: 10px;
   box-sizing: content-box;
   color: var(--green);
@@ -1930,13 +1934,13 @@ h2 {
 }
 
 .lp-scope-yes {
-  background: #eaf3ee;
-  border: 1px solid #cfe3d7;
+  background: #eef3ff;
+  border: 1px solid #c9d8ff;
 }
 
 .lp-scope-no {
-  background: #f8ece6;
-  border: 1px solid #ecd3c6;
+  background: #f4f5f7;
+  border: 1px solid #e3e7ee;
 }
 
 .lp .lp-scope-label {
@@ -1997,8 +2001,8 @@ h2 {
 
 .lp .lp-scope-tip {
   align-items: flex-start;
-  border-top: 1px solid #ecd3c6;
-  color: #7a4a33;
+  border-top: 1px solid #e3e7ee;
+  color: #4a5260;
   display: flex;
   font-size: 14px;
   gap: 6px;
@@ -2050,8 +2054,8 @@ h2 {
 /* 지원금 배너 */
 .lp-support {
   align-items: center;
-  background: linear-gradient(120deg, #fbefd5, #f6e2b8);
-  border: 1px solid #ecd199;
+  background: linear-gradient(120deg, #eaf0ff, #dbe6ff);
+  border: 1px solid #c9d8ff;
   border-radius: var(--lp-radius);
   display: grid;
   gap: 16px 20px;
@@ -2071,7 +2075,7 @@ h2 {
 }
 
 .lp-support p {
-  color: #6b5a3c;
+  color: #3d4a66;
   font-size: 15px;
   line-height: 1.55;
 }
@@ -2192,8 +2196,8 @@ h2 {
 }
 
 .lp-price-side {
-  background: #fbefd5;
-  border: 1px solid #ecd199;
+  background: #eaf0ff;
+  border: 1px solid #c9d8ff;
   border-radius: var(--lp-radius);
   display: grid;
   gap: 14px;
@@ -2202,7 +2206,7 @@ h2 {
 
 .lp .lp-price-up-label {
   align-items: center;
-  color: #7a4a33;
+  color: #4a5260;
   display: flex;
   font-size: 16px;
   font-weight: 900;
@@ -2231,7 +2235,7 @@ h2 {
 }
 
 .lp .lp-price-source {
-  color: #8a9088;
+  color: #8a92a0;
   font-size: 12.5px;
   line-height: 1.6;
   margin-top: 12px;
@@ -2329,11 +2333,11 @@ h2 {
 }
 
 .lp-answer strong {
-  background: linear-gradient(transparent 60%, #f6e2b8 60%);
+  background: linear-gradient(transparent 60%, #dbe6ff 60%);
 }
 
 .lp-answer span {
-  color: #8a9088;
+  color: #8a92a0;
   display: block;
   font-size: 13px;
   margin-top: 10px;
@@ -2406,7 +2410,7 @@ h2 {
 }
 
 .lp-area-tags li {
-  background: #f3efe3;
+  background: #eef1f6;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 700;
@@ -2484,7 +2488,7 @@ h2 {
 }
 
 .lp-area-notes li {
-  background: #faf7ef;
+  background: #f7f9fc;
   border-radius: 10px;
   display: grid;
   gap: 2px;
@@ -2587,5 +2591,35 @@ h2 {
 @media (max-width: 560px) {
   .lp-sido-block {
     padding: 16px;
+  }
+}
+
+/* ---------- 대표 이미지 + 설명 (철거전문업체) ---------- */
+.lp-feature {
+  align-items: center;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.lp-feature img {
+  aspect-ratio: 1;
+  border-radius: var(--lp-radius);
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.lp .lp-feature p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .lp-feature {
+    gap: 20px;
+    grid-template-columns: 1fr;
   }
 }

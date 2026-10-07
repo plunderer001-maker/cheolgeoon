@@ -10,6 +10,34 @@ import { Breadcrumb, type Crumb } from "@/app/components/Breadcrumb";
 
 export const NAVER_FORM_URL = "https://naver.me/FLEWiPhf";
 
+const NAV_LINKS = [
+  { label: "철거비용", href: "/guide/철거-비용/" },
+  { label: "철거전문업체", href: "/guide/철거전문업체/" },
+  { label: "원상복구", href: "/guide/원상복구-철거/" },
+  { label: "폐업 지원금", href: "/guide/폐업-철거지원금/" },
+];
+
+/* 모든 랜딩 페이지 상단 고정 메뉴. 히어로 위에 겹쳐 놓는다(theme.css 의 site-nav). */
+export function SiteNav() {
+  return (
+    <header className="site-nav">
+      <Link className="site-brand" href="/">
+        <span aria-hidden="true">철</span>철거온
+      </Link>
+      <nav aria-label="주요 안내">
+        {NAV_LINKS.map((item) => (
+          <Link key={item.href} href={item.href}>
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+      <a className="site-nav-cta" href={NAVER_FORM_URL}>
+        무료견적
+      </a>
+    </header>
+  );
+}
+
 type Icon = ComponentType<{ size?: number; className?: string; "aria-hidden"?: boolean | "true" }>;
 
 export function LandingTitle({ children }: { children: ReactNode }) {
@@ -43,15 +71,16 @@ export function LandingHero({
   image?: string;
 }) {
   return (
+    <>
+    <SiteNav />
     <section className="lp-hero">
       <img className="lp-hero-bg" src={image} alt="" width={1920} height={1080} fetchPriority="high" />
       <div className="lp-hero-inner">
-        <div className="lp-topbar">
-          <Link className="lp-brand" href="/">
-            <span aria-hidden="true">철</span>철거온
-          </Link>
-          {crumbs && <Breadcrumb items={crumbs} />}
-        </div>
+        {crumbs && (
+          <div className="lp-topbar">
+            <Breadcrumb items={crumbs} />
+          </div>
+        )}
         <p className="lp-kicker">{kicker}</p>
         <h1>{title}</h1>
         <p className="lp-lead">{lead}</p>
@@ -74,6 +103,7 @@ export function LandingHero({
         </div>
       </div>
     </section>
+    </>
   );
 }
 
@@ -297,6 +327,7 @@ export const SERVICE_SCOPE = {
       "임대 종료 원상복구 철거·마감 복구",
       "철거하며 나온 폐기물 정리·반출",
       "간판·집기 철거 (전체 철거에 포함 시)",
+      "주방 집기 등 집기 매입 (철거와 함께)",
     ],
   },
   no: {

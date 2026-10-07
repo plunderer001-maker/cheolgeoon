@@ -37,6 +37,7 @@ import {
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
 import { ClosureGuide } from "@/app/guide/_guides/closure";
+import { CompanyGuide } from "@/app/guide/_guides/company";
 import { ClosureSubsidyGuide } from "@/app/guide/_guides/closure-subsidy";
 import { OfficeGuide } from "@/app/guide/_guides/office";
 import { RestaurantGuide } from "@/app/guide/_guides/restaurant";
@@ -73,6 +74,7 @@ const GUIDE_PAGES: Record<string, ComponentType<{ keyword: string }>> = {
   "폐업-철거": ClosureGuide,
   "사무실-철거": OfficeGuide,
   "식당-철거": RestaurantGuide,
+  "철거전문업체": CompanyGuide,
 };
 
 export const dynamicParams = false;
@@ -89,12 +91,14 @@ function pageMetadata({
   description,
   image,
   keyword,
+  imageSize = [1200, 630],
 }: {
   slug: string;
   title: string;
   description: string;
   image: string;
   keyword: string;
+  imageSize?: [number, number];
 }): Metadata {
   const canonical = `/guide/${slug}/`;
   return {
@@ -108,7 +112,7 @@ function pageMetadata({
       siteName: "철거온",
       locale: "ko_KR",
       type: "article",
-      images: [{ url: `${SITE_URL}${image}`, width: 1200, height: 630, alt: `${keyword} 안내` }],
+      images: [{ url: `${SITE_URL}${image}`, width: imageSize[0], height: imageSize[1], alt: `${keyword} 안내` }],
     },
     twitter: {
       card: "summary_large_image",

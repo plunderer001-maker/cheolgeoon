@@ -51,6 +51,18 @@
       "title": "식당·카페 철거 비용 | 후드·덕트 주방 설비 철거 무료견적 | 철거온",
       "description": "식당·카페 철거비용 참고 범위와 후드·덕트·가스·배수 등 주방 설비 확인 항목, 폐업 점포철거비 지원까지 정리했습니다.",
       "image": "/images/cheolgeoon/hero/office-clearance-hero.webp"
+    },
+    {
+      "slug": "철거전문업체",
+      "keyword": "철거전문업체",
+      "aliases": [],
+      "title": "철거전문업체 | 상가·사무실·식당·공장 철거와 원상복구 무료견적 | 철거온",
+      "description": "철거전문업체는 범위 정리부터 폐기물 반출, 원상복구 마감까지 철거 기준으로 견적을 냅니다. 견적 받을 때 물어볼 5가지와 헬스장·병원·공장·창고 등 진행 가능한 공간을 정리했습니다.",
+      "image": "/images/cheolgeoon/company/company-hub.webp",
+      "imageSize": [
+        1080,
+        1080
+      ]
     }
   ]
 }

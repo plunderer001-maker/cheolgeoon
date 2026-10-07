@@ -1,0 +1,258 @@
+/* =========================================================
+   랜딩형 공통 테마 (2026-10 확정 디자인)
+   메인(home.css)과 같은 규칙을 가이드·허브·지역 페이지(lp-)에 입힌다.
+   globals.css 다음에 불러와 앞선 lp- 규칙을 덮어쓴다.
+   ========================================================= */
+
+/* ---------- 상단 고정 메뉴 ---------- */
+.site-nav {
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background: rgba(14, 17, 23, 0.94);
+  display: flex;
+  gap: 24px;
+  height: 64px;
+  padding: 0 max(20px, calc((100% - 1160px) / 2));
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-brand {
+  align-items: center;
+  color: var(--white);
+  display: flex;
+  font-size: 19px;
+  font-weight: 800;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.site-brand span {
+  background: var(--blue);
+  border-radius: 8px;
+  color: var(--white);
+  display: grid;
+  font-size: 15px;
+  height: 30px;
+  place-items: center;
+  width: 30px;
+}
+
+.site-nav nav {
+  display: flex;
+  gap: 26px;
+  margin-left: auto;
+}
+
+.site-nav nav a {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-nav nav a:hover {
+  color: var(--white);
+}
+
+.site-nav-cta {
+  background: var(--blue);
+  border-radius: 999px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 800;
+  padding: 9px 18px;
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .site-nav nav {
+    display: none;
+  }
+
+  .site-nav-cta {
+    margin-left: auto;
+  }
+}
+
+/* ---------- 파랑 위 글자는 흰색 ---------- */
+.brand-mark,
+.primary-button,
+.lp-btn-primary,
+.lp-checks svg {
+  color: var(--white);
+}
+
+.lp-btn-primary {
+  box-shadow: 0 8px 22px rgba(37, 99, 255, 0.32);
+}
+
+/* ---------- 바탕·글꼴 ---------- */
+.lp {
+  --lp-max: 1160px;
+  --lp-radius: 18px;
+  background: var(--paper);
+  letter-spacing: -0.02em;
+  padding-bottom: 0;
+}
+
+.lp h1,
+.lp h2 {
+  word-break: keep-all;
+}
+
+/* ---------- 버튼: 둥근 알약형 ---------- */
+.lp-btn {
+  border-radius: 999px;
+  padding: 0 30px;
+}
+
+/* ---------- 히어로: 화면을 채우고 가운데 정렬 ---------- */
+.lp-hero {
+  display: grid;
+  margin-top: -64px;
+  min-height: 82svh;
+  place-items: center;
+  text-align: center;
+}
+
+.lp-hero::after {
+  background: linear-gradient(180deg, rgba(14, 17, 23, 0.62) 0%, rgba(14, 17, 23, 0.8) 60%, rgba(14, 17, 23, 0.96) 100%);
+}
+
+.lp-hero-inner {
+  display: grid;
+  justify-items: center;
+  max-width: 980px;
+  padding: 120px 20px 72px;
+  width: 100%;
+}
+
+.lp-topbar {
+  justify-content: center;
+  margin-bottom: 26px;
+}
+
+.lp .lp-kicker {
+  background: rgba(37, 99, 255, 0.18);
+  border-color: rgba(91, 140, 255, 0.55);
+  color: #a9c1ff;
+}
+
+.lp-hero h1 {
+  font-size: clamp(34px, 5.4vw, 64px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.lp .lp-lead {
+  margin-top: 22px;
+  max-width: 720px;
+}
+
+.lp-checks,
+.lp-actions {
+  justify-content: center;
+}
+
+.lp-actions {
+  margin-top: 34px;
+}
+
+/* ---------- 섹션: 넓은 간격, 가운데 큰 제목 ---------- */
+.lp-section {
+  max-width: var(--lp-max);
+  padding: clamp(72px, 9vw, 112px) 20px 0;
+}
+
+.lp .lp-title {
+  font-size: clamp(28px, 3.8vw, 44px);
+  font-weight: 800;
+  line-height: 1.28;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  text-align: center;
+}
+
+.lp-title em {
+  color: var(--blue);
+}
+
+.lp .lp-note,
+.lp .lp-chips-label {
+  text-align: center;
+}
+
+.lp-chips {
+  justify-content: center;
+}
+
+/* 진행 어려운 의뢰는 회색 계열 */
+.lp-scope-no .lp-scope-label svg,
+.lp-scope-no li::before {
+  background: var(--muted);
+}
+
+.lp .lp-scope-no .lp-scope-label {
+  color: var(--muted);
+}
+
+/* ---------- 마지막 상담: 화면 폭 전체 어두운 띠 ---------- */
+.lp-final {
+  background: radial-gradient(120% 140% at 50% 0%, #1b2a55 0%, var(--ink) 62%);
+  border-radius: 0;
+  gap: 26px;
+  margin: clamp(88px, 10vw, 128px) 0 0;
+  max-width: none;
+  padding: clamp(88px, 10vw, 128px) 20px;
+}
+
+.lp-final p {
+  font-size: 18px;
+  gap: 10px;
+}
+
+.lp-final strong {
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-weight: 800;
+}
+
+/* ---------- 리듬: 3단계 섹션은 화면 폭 전체 어두운 띠 ---------- */
+.lp-section:has(.lp-steps) {
+  background: var(--ink);
+  box-shadow: 0 0 0 100vmax var(--ink);
+  clip-path: inset(0 -100vmax);
+  color: var(--white);
+  margin-top: clamp(72px, 9vw, 112px);
+  padding-bottom: clamp(72px, 9vw, 112px);
+}
+
+.lp-section:has(.lp-steps) .lp-title {
+  color: var(--white);
+}
+
+.lp-section:has(.lp-steps) .lp-title em {
+  color: var(--blue-bright);
+}
+
+.lp-section:has(.lp-steps) .lp-note {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.lp-section:has(.lp-steps) + .lp-section {
+  padding-top: clamp(72px, 9vw, 112px);
+}
+
+.lp-cta-band {
+  background: var(--blue);
+}
+
+.lp-cta-band .lp-btn-primary {
+  background: var(--white);
+  box-shadow: none;
+  color: var(--blue);
+}
+
+.lp-section:has(.lp-steps) .lp-steps li {
+  color: var(--ink);
+}

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { FloatingFormButton } from "./components/FloatingFormButton";
+import "./fonts.css";
 import "./globals.css";
+import "./theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cheolgeoon.netlify.app"),
