@@ -192,6 +192,10 @@ export default async function RegionTopicPage({ params }: PageProps) {
   const [stepCtaTitle, stepCtaBody] = pick("step-cta", STEP_CTA);
   const [finalLead, finalTitle] = pick("final", FINAL)(name);
   const labels = pick("facts-labels", FACTS_LABELS);
+  const localInfo = profile?.local ?? [];
+  const sources = [...(profile?.sources ?? []), ...localInfo].filter(
+    (source, index, list) => list.findIndex((other) => other.href === source.href) === index,
+  );
   const slots = <T,>(section: string, sets: readonly (readonly T[])[]) => pickSlots(variantKey, section, sets);
   const scopeYes = SCOPE_YES_SLOTS.map((options, index) => pick(`scope-yes:${index}`, options));
   const scopeNo = SCOPE_NO_SLOTS.map((options, index) => pick(`scope-no:${index}`, options));
@@ -371,10 +375,20 @@ export default async function RegionTopicPage({ params }: PageProps) {
                 </ul>
               </>
             )}
-            {profile && profile.sources.length > 0 && (
+            {localInfo.length > 0 && (
+              <>
+                <p className="lp-group-label">{labels.local(name)}</p>
+                <ul className="lp-fact-list">
+                  {localInfo.map((item) => (
+                    <li key={item.text}>{item.text}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {sources.length > 0 && (
               <p className="lp-price-source">
                 {labels.source}:{" "}
-                {profile.sources.map(({ label, href }, index) => (
+                {sources.map(({ label, href }, index) => (
                   <span key={href}>
                     {index > 0 && ", "}
                     <a href={href} target="_blank" rel="noopener nofollow">

@@ -50,6 +50,8 @@ export type RegionNotes = {
     areaNotes?: { name: string; note: string }[];
     facts: string[];
     sources: { label: string; href: string }[];
+    /* 철거·폐업과 맞닿은 지역 정보(대형폐기물 배출, 사업장 폐기물 담당, 소상공인 지원 창구, 상권). 문장마다 출처가 있다. */
+    local?: { category: string; text: string; label: string; href: string }[];
   };
 };
 

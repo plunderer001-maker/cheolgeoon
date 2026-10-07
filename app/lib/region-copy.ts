@@ -395,11 +395,11 @@ export const AREA_FAQ_ANSWER: ((note: string) => string)[] = [
 
 /* ---------- 지역 정보 박스·주변 지역·마무리 ---------- */
 
-export const FACTS_LABELS: { title: (name: string) => string; admin: string; waste: string; areas: (name: string) => string; facts: (name: string) => string; source: string }[] = [
-  { title: (n) => `${n} 지역 참고 정보`, admin: "행정 구역", waste: "폐기물 5톤 이상", areas: (n) => `${n} 주요 생활권·상권`, facts: (n) => `${n} 도시 특징`, source: "지역 정보 출처" },
-  { title: (n) => `알아두면 좋은 ${n} 정보`, admin: "소재지", waste: "건설폐기물 5톤 이상", areas: (n) => `${n} 대표 상권`, facts: (n) => `${josa(n, "은/는")} 이런 곳입니다`, source: "참고 자료" },
-  { title: (n) => `${n} 한눈에 보기`, admin: "관할 구역", waste: "폐기물이 5톤을 넘으면", areas: (n) => `${n} 주요 거리·상권`, facts: (n) => `${n} 도시 이야기`, source: "출처" },
-  { title: (n) => `${n} 동네 정보`, admin: "행정 구역", waste: "폐기물 5톤 초과 시", areas: (n) => `${n} 생활권`, facts: (n) => `${n} 알아보기`, source: "자료 출처" },
+export const FACTS_LABELS: { title: (name: string) => string; admin: string; waste: string; areas: (name: string) => string; facts: (name: string) => string; local: (name: string) => string; source: string }[] = [
+  { title: (n) => `${n} 지역 참고 정보`, admin: "행정 구역", waste: "폐기물 5톤 이상", areas: (n) => `${n} 주요 생활권·상권`, facts: (n) => `${n} 도시 특징`, local: (n) => `${n}에서 가게를 비울 때 참고할 것`, source: "지역 정보 출처" },
+  { title: (n) => `알아두면 좋은 ${n} 정보`, admin: "소재지", waste: "건설폐기물 5톤 이상", areas: (n) => `${n} 대표 상권`, facts: (n) => `${josa(n, "은/는")} 이런 곳입니다`, local: (n) => `${n} 폐기물 배출·지원 창구`, source: "참고 자료" },
+  { title: (n) => `${n} 한눈에 보기`, admin: "관할 구역", waste: "폐기물이 5톤을 넘으면", areas: (n) => `${n} 주요 거리·상권`, facts: (n) => `${n} 도시 이야기`, local: (n) => `${n} 현장 정리 전 확인할 것`, source: "출처" },
+  { title: (n) => `${n} 동네 정보`, admin: "행정 구역", waste: "폐기물 5톤 초과 시", areas: (n) => `${n} 생활권`, facts: (n) => `${n} 알아보기`, local: (n) => `${n}에서 철거 전에 알아둘 것`, source: "자료 출처" },
 ];
 
 export const NEARBY_TITLE = [
