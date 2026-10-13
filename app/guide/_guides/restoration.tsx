@@ -1,12 +1,10 @@
 import { CalendarCheck, FileText, Hammer, KeyRound, PaintRoller, Receipt, Scale, Wallet } from "lucide-react";
 import {
   LandingCards,
-  LandingChecklist,
   LandingFaq,
   LandingFinal,
   LandingHero,
   LandingNote,
-  LandingPrice,
   LandingSpaces,
   LandingSplit,
   LandingSteps,
@@ -14,14 +12,12 @@ import {
   RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
+import { GuideMarquee, GuideSubsidy, GuideTrust, guidePriceCopy } from "@/app/components/CostCore";
+import { PhotoCards, PriceVisual, QuoteChecks, STRIP } from "@/app/components/CostVisuals";
 
-/* 공개 시장 자료 기준 참고 범위. 철거온 확정 견적이 아니므로 출처·기준 시점을 함께 표기한다. */
-const PRICE_ROWS = [
-  { name: "상가·사무실 철거만", perPyeong: "평당 10~15만원", example: "20평 약 200~300만원" },
-  { name: "원상복구 포함", perPyeong: "철거비의 1.2~1.5배", example: "20평 약 240~450만원 (계산 예시)" },
-];
 
-const PRICE_UPS = ["도장·바닥 등 마감 복구", "전 임차인 시설까지 철거", "주방 설비·후드·덕트", "야간·주말 작업"];
+/* 출처(스페이스로그인·소중함인사이트)에 나온 할증 요인만 쓴다. */
+const PRICE_UPS = ["도장·바닥 등 마감 복구", "전 임차인 시설까지 철거", "설비·집기까지 포함할 때", "석면 자재 (일반의 2~5배)"];
 
 const PRICE_SOURCES = [
   { label: "소중함인사이트 (2026)", href: "https://ssjum.com/demolition.html" },
@@ -40,8 +36,8 @@ const SITUATIONS = [
 
 /* 원상복구의 두 단계. 철거를 함께 맡기면 마감 복구까지 한 번에 진행한다. */
 const TWO_STAGES = [
-  { icon: Hammer, title: "1단계 · 철거와 반출", body: "내가 설치한 인테리어·설비를 걷어내고 폐기물을 치웁니다" },
-  { icon: PaintRoller, title: "2단계 · 마감 복구", body: "벽 도장, 바닥, 천장 마감을 입점 당시 상태로 맞춥니다" },
+  { icon: Hammer, photo: STRIP("work", 15), title: "1단계 · 철거와 반출", body: "내가 설치한 인테리어·설비를 걷어내고 폐기물을 치웁니다" },
+  { icon: PaintRoller, photo: STRIP("work", 34), title: "2단계 · 마감 복구", body: "벽 도장, 바닥, 천장 마감을 입점 당시 상태로 맞춥니다" },
 ];
 
 const SCOPE = {
@@ -122,6 +118,10 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
         secondary={{ label: "원상복구 비용 먼저 보기", href: "#price" }}
       />
 
+      <GuideTrust />
+
+      <GuideSubsidy />
+
       <section className="lp-section">
         <div className="lp-answer">
           <Scale size={28} aria-hidden="true" />
@@ -140,13 +140,18 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
         <LandingTitle>
           원상복구 비용, <em>얼마쯤</em> 할까요?
         </LandingTitle>
-        <LandingPrice
-          rows={PRICE_ROWS}
-          ups={PRICE_UPS}
+        <PriceVisual
           sources={PRICE_SOURCES}
-          caption="2025~2026년 공개 자료의 수도권 참고 범위이며 철거온 확정 견적이 아닙니다. 20평 예시는 두 자료를 곱해 계산한 값입니다."
+          copy={guidePriceCopy({
+            ups: PRICE_UPS,
+            caption: "2025~2026년 공개 자료의 수도권 참고 범위이며 철거온 확정 견적이 아닙니다. 원상복구 비율은 철거비에 곱해 보는 참고값입니다.",
+            cta: "원상복구 견적 받기",
+            rangeNames: ["상가·사무실 철거", "마감재만 철거"],
+          })}
         />
       </section>
+
+      <GuideMarquee />
 
       <section className="lp-section">
         <LandingTitle>
@@ -159,7 +164,7 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
         <LandingTitle>
           원상복구는 <em>두 단계</em>입니다
         </LandingTitle>
-        <LandingCards items={TWO_STAGES} />
+        <PhotoCards items={TWO_STAGES} />
         <LandingNote icon={Receipt}>철거를 함께 맡기시면 마감 복구까지 한 업체가 한 번에 진행합니다.</LandingNote>
       </section>
 
@@ -174,9 +179,10 @@ export function RestorationGuide({ keyword }: { keyword: string }) {
         <LandingTitle>
           견적 전에 <em>이것</em>만 챙기세요
         </LandingTitle>
-        <LandingChecklist items={PREPARE} />
+        <QuoteChecks items={PREPARE} warn={["계약서 특약이 있으면", "철거 범위가 빨리 정해집니다"]} />
         <LandingNote icon={Receipt}>계약서가 있으면 범위가 빨리 정해지고 불필요한 철거가 줄어듭니다.</LandingNote>
       </section>
+
 
       <section className="lp-section">
         <LandingTitle>3단계면 끝납니다</LandingTitle>

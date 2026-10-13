@@ -1,12 +1,10 @@
 import { BadgeCheck, Banknote, Calculator, Camera, ClipboardCheck, Landmark, TriangleAlert } from "lucide-react";
 import {
   LandingCards,
-  LandingChecklist,
   LandingFaq,
   LandingFinal,
   LandingHero,
   LandingNote,
-  LandingPrice,
   LandingSplit,
   LandingSteps,
   LandingTiles,
@@ -14,28 +12,17 @@ import {
   RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
+import { GuideMarquee, GuideTrust } from "@/app/components/CostCore";
+import { QuoteChecks, SubsidyBars } from "@/app/components/CostVisuals";
+import { ANNOUNCEMENT_DATE, SOURCES } from "@/app/lib/subsidy";
+import { SUBSIDY_CAP_LABEL, SUBSIDY_CHART_LABEL, SUBSIDY_FORMULA } from "@/app/lib/cost-copy";
 
 /*
  * 2026년 「희망리턴패키지 원스톱폐업지원」 공고(소상공인시장진흥공단, 2026.1.19) 원문 기준.
  * 한도·자격·서류는 공고 문구를 그대로 옮기고, 해석이 들어가는 내용은 쓰지 않는다.
  */
-const ANNOUNCEMENT_DATE = "2026년 1월 19일";
-
-const LIMIT_ROWS = [
-  { name: "2025.7.11 이후 폐업", perPyeong: "최대 600만원", example: "전용면적 1평(3.3㎡)당 20만원 이내" },
-  { name: "2023.1.1~2025.7.10 폐업", perPyeong: "최대 400만원", example: "전용면적 1평(3.3㎡)당 20만원 이내" },
-];
 
 const NOT_COVERED = ["부가세 (공급가액만 지원)", "직접(자력) 철거", "현금 결제", "사업자등록 없는 업체"];
-
-const SOURCES = [
-  { label: "소상공인24 점포철거비 신청", href: "https://www.sbiz24.kr/" },
-  { label: "희망리턴패키지 누리집", href: "https://hope.sbiz.or.kr/" },
-  {
-    label: "기업마당 공고",
-    href: "https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?pblancId=PBLN_000000000117676",
-  },
-];
 
 /* 2025.7.11 이후 폐업 기준 계산 예시. 실제 철거비(공급가액)를 넘지 않는다. */
 const EXAMPLES = [
@@ -44,7 +31,7 @@ const EXAMPLES = [
   { icon: Calculator, name: "30평 이상", note: "한도 적용 = 최대 600만원" },
 ];
 
-const ELIGIBILITY = {
+export const ELIGIBILITY = {
   yes: {
     label: "지원 대상 (모두 충족)",
     items: [
@@ -68,7 +55,7 @@ const ELIGIBILITY = {
   tip: "지원 제외 업종은 공고 [별첨2]에서 확인하세요.",
 };
 
-const STEPS: [string, string][] = [
+export const STEPS: [string, string][] = [
   ["소상공인24 신청", "임대차계약서·건축물대장 제출"],
   ["적격 심사", "지원 대상인지 확인"],
   ["철거·폐업", "철거 전·후 사진 촬영"],
@@ -139,6 +126,8 @@ export function ClosureSubsidyGuide({ keyword }: { keyword: string }) {
         secondary={{ label: "지원 한도 먼저 보기", href: "#amount" }}
       />
 
+      <GuideTrust />
+
       <section className="lp-section">
         <div className="lp-answer">
           <Landmark size={28} aria-hidden="true" />
@@ -157,16 +146,30 @@ export function ClosureSubsidyGuide({ keyword }: { keyword: string }) {
         <LandingTitle>
           얼마까지 <em>받을 수</em> 있나요?
         </LandingTitle>
-        <LandingPrice
-          rows={LIMIT_ROWS}
-          ups={NOT_COVERED}
-          sources={SOURCES}
-          headers={["폐업일", "최대 한도", "면적 기준"]}
-          sideTitle="지원되지 않는 부분"
-          ctaLabel="우리 점포 철거비 확인하기"
-          caption={`${ANNOUNCEMENT_DATE} 공고 기준이며 예산이 소진되면 마감됩니다. 신청 전 소상공인24에서 접수 여부와 공고 원문을 꼭 확인하세요.`}
-        />
+        <SubsidyBars label={SUBSIDY_CHART_LABEL[0]} capLabel={SUBSIDY_CAP_LABEL[0](600)} formula={SUBSIDY_FORMULA[0](20)} />
+        <div className="cv-ups">
+          <span className="cv-ups-label">지원되지 않는 부분</span>
+          {NOT_COVERED.map((item) => (
+            <span key={item} className="cv-ups-chip">
+              {item}
+            </span>
+          ))}
+        </div>
+        <p className="lp-price-source">
+          {ANNOUNCEMENT_DATE} 공고 기준, 2025.7.11 이후 폐업(그 전 폐업은 최대 400만원). 예산이 소진되면 마감되니 신청 전 소상공인24에서
+          공고 원문을 확인하세요. 출처:{" "}
+          {SOURCES.map(({ label, href }, index) => (
+            <span key={href}>
+              {index > 0 && ", "}
+              <a href={href} target="_blank" rel="noopener nofollow">
+                {label}
+              </a>
+            </span>
+          ))}
+        </p>
       </section>
+
+      <GuideMarquee />
 
       <section className="lp-section">
         <LandingTitle>
@@ -200,9 +203,9 @@ export function ClosureSubsidyGuide({ keyword }: { keyword: string }) {
           준비할 <em>서류</em>
         </LandingTitle>
         <p className="lp-group-label">신청할 때</p>
-        <LandingChecklist items={DOCS_APPLY} />
+        <QuoteChecks items={DOCS_APPLY} warn={["계약서에 면적이 없으면", "영업신고증으로 면적을 확인합니다"]} />
         <p className="lp-group-label">철거 후 정산할 때</p>
-        <LandingChecklist items={DOCS_SETTLE} />
+        <QuoteChecks items={DOCS_SETTLE} warn={["현금으로 결제했다면", "정산이 인정되지 않습니다"]} />
       </section>
 
       <section className="lp-section">

@@ -3,6 +3,7 @@ import { FloatingFormButton } from "./components/FloatingFormButton";
 import "./fonts.css";
 import "./globals.css";
 import "./theme.css";
+import "./cost-visuals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cheolgeoon.netlify.app"),

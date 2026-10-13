@@ -1,13 +1,9 @@
 import { Dumbbell, FileText, GraduationCap, Layers, MicVocal, Monitor, Scissors, Stethoscope, Store, Truck, Wrench } from "lucide-react";
 import {
-  LandingBanner,
-  LandingCards,
-  LandingChecklist,
   LandingFaq,
   LandingFinal,
   LandingHero,
   LandingNote,
-  LandingPrice,
   LandingSpaces,
   LandingSplit,
   LandingSteps,
@@ -15,17 +11,15 @@ import {
   RelatedGuides,
   SERVICE_SCOPE,
 } from "@/app/components/Landing";
+import { GuideMarquee, GuideSubsidy, GuideTrust, guidePriceCopy } from "@/app/components/CostCore";
+import { PhotoCards, PriceVisual, QuoteChecks, STRIP, SpaceGrid } from "@/app/components/CostVisuals";
 import { MARKET_PRICE_CAPTION, MARKET_PRICE_SOURCES } from "@/app/lib/market-prices";
 
 /* 상가·인테리어 철거: 상가철거, 인테리어철거, 상가철거비용, 가게·점포·매장 철거 검색 의도. */
 
-const PRICE_ROWS = [
-  { name: "상가 전체 철거", perPyeong: "평당 10~15만원", example: "20평 약 200~300만원" },
-  { name: "인테리어·마감재만", perPyeong: "평당 5~12만원", example: "20평 약 100~240만원" },
-  { name: "원상복구 포함", perPyeong: "철거비의 1.2~1.5배", example: "계약서 기준 범위에 따라" },
-];
 
-const PRICE_UPS = ["바닥·벽 마감이 여러 겹", "천장 속 설비·배관", "간판·어닝 철거", "야간·주말 작업"];
+/* 출처(스페이스로그인·소중함인사이트)에 나온 할증 요인만 쓴다. */
+const PRICE_UPS = ["전면 철거일 때", "간판·집기까지 포함할 때", "엘리베이터 없는 고층", "석면 자재 (일반의 2~5배)"];
 
 /* 업종별로 먼저 보는 항목. 검색량이 적은 업종 키워드를 한 페이지에서 받는다. */
 const TRADES = [
@@ -38,17 +32,17 @@ const TRADES = [
 ];
 
 const DIFFERENCE = [
-  { icon: Store, title: "상가 철거", body: "매장 안을 비우는 전체 철거. 칸막이·천장·바닥·설비까지" },
-  { icon: Layers, title: "인테리어 철거", body: "마감재 위주 철거. 새 인테리어 전에 기존 마감만 걷어냄" },
-  { icon: FileText, title: "원상복구", body: "입점 당시 상태로 되돌리는 철거와 마감 복구" },
-  { icon: Wrench, title: "설비 철거", body: "후드·덕트·배관 같은 설비를 떼어내는 작업" },
+  { icon: Store, photo: STRIP("work", 33), title: "상가 철거", body: "매장 안을 비우는 전체 철거. 칸막이·천장·바닥·설비까지" },
+  { icon: Layers, photo: STRIP("work", 5), title: "인테리어 철거", body: "마감재 위주 철거. 새 인테리어 전에 기존 마감만 걷어냄" },
+  { icon: FileText, photo: STRIP("work", 34), title: "원상복구", body: "입점 당시 상태로 되돌리는 철거와 마감 복구" },
+  { icon: Wrench, photo: STRIP("work", 4), title: "설비 철거", body: "후드·덕트·배관 같은 설비를 떼어내는 작업" },
 ];
 
 const QUOTE_CHECKS = [
   "폐기물 처리비가 견적에 들어 있나요?",
   "철거할 곳과 남길 곳이 항목별로 적혀 있나요?",
   "간판·어닝 철거가 포함됐나요?",
-  "야간·주말 작업 할증 조건이 있나요?",
+  "추가 비용이 생기는 조건이 적혀 있나요?",
   "세금계산서를 발급할 수 있나요?",
 ];
 
@@ -82,18 +76,32 @@ export function StoreGuide({ keyword }: { keyword: string }) {
         image="/images/cheolgeoon/hero/interior-removal-hero.webp"
       />
 
+      <GuideTrust />
+
+      <GuideSubsidy />
+
       <section className="lp-section" id="price">
         <LandingTitle>
           상가 철거비용, <em>평당</em> 얼마쯤?
         </LandingTitle>
-        <LandingPrice rows={PRICE_ROWS} ups={PRICE_UPS} sources={MARKET_PRICE_SOURCES} caption={MARKET_PRICE_CAPTION} ctaLabel="우리 매장 견적 받기" />
+        <PriceVisual
+          sources={MARKET_PRICE_SOURCES}
+          copy={guidePriceCopy({
+            ups: PRICE_UPS,
+            caption: MARKET_PRICE_CAPTION,
+            cta: "우리 매장 견적 받기",
+            rangeNames: ["상가 전체 철거", "인테리어·마감재만"],
+          })}
+        />
       </section>
+
+      <GuideMarquee />
 
       <section className="lp-section">
         <LandingTitle>
           어떤 <em>철거</em>가 필요하세요?
         </LandingTitle>
-        <LandingCards items={DIFFERENCE} />
+        <PhotoCards items={DIFFERENCE} />
         <LandingNote>잘 모르셔도 괜찮습니다. 사진을 보고 필요한 범위를 함께 정합니다.</LandingNote>
       </section>
 
@@ -101,7 +109,7 @@ export function StoreGuide({ keyword }: { keyword: string }) {
         <LandingTitle>
           업종별로 <em>먼저</em> 보는 것
         </LandingTitle>
-        <LandingCards items={TRADES} linkAll />
+        <SpaceGrid items={TRADES.map(({ icon, title, body }) => ({ icon, name: title, note: body }))} />
       </section>
 
       <section className="lp-section">
@@ -113,7 +121,7 @@ export function StoreGuide({ keyword }: { keyword: string }) {
         <LandingTitle>
           상가 철거 업체, <em>이것</em>만 비교하세요
         </LandingTitle>
-        <LandingChecklist items={QUOTE_CHECKS} />
+        <QuoteChecks items={QUOTE_CHECKS} warn={["하나라도 빠지면", "철거 당일 추가 비용이 생기기 쉽습니다"]} />
         <LandingNote icon={Truck}>
           <span>
             매장을 옮기면서 집기 운반까지 맡겨야 한다면 <a href="https://isabaro.com/quote-compare/">포장이사 견적 비교하는 법</a>도 함께 확인해 보세요.
@@ -128,18 +136,10 @@ export function StoreGuide({ keyword }: { keyword: string }) {
         <LandingSplit yes={SERVICE_SCOPE.yes} no={SERVICE_SCOPE.no} tip={SERVICE_SCOPE.tip} />
       </section>
 
+
       <section className="lp-section">
         <LandingTitle>3단계면 끝납니다</LandingTitle>
         <LandingSteps />
-      </section>
-
-      <section className="lp-section">
-        <LandingBanner
-          icon={FileText}
-          title="폐업하는 상가라면 점포철거비 지원부터"
-          body="희망리턴패키지 점포철거비는 1평당 20만원, 최대 600만원까지 지원됩니다. 정산 서류는 철거온이 발급합니다."
-          action={{ label: "지원 조건 보기", href: "/guide/폐업-철거지원금/" }}
-        />
       </section>
 
       <section className="lp-section">

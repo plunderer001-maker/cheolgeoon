@@ -6,6 +6,7 @@
 
 사용: py scripts/build-og-images.py [출력 폴더]  (기본: public/images/cheolgeoon/og-square)
      py scripts/build-og-images.py --regions [지역 slug ...]  (시군구 철거전문업체, 기본: 전체 → og-region)
+     py scripts/build-og-images.py --cost [지역 slug ...]  (시군구 철거비용 → og-cost, 전국 철거 비용 → og-square/철거-비용)
 """
 
 import sys
@@ -163,7 +164,57 @@ def main_regions(slugs):
     print(f"regions: {len(slugs) if slugs else len(regions)} -> {out_dir}")
 
 
+# 시군구 철거비용 대표 이미지(2026-10-13 사용자 선택 E안: 지원금 배지). 철거전문업체와 다른 사진이 나오게 순서를 어긋나게 쓴다.
+COST_PHOTOS = [33, 12, 22, 40, 2, 32, 5, 41, 10, 34, 20, 37, 11, 42, 6, 36, 23]
+ORANGE = (240, 89, 42)
+
+
+def make_cost(name, photo, out):
+    """지역 이름(블루) + 철거비용(흰색) + 우상단 '폐업 철거지원금 최대 600만원' 배지(2026.1.19 희망리턴패키지 공고)."""
+    probe = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    image = shade(cover(photo, 0.5), 300)
+    draw = ImageDraw.Draw(image)
+    cx, cy, r = SIZE - PAD - 170, PAD + 170, 170
+    draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=ORANGE)
+    draw.text((cx, cy - 62), "폐업 철거지원금", font=font(SEMI, 30), fill=WHITE, anchor="mm")
+    draw.text((cx, cy + 6), "최대", font=font(BOLD, 34), fill=WHITE, anchor="mm")
+    draw.text((cx, cy + 66), "600만원", font=font(BOLD, 66), fill=WHITE, anchor="mm")
+    y = 590
+    name_size = fit(probe, [name], BOLD, 110, SIZE - PAD * 2)
+    draw.text((PAD - 2, y), name, font=font(BOLD, name_size), fill=BLUE_BRIGHT)
+    y += name_size + 10
+    draw.text((PAD - 4, y), "철거비용", font=font(BOLD, 150), fill=WHITE)
+    y += 186
+    draw.text((PAD, y), "평당 10~15만원 참고 · 지원금 대상 확인", font=font(MEDIUM, 44), fill=SOFT)
+    y += 64
+    draw.text((PAD, y), "2026 희망리턴패키지 기준", font=font(BOLD, 40), fill=BLUE_BRIGHT)
+    image.convert("RGB").save(out, quality=80)
+    return out
+
+
+def main_cost(slugs):
+    import json
+
+    data = json.loads((ROOT / "data/generated/regions.json").read_text(encoding="utf-8"))
+    regions = [r for r in data["regions"] if r["sidoShort"] != "전남광주통합"]
+    out_dir = ROOT / "public/images/cheolgeoon/og-cost"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for index, region in enumerate(regions):
+        if not slugs or region["slug"] in slugs:
+            # 같은 지역 철거전문업체 이미지(REGION_PHOTOS)와 사진이 겹치면 다음 사진을 쓴다.
+            shift = 0
+            while COST_PHOTOS[(index + shift) % len(COST_PHOTOS)] == REGION_PHOTOS[index % len(REGION_PHOTOS)]:
+                shift += 1
+            make_cost(region["name"], COST_PHOTOS[(index + shift) % len(COST_PHOTOS)], out_dir / f"{region['slug']}.webp")
+    if not slugs:
+        make_cost("전국", 2, ROOT / "public/images/cheolgeoon/og-square/철거-비용.webp")
+    print(f"cost: {len(slugs) if slugs else len(regions)} -> {out_dir}")
+
+
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == "--cost":
+        main_cost(sys.argv[2:])
+        return
     if len(sys.argv) > 1 and sys.argv[1] == "--regions":
         main_regions(sys.argv[2:])
         return

@@ -10,7 +10,15 @@ export const MARKET_PRICE_ROWS: PriceRow[] = [
   { name: "원상복구 포함", perPyeong: "철거비의 1.2~1.5배", example: "계약서 기준 범위에 따라" },
 ];
 
-export const MARKET_PRICE_UPS = ["주방 설비·후드·덕트", "야간·주말 작업", "엘리베이터 없는 고층", "석면 자재 (일반의 2~5배)"];
+/* 위 표와 같은 값을 그래프용 숫자로 둔 것(만원/평). 표를 고치면 함께 고친다. */
+export const MARKET_PRICE_RANGES = [
+  { name: "상가·사무실 전체 철거", min: 10, max: 15 },
+  { name: "인테리어·마감재 철거", min: 5, max: 12 },
+];
+export const RESTORATION_RATE = { min: 1.2, max: 1.5 };
+
+/* 출처 두 곳에 나온 할증 요인만 쓴다(층수·구조·긴급 일정·석면). */
+export const MARKET_PRICE_UPS = ["엘리베이터 없는 고층", "철근콘크리트 구조", "급한 공사 일정", "석면 자재 (일반의 2~5배)"];
 
 export const MARKET_PRICE_SOURCES: Source[] = [
   {

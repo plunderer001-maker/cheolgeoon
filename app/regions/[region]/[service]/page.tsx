@@ -1,44 +1,23 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CalendarCheck, Clock, DoorOpen, FileText, HandCoins, KeyRound, MapPinned, Route, Truck } from "lucide-react";
+import { Clock, MapPinned, Route, Truck } from "lucide-react";
 import {
-  LandingBanner,
-  LandingCards,
   LandingChips,
   LandingFactors,
   LandingFaq,
   LandingFinal,
   LandingHero,
-  LandingPrice,
-  LandingSpaces,
-  LandingSplit,
-  LandingSteps,
   LandingTitle,
 } from "@/app/components/Landing";
+import { CostCore } from "@/app/components/CostCore";
 import { josa } from "@/app/lib/josa";
-import { MARKET_PRICE_ROWS, MARKET_PRICE_SOURCES } from "@/app/lib/market-prices";
 import {
-  BANNER_ACTION,
-  BANNER_BODY,
-  BANNER_TITLE,
   CONDITION_TITLE,
+  PRICE_TITLE,
   FINAL,
   HERO_CHECKS,
   HERO_LEAD,
   HERO_TITLE,
-  PRICE_CTA,
-  PRICE_TITLE,
-  SCOPE_NO_SLOTS,
-  SCOPE_TIP,
-  SCOPE_YES_SLOTS,
-  SCOPE_TITLE,
-  SITUATIONS,
-  SITUATION_TITLE,
-  SPACE_SETS,
-  SPACE_TITLE,
-  STEPS_TITLE,
-  STEP_CTA,
-  STEP_SETS,
   AREA_FAQ_ANSWER,
   AREA_FAQ_QUESTION,
   FACTS_LABELS,
@@ -50,12 +29,7 @@ import {
   MORE_LINK_SLOTS,
   PRICE_FAQ_ANSWER,
   PRICE_FAQ_QUESTION,
-  PRICE_UP_SLOTS,
-  PRICE_HEADERS,
-  PRICE_ROW_SETS,
-  PRICE_SIDE_TITLE,
   SUBSIDY_FAQ,
-  PRICE_CAPTION,
   TYPE_CHECKS,
   TYPE_FAQS,
   pickFrom,
@@ -86,9 +60,8 @@ import { RegionCompanyPage, companyMetadata, companyPath } from "./company";
 
 /*
  * 시군구 철거비용 페이지.
- * 설득 흐름(비용 → 상황 → 조건 → 사진 → 범위 → 진행 → 지원금 → FAQ)은 모든 지역에 둔다.
- * 지역끼리 본문이 겹치지 않도록 문구는 region-copy 의 변형 세트와 순서를 지역마다 달리 쓰고,
- * 조사한 지역 정보(생활권·사실)는 FAQ 아래 "지역 참고 정보"에 모은다.
+ * 본문은 철거 비용 가이드와 같은 CostCore(실적 → 지원금 → 비용 → 사진 → 구성 → 요인 → 범위 → 진행)를 쓴다.
+ * 지역마다 달라지는 문구(행정 유형별 조건, 지역 FAQ, 조사한 지역 정보)는 모두 최하단에 모은다.
  */
 
 type PageProps = {
@@ -119,9 +92,6 @@ const LEAD_BY_TYPE: Record<RegionType, (name: string) => string> = {
 /* 행정 유형별 확인 항목 아이콘. REGION_TYPE_COPY.checks 순서와 짝을 이룬다. */
 const CHECK_ICONS = [Clock, Truck, Route];
 
-/* 상황 카드 아이콘. SITUATIONS 각 세트의 순서(폐업·원상복구·이전·새 매장)와 짝을 이룬다. */
-const SITUATION_ICONS = [DoorOpen, FileText, CalendarCheck, KeyRound];
-
 /* 건설폐기물 5톤 이상 배출 시 신고 관청. 일반구·행정시는 관할이 시청일 수 있어 함께 적는다. */
 function wasteOffice(region: Region, type: RegionType) {
   if (region.sidoShort === "제주") return "제주특별자치도 관할 행정시";
@@ -148,7 +118,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const { title, description } = pageText(region.name, REGION_TYPE_COPY[page.regionType].label);
   const canonical = `/regions/${page.slug}/`;
-  const imageUrl = `${SITE_URL}${page.service.image}`;
+  /* 지역별 대표 이미지(scripts/build-og-images.py --cost, 2026-10-13 E안). */
+  const imageUrl = `${SITE_URL}/images/cheolgeoon/og-cost/${region.slug}.webp`;
 
   return {
     title,
@@ -162,7 +133,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "철거온",
       locale: "ko_KR",
       type: "article",
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: `${region.name} 철거비용 안내` }],
+      images: [{ url: imageUrl, width: 1080, height: 1080, alt: `${region.name} 철거비용 안내` }],
     },
     twitter: { card: "summary_large_image", title, description, images: [imageUrl] },
   };
@@ -198,10 +169,7 @@ export default async function RegionTopicPage({ params }: PageProps) {
   const order = (section: string, length: number) => pickOffset(variantKey, section, length);
   const [titleLine1, titleLine2] = pick("hero", HERO_TITLE)(name);
   const [priceBefore, priceEm, priceAfter] = pick("price", PRICE_TITLE)(name);
-  const [situationBefore, situationEm, situationAfter] = pick("situation-title", SITUATION_TITLE);
   const [conditionBefore, conditionEm, conditionAfter] = pick("condition", CONDITION_TITLE)(name);
-  const [scopeBefore, scopeEm, scopeAfter] = pick("scope-title", SCOPE_TITLE);
-  const [stepCtaTitle, stepCtaBody] = pick("step-cta", STEP_CTA);
   const [finalLead, finalTitle] = pick("final", FINAL)(name);
   const labels = pick("facts-labels", FACTS_LABELS);
   const localInfo = profile?.local ?? [];
@@ -209,13 +177,7 @@ export default async function RegionTopicPage({ params }: PageProps) {
     (source, index, list) => list.findIndex((other) => other.href === source.href) === index,
   );
   const slots = <T,>(section: string, sets: readonly (readonly T[])[]) => pickSlots(variantKey, section, sets);
-  const scopeYes = SCOPE_YES_SLOTS.map((options, index) => pick(`scope-yes:${index}`, options));
-  const scopeNo = SCOPE_NO_SLOTS.map((options, index) => pick(`scope-no:${index}`, options));
 
-  const situations = rotate(
-    slots("situations", SITUATIONS).map((item, index) => ({ icon: SITUATION_ICONS[index], ...item })),
-    order("situations", 4),
-  );
   const checkSet = slots("conditions-copy", TYPE_CHECKS[type]);
   const conditions = rotate(
     checkSet.map(([title, body], index) => ({ icon: CHECK_ICONS[index % CHECK_ICONS.length], title, body })),
@@ -266,77 +228,17 @@ export default async function RegionTopicPage({ params }: PageProps) {
         secondary={{ label: pick("hero-secondary", HERO_SECONDARY), href: "#price" }}
       />
 
-      <section className="lp-section" id="price">
-        <LandingTitle>
-          {priceBefore}
-          <em>{priceEm}</em>
-          {priceAfter}
-        </LandingTitle>
-        <LandingPrice
-          rows={rotate(slots("price-rows-copy", PRICE_ROW_SETS), order("price-rows", MARKET_PRICE_ROWS.length))}
-          ups={rotate(PRICE_UP_SLOTS.map((options, index) => pick(`price-up:${index}`, options)), order("price-ups", PRICE_UP_SLOTS.length))}
-          sources={MARKET_PRICE_SOURCES}
-          ctaLabel={pick("price-cta", PRICE_CTA)}
-          headers={pick("price-headers", PRICE_HEADERS)}
-          sideTitle={pick("price-side", PRICE_SIDE_TITLE)}
-          caption={pick("price-caption", PRICE_CAPTION)(name)}
-        />
-      </section>
-
-      <section className="lp-section">
-        <LandingTitle>
-          {situationBefore}
-          <em>{situationEm}</em>
-          {situationAfter}
-        </LandingTitle>
-        <LandingCards items={situations} linkAll />
-      </section>
-
-      <section className="lp-section">
-        <LandingTitle>
-          {conditionBefore}
-          <em>{conditionEm}</em>
-          {conditionAfter}
-        </LandingTitle>
-        <LandingFactors items={conditions} />
-      </section>
-
-      <section className="lp-section">
-        <LandingTitle>{pick("space-title", SPACE_TITLE)}</LandingTitle>
-        <LandingSpaces items={slots("spaces", SPACE_SETS)} />
-      </section>
-
-      <section className="lp-section">
-        <LandingTitle>
-          {scopeBefore}
-          <em>{scopeEm}</em>
-          {scopeAfter}
-        </LandingTitle>
-        <LandingSplit
-          yes={{ label: "진행 가능", items: rotate(scopeYes, order("scope-yes", scopeYes.length)) }}
-          no={{ label: "진행이 어려운 의뢰", items: rotate(scopeNo, order("scope-no", scopeNo.length)) }}
-          tip={pick("scope-tip", SCOPE_TIP)}
-        />
-      </section>
-
-      <section className="lp-section">
-        <LandingTitle>{pick("steps-title", STEPS_TITLE)}</LandingTitle>
-        <LandingSteps steps={slots("steps", STEP_SETS)} ctaTitle={stepCtaTitle} ctaBody={stepCtaBody} />
-      </section>
-
-      <section className="lp-section">
-        <LandingBanner
-          icon={HandCoins}
-          title={pick("banner-title", BANNER_TITLE)}
-          body={pick("banner-body", BANNER_BODY)}
-          action={{ label: pick("banner-action", BANNER_ACTION), href: "/guide/폐업-철거지원금/" }}
-        />
-      </section>
-
-      <section className="lp-section">
-        <LandingTitle>{pick("faq-title", FAQ_TITLE)(name)}</LandingTitle>
-        <LandingFaq items={faq} />
-      </section>
+      <CostCore
+        name={name}
+        v={{ fixed: false, pick, order }}
+        priceTitle={
+          <>
+            {priceBefore}
+            <em>{priceEm}</em>
+            {priceAfter}
+          </>
+        }
+      />
 
       <section className="lp-section lp-regions">
         <LandingTitle>{pick("nearby-title", NEARBY_TITLE)(sido ? sido.short : "주변")}</LandingTitle>
@@ -355,6 +257,21 @@ export default async function RegionTopicPage({ params }: PageProps) {
             order("more-links", 4),
           )}
         />
+      </section>
+
+      {/* 여기부터 지역마다 다른 내용(유사도 보정용). 사용자 요청대로 모두 최하단에 모은다(2026-10-13). */}
+      <section className="lp-section">
+        <LandingTitle>
+          {conditionBefore}
+          <em>{conditionEm}</em>
+          {conditionAfter}
+        </LandingTitle>
+        <LandingFactors items={conditions} />
+      </section>
+
+      <section className="lp-section">
+        <LandingTitle>{pick("faq-title", FAQ_TITLE)(name)}</LandingTitle>
+        <LandingFaq items={faq} />
       </section>
 
       {/* 지역 고유 정보(유사도 보정용)는 사용자 요청대로 최하단, 마지막 상담 바로 위에 둔다. */}
