@@ -126,7 +126,7 @@ export default function Home() {
       <SiteNav />
 
       <section className="hm-hero">
-        <img className="hm-bg" src={PHOTO(3)} alt="" width={1400} height={1050} fetchPriority="high" />
+        <img className="hm-bg" src={PHOTO(3)} alt="실제 철거 현장 사진" width={1400} height={1050} fetchPriority="high" />
         <div className="hm-hero-inner">
           <p className="hm-eyebrow">전국 상가·사무실·식당 철거 무료견적</p>
           <h1>
@@ -200,7 +200,7 @@ export default function Home() {
                 <figure key={`${copy}-${photo}`} aria-hidden={copy === 1 ? true : undefined}>
                   <img
                     src={PHOTO(photo)}
-                    alt={copy === 0 ? `${space} ${note} 실제 작업 사진` : ""}
+                    alt={`${space} ${note} 실제 작업 사진`}
                     width={1400}
                     height={1050}
                     loading="lazy"
@@ -391,7 +391,7 @@ export default function Home() {
       </section>
 
       <section className="hm-final">
-        <img className="hm-bg" src={PHOTO(2)} alt="" width={1400} height={1050} loading="lazy" />
+        <img className="hm-bg" src={PHOTO(2)} alt="철거를 마친 현장 실제 사진" width={1400} height={1050} loading="lazy" />
         <div>
           <p className="hm-eyebrow">철거, 어디서부터 할지 막막하다면</p>
           <h2>

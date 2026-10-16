@@ -479,7 +479,7 @@ export function PhotoMarquee({
             <li key={index} aria-hidden={index >= photos.length ? true : undefined}>
               <img
                 src={STRIP("work", n)}
-                alt={index >= photos.length ? "" : `${label} 철거 현장 사진`}
+                alt={`${label} 철거 현장 사진`}
                 width={560}
                 height={420}
                 loading="lazy"

@@ -74,7 +74,7 @@ export function LandingHero({
     <>
     <SiteNav />
     <section className="lp-hero">
-      <img className="lp-hero-bg" src={image} alt="" width={1920} height={1080} fetchPriority="high" />
+      <img className="lp-hero-bg" src={image} alt="철거 현장 사진" width={1920} height={1080} fetchPriority="high" />
       <div className="lp-hero-inner">
         {crumbs && (
           <div className="lp-topbar">
